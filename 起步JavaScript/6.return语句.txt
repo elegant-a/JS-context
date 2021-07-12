@@ -1,0 +1,25 @@
+函数在执行的时候,首先会形成一个私有的作用域,保护里面的内容不受外界干扰
+(闭包),导致了函数体中定义的变量,在函数体的外面不能直接获取到
+
+return就是当前函数提供给我们的出口,因为不提供出口的话,闭包机制导致了
+在函数体的外面无法获取到里面的total的值,如果想在外面用total的值,
+只需要通过return 把total的值返回给外面即可 -->"返回值机制"
+
+return的值是什么,它的返回值就是什么
+->把fn这个函数执行的返回结果赋值给total
+-fn这个函数中没有return,所以默认的返回值是undefined -total=undefined
+
+
+function fn(){
+ var total = 300;
+}
+
+var total = fn()
+console.log(total)
+返回结果就是fn
+
+var total = fn();->//把这个函数执行的返回结果赋值给total
+->fn这个函数中没有return,所以默认的返回值是undefined -total=undefined
+
+//实名函数:起了名字的函数就是实名函数
+//匿名函数:没有名字的函数就是匿名函数

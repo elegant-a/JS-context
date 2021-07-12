@@ -1,0 +1,20 @@
+//获取关系的属性
+//children:获取所有子元素的节点
+//parentNode:获取父节点
+//childNodes:获取所有的子节点
+//previousSibling:获取上一个哥哥节点
+//nextSibling 获取下一个弟弟节点
+// firstChild:获取所有子节点的第一个
+// lastChild:获取所有子节点中的最后一个
+
+//在js中需要我们掌握的节点类型:
+                          nodeType nodeName nodeValue
+//元素节点(元素标签)
+//文本节点(文字)
+//注释节点(注释)
+//document
+
+app.children
+app.parentNode
+app.previousSibling(获取上一个同级节点)
+app.nextSibling(获取下一个子级节点)

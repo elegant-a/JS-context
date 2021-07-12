@@ -1,0 +1,23 @@
+margin:0;
+padding:0;
+width:100%;
+height:100%
+cursor:pointer;
+
+
+点击body是变颜色
+
+var oBody=document.getElementById("bodyEle");
+oBody.onclick=function(){
+ var bg = this.style.backgroundColor;
+if(bg == "white"){
+   this.style.backgroundColor="black"
+}
+else{
+  this.style.backgroundColor="white"
+}
+
+}
+
+三元运算符
+bg === "white"?this.style.backgroundColor = "blcak":this.style.backgroundColor="white"

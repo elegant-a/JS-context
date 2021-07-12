@@ -1,0 +1,29 @@
+//动态创建一个元素标签
+//document.createElement:创建一个元素标签对象
+//appendChild:把这个元素添加到指定的容器末尾位置
+
+//将oDiv插入到指定元素的前面
+   document.body.appendChild(oDiv)
+
+//insertBefore:将元素插入到指定容器的开头
+document.body.insertBefore(oP)
+//oP是要添加的元素,oDiv是添加到哪个前面
+document.body.insertBefore(oP,oDiv);
+document.parentNode.insertBefore(oP,Div)
+
+oDiv的父级元素删除oDiv
+oDiv.parentNode.removeChild(oDiv);//删除元素
+
+var clo = op.cloneNode();//克隆元素,传递true把里面的子子孙孙都克隆,默认是false
+
+//替换
+//第一个参数是要替换的内容,第二个参数是替换谁
+oP.parentNode.replaceChild(dd,oP)
+
+//给html节点增加一个自定义属性
+第一个参数是属性名,第二个参数是属性值
+clo.setAttribute("zhufeng","朱峰")
+//获取自定义属性的值
+console.log(clo.getAttribute("zhufeng"))
+//IE678下面这个方法是不起作用的
+clo.setAtribute("class","ccc")

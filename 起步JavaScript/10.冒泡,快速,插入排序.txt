@@ -1,0 +1,187 @@
+快速排序(把一个数组从小到大排序)
+//1.快速排序思想,首先在数组中找一个"基准点"
+(一般把基准点选择为数组中间的这一项)
+->Math.floor(ary.length/2)  例如一共9项,获取的结果是4(第五项)
+一共10项,获取的结果是5(第六项),也接近中间项
+2.拿基准点和数组中的其他项进行比较,比基准点小的放左面,比基准点大的放右面
+中间项单数length向下取整
+3.以后每一遍都重复上述的两个操作,知直到当前这一边只有一项的时候,
+停止处理
+//这个快速排序用到一个递归
+var list = [12,13,23,14,20,26,34,13,16]
+function quickSort(ary) {
+    //判断,如果传入的数组只有一个元素,则返回当前数组
+    if(ary.length<=1){
+     return ary
+    }
+    //找到中间的基准点索引
+    let pointIndex = Math.floor(ary.length/2);
+    //取出基准点的值,(splice删除的返回值是一个数组)
+    var point = ary.splice(pointIndex,1)[0]
+    //接下来,把基准点的值拿出来和左面和右面大比较,小于放左面
+    // 大于放右面
+    //声明两个函数的容器
+    let left = [];
+    let right = [];
+    //循环数组
+    for(let i=0;i<ary.length;i++){
+    //取出当前项
+     let cur = ary[i]
+    cur < point ? left.push(cur) : right.push(cur)
+    }
+    //递归
+    return quickSort(left).concat([point],quickSort(right)) 
+    }
+  
+    quickSort(list);
+    console.log(list)
+
+
+
+//冒泡排序
+var ary = [4,3,5,2,1]
+var bubbleSort = function(ary){
+var temp = null
+//循环多少轮
+for(i=0;i<ary.length-1;i++){
+//每一轮循环多少次
+ for(j=0;j<ary.length-1-i;j++){
+   if(ary[j]>ary[j+1]){
+   temp = ary[j];
+   ary[j] = ary[j+1];
+   ary[j+1] = temp;
+}
+}
+}
+return ary
+}
+
+//数组去重
+arr = [1,2,3,4,5,3,3,4,6,2];
+let obj ={}
+funciton X(){
+for(i=0;i<arr.length;i++){
+//取出数组当前项
+let cur = ary[i]
+//如果对象容器里面有这个参数就删除,没有就放入
+if(obj[cur] = cur){
+ary[i] = ary(ary.length - 1);
+ary.pop()
+i--;
+}else{
+obj[cur] = cur
+}
+}
+}
+
+//快速排序
+var quickSort = function(ary){
+//获取数组的中间值的索引
+var middle = Math.floor(ary.length/2);
+//获取数组中间那个值
+var middleValue = ary.splice(middle,1)[0];
+//遍历数组
+var left = [];
+var right = [];
+for(let i=0;i<ary.le ngth;i++){
+//获取当前的值
+var cur = ary[i]
+//判断中间值,如果小于当前的值,就放入左侧数组,如果大于就放入右侧数组
+ middleValue < cur ? right.push(cur) : left.push(cur)
+}
+//利用递归重复判断左右两个数组,并拼接数组与中间值
+return quickSort(left).concat([middleValue],quickSort(right))
+}
+
+//插入排序：
+//->把第一张牌放在左手
+//-以后拿到的每一张牌的时候,和左手的牌进行依次
+比较(一般来说我们的习惯是从后往前比较),如果当前的牌
+比倒数第一张小,继续往左比...一直遇到当前牌比手里的大,
+则把这张牌插入到某张牌的后面(某张牌下一张牌的前面)
+
+var insertSort = function(ary){
+  var newAry = [];
+  newAry.push(ary[0])//->先抓第一张牌
+
+//依次把桌面上第二张及以后的牌抓到
+for(var i =1;i<ary.length;i++){
+ var cur = ary[i];
+
+//抓到当前牌之后,分别的从后往前和左手中的牌进行比较
+//倒着循环
+for(var j=newAry.length-1;j>=0;){
+if(cur<newAry[j]){
+//->当前新抓的牌比左手的newAry[j]这张牌小,继续和newAry[j]前面的牌比
+if(cur < newAry[j]){
+j--;
+//如果这张牌比之前的都小,我们把这张牌放到开头即可
+if( j === -1){
+ newAry.unshift(cur);
+}
+}else{
+//当前新的牌比左手的newAry[j]这张牌大,都放在newAry[j]
+这张牌的后面
+  newAry.splice(j+1,0,cur);
+  j=-1;
+}
+}
+}
+}
+return newAry;
+}
+
+
+function insertSort(ary){
+var newAry = [];
+newAry.push(ary[0])
+for(let i=0;i<ary.length;i++){
+var cur = ary[i];
+for(let j = newAry.length - 1;j>=0;){
+if(cur < newAry[j]){
+j--;
+if(j === -1){
+ newAry.unshift(cur)
+}
+}
+else{
+//往数组里面加入元素
+  newAry.splice(j + 1,0,cur);
+  j = -1;
+}
+}
+}
+return newAry;
+}
+
+
+//insertSort
+
+var inserSort = function(ary){
+//先将数组中的第一个元素取出
+var list = [];
+list.push[ary[0]];
+循环数组中的元素
+for(i=1;i<ary.length;i++){
+//取出数组的当前元素
+var cur = list[i];
+//从后往前循环数组,将数组中的后一项与拿出的值进行比较
+for(j=ary.length - 1;j >= 0){
+//如果当前项小于数组中的值继续向前比较
+if(list[j] > cur){
+
+j--;
+//如果到第一项还比之前小就将当前元素加到数组那个
+if(j == -1){
+  ary.unshift(cur)
+}
+}
+else{
+ary.splice(j+1,0,ary);
+j== -1;
+}
+}
+}
+
+return ary
+}

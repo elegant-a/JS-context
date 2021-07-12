@@ -1,0 +1,123 @@
+数组去重的思想:,
+
+//利用对象键值对的方法
+//1)我们把数组中的每一项的值当做一个对象的属性名和属性值存储起来
+//2)但是在每一次存储之前,我们首先判断当前这一项是否已经存在了 ->obj[N]
+var ary = [1,2,3,4,3,3,2,1,5,3]
+//如果值是N,说明对象中已经存在这一项了,也说明了在N之前数组中已经出现过一次N了
+说明当前这一项已经重复了,我们在数组中把这一项删除掉
+//如果是undefined,说明对象中还没有这一项,也就是当前这一项还没有在数组中出现过,
+我们把当前项当做对象的属性名和属性值存储进去即可
+
+//数组塌陷问题,通过splice把数组删掉后,后面的每一位都往前提一位
+//对象容器,这个容器中属性名是等于属性值的,判断对象当中有没有当前数组元素的属性,如果没有,
+则将数组元素的当前项作为对象的属性和对应的值,存储到对象中,如果有对应元素的属性,判断值和
+当前的数组元素是否相等,如果相等,则将数组的最后一个元素值赋值给当前元素,并删掉最后一个元素,
+使i--;防止元素塌陷
+var ary = [1,2,3,4,5,6,3,3,4,5]
+var obj={};
+//循环这个数组,
+for(let i = 0;i < ary.length;i++){
+//取出当前项
+ var cur = ary[i];
+//如果对象容器中有当前项,我们就把当前项删掉
+ if(obj[cur] == cur){
+  //我把数组末尾那一项的值替换掉当前项(相当于删除)，再删除末尾的值
+  ary[i] = ary[ary.length - 1]
+  //把数组末尾那一项的值删除掉
+  ary.pop()
+  i--;(会出现数组塌陷的问题)如果不减一,下次会跳过一个元素
+}else{
+   obj[cur] = cur
+}
+
+
+}
+
+//1.递归:当前函数自己调用自己执行
+//->实现1-100之间,把所有不能被三整除的数相加
+var total = null;
+for(var i=1; i<= 100; i++){
+  if(i%3!==0){
+  total += i
+}
+}
+
+console.log(total);
+
+var total = nll;
+var i = 1;
+while(i <= 100){
+ i % 3 !== 0 ? total += i : null;
+ i++;
+}
+
+//在某一个范围干的是第一个做的事情就是递归
+var total = sum(100);
+
+function sum(n){
+
+}
+var total = sum(100);
+console.log(total); //undefined
+
+function sum(n){
+if(n==0){
+ return 0
+}
+   return n + sum(n-1);// 100+sum(99) ->100+99+sum(98)+...sum(0)
+   
+}
+var total = sum(100);
+console.log(total)
+
+function sum(n){
+ if( n=== 0){
+  return 0;
+}
+}
+//如果传递进来的n的值可以被三整除的话,我们当前这个值就不需要
+再累加了
+if(n % 3 === 0){
+return sum(n - 1);
+}
+return n + sum(n - 1);
+}
+var total = sum(100);
+console.log(total)
+
+//这就是递归
+//把从1-10所有能被二整除的数进行相乘
+var X = function(item){
+if(item == 1){
+return 1 
+}
+if(item%2 == 0){
+return item * X(item - 1 )
+}
+return X(item - 1)
+}
+let sum = X(10);
+//->使用settimeout和setInterval一模一样的功能
+//接收两个参数一个函数,一个时间
+setTimeout(function(){},1000)
+
+var count = 0;
+var timer = null;
+function move(){
+//每一次执行move方法都会重新创建一个新的setTimeout定时器,
+定时器执行一次就不在重新执行了,但是我们并没有把它清除掉,导致了很多没用的定时器累计，占
+内存->在每一次进来的第一件事情,就是把上一次没用那个定时器清除掉
+window.clearTimeout(timer)
+count++;
+console.log(count);
+if(count == 10){
+ return;
+}
+timer = window.setTimeout(move,1000);//定时器是会自动执行的,当他赋值给变量也一样
+}
+move();  
+arguments.callee是当前函数本身,等价于move
+settimeout和setinterval里面的函数是自动执行的
+
+

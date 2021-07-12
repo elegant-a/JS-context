@@ -1,0 +1,79 @@
+//获取当前自己电脑的时间
+var time=new Date();
+console.log(time)
+Sat Jul 03 2021 16:20:31 GMT+0800 (中国标准时间)
+时间格式数据(对象数据类型的)
+function formatTime(
+
+var time=new Date();
+var year=time.getFullYear();
+var month=time.getMonth()+1;//0-11代表我们的1-12月
+var day=time.getDay();
+var week=time.getDay()//0-6代表周日-周六
+var wStr="日一二三四五六"
+var w = wStr.charAt(week)
+var hours = time.getHours();
+var minutes = time.getMinutes();
+var seconds = time.getSeconds();
+var mlSeconds = time.getMilliseconds();//毫秒
+return year+"年"+zero(month)+"月"+zero(day)+"日 星期"
++ week + "" +zero(hours) + "时" + zero(minutes) + "分" +
+zero(seconds) + "秒"; 
+
+}
+
+
+
+var oDiv=document.getElementById("div1");
+var timeStr=formatTime();
+oDiv.innerHtml += timeStr
+
+
+
+
+
+
+function getSpanTime(){
+var tarTime="2015-05-24 17:59:59";
+//把时间格式字符串变e我们标准的时间格式
+var tartime=new Date("2015-05-24 17:59:59")
+var nowTime=new Date();  
+var tarSpan=tarTime.getTime();
+var nowSpan = nowTime.getTime();
+var diffTime = tarSpan - nowSpan;//当前时间距离目标时间的毫秒差
+//接下来用毫秒差算出包含多少个小时,分钟,秒就好了
+
+
+//总毫秒差中有几个小时
+Math.floor(diffTime / (1000 * 60 * 60)) //包含多少小时
+当前这几个小时占了多少毫秒
+var hourMs = hour * 60 *60 *100;
+//4.开始算span中包含多少分钟
+var minute = Math.floor(spanMs/(1000*60))
+//5.算这么多分钟占用的毫秒数
+var minuteMs=minute*60*1000
+//6.算秒的时候把分钟占用的也减去
+spanMs = spanMs - minuteMs;
+//7.算剩下的包含多少秒
+var second = Math.floor(spanMs / 1000);
+
+//把小时占用的减去
+var spanMs = diffTime - hourMs;
+
+//中间用"-"在ie6~8中不兼容,需要改成"/"
+
+//getTime:获取距离1970年1月1日午夜(00:00)之间的毫秒差
+
+return zero(hour) + ":"+zero(minute)+":"+zero(second)":"
+}
+
+function zero(value){
+ 
+ return value < 10 ? "0" + value : value;
+}
+
+//这两个页面实现了静态的,还不能够在不刷新页面的时候动起来
+
+document.getElementById("div1");
+var str = getSpan Time()
+oDiv.innerHTML += str;

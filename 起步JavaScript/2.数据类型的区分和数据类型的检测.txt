@@ -1,0 +1,75 @@
+var num1 = 12;
+var num2 = num1;//把num1变量代表的值给了num2变量
+
+//发现:基本数据类型没有跟着改变,引用数据类型跟着改变了
+
+//基本数据类型和引用数据类型的区别
+
+//基本数据类型是把值直接给变量，接下来在操作的过程中,直接拿值进行操作的,
+可能两个变量存储一样的值,但是你的是你的,我的是我的,之间没有关系，其中一个改变\
+另外一个没有任何影响
+  //引用数据类型:
+     1.定义一个变量
+     2.开辟一个新的空间,然后把属性名和属性值保存在这个空间中,并且有一个空间地址
+     3.把空间的地址给了这个变量,变量并没有存储这个数值,而是存储的是对这个空间的引用
+     4.接下来我们把这个地址，又告诉了另外一个变量,另外一个变量存储的也是这个地址,
+        此时两个变量操作的是同一个空间
+     5.其中一个改变了空间的内容,另一个也跟着改变了
+
+总的来说基本数据类型和引用数据类型,一个操作的数据的值,一个操作的是空间的引用
+
+//js中检测数据类型的方式
+//typeof运算符
+//instanceof运算符
+//constructor
+//Object.prototype.toString.call()
+
+console.log(typeof "zhufeng")//"string"
+
+"number","string","boolean","undefined","object","function"
+typeof "null"的结果是object
+
+typeof局限性,不能具体的检查object 下细分的类型,检查这些返回的都是"object"
+
+变量就是用来代表值和存储值的
+ typeof typeof [] => 最终结果是 "string"
+
+//三个判断:if else, 三元运算符, switch case
+
+//if,else if,else 是最常用的判断,可以解决js中所有的判断需求
+
+//三元运算符应用于简单的if else情况
+//switch case应用于不同值情况下的不同操作
+
+if(条件1){
+执行条件1成立的js代码
+}else if(条件2){
+ 执行条件2成立的js代码
+}else if(条件3){
+执行条件3成立的js代码
+}...else{
+以上天剑都不成立执行的代码
+}
+
+var num = 10;
+if(num<0){
+console.log("负数")
+}else if(num>=0 && num<=10){
+    console.log("0-10之间")
+}else{
+ console.log("10以上")
+}
+
+//三元运算符
+//条件?条件成立执行:
+/*var num=12
+if(num>=0){
+   console.log("正数或零")
+}else{
+console.log("负数")
+}*/
+num>=0?console.log("正数或零"):console.log("负数")
+
+js中异步编程的四种情况:定时器是异步编程的,所有的事件绑定都是异步编程的,Ajax读取数据的时候,
+我们一般都设置为异步编程,回调函数也是异步编程的
+

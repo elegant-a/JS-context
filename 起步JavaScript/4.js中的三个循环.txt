@@ -1,0 +1,129 @@
+js中的三个循环操作
+
+//四部曲:
+//1.设置初始值 var i=0;
+//2.设置循环执行条件 i<5;
+//3.执行循环体中的内容{[循环体]}包起来的部分
+//4.每一轮循环完成后都执行我们的i++累加操作
+
+for(var i=0;i<5;i++){
+  console.log(i)
+}
+
+
+for in循环
+//for in循环:用来循环一个对象中的属性名和属性的值
+var obj={
+name:"李松坡"
+age:"18",
+height:"170cm",
+hobby:"敲代码",
+birthday:"19997-05-10"
+};
+
+//对象中有多少键值对,我们就循环多少次
+for(var key in obj){
+//打印的是属性名
+console.log(key)
+console.log(obj[key])//获取属性值
+//获取属性值 在for in 中只能通过 obj[key]来获取 不能写obj.key
+}
+
+从一定的区域开始线性渐变
+background:-webkit-liner-gradient(top,left,#31b0d5,#67b168);
+
+//设置行之间的距离
+line-height:30px
+cusor:pointer;
+.c1{background:#ddd;}
+.c2{background:#eee}
+//获取整个文档中所有的li,它是一个集合,我们把这个集合叫做类数组(类似于数组)
+var oLis=document.getElementsByTagName("li");
+并且类数组时对象数据类型的
+console.log(oLis);
+oLis[0]
+
+
+var oList = document.getElementById("list");
+var oLists = oList.getElementByTagName("li");
+for(var i=0;i<oLis.length;i++){
+//循环每一个元素,后面一个元素会把前面的一个元素覆盖掉
+    var oLi=oLis[i];//每一次循环的时候在类数组中
+奇数是一个背景色,偶数是一个背景色
+i%2===0?oLi.className = "c1":oLi.className = "c2"
+}
+
+奇数偶数行颜色不一样
+
+
+选项卡面板
+
+//高度和line-height设置的一样,就是垂直居中了
+height:30px;
+line-height:30px;
+text-aligin:center;
+
+清除浮动(清除浮动对div的影响)
+clear:both;
+边框重叠的问题
+
+box-sizing:border-box
+
+选项卡的思路非常简单:
+鼠标滑到某一个li上面,让当前的li和对应的div有selcet的样式,
+而其余的没有这个样式就可以了
+
+要操作谁就获取谁
+//获取要操作的元素
+var oTab=document.getElementById("tab");
+var oLis=oTab.getElementByTagName("li");
+var oDivs=oTab.getElementByName("div");
+
+//第三步:制定一个功能方法,实现我们的需
+//JS里面更改样式是className
+//定义一个函数功能
+function tabChange(index){
+  for(let i=0;i<oLis.length;i++){
+//将类名置为空
+  oLis[i].className="";
+  oDivs[i].className="";
+}
+//将传递进来的class名字变成select
+oLis[index].className="select";
+oDivs[index].className="select";
+}
+//第四步:给我们的li绑定鼠标移上去的事件
+//for循环,遍历所有的选项卡
+for(let i =0;i<oLis.length;i++){
+当鼠标移动到相应的选项卡上面,触发函数
+  oLis[i].onmouseover=function(){
+  tabChange(i)
+
+}
+}
+
+选项卡,给div设置一个样式(设置好样式先隐藏,当触发悬停事件时,再显示出来)
+#tab div{
+        display:none;
+}
+#tab div .select{
+  display:block
+}
+
+
+//js加载完成后(for循环加载完成 i = 3) 我们才会触发omouseove事件
+1.for循环是同步的,内部事件处理函数是异步的,所以等到异步事件触发时,同步代码已经跑完了(这就是为什么
+i固定为最大值不变的原因)
+2.处理的核心思想就是他在跑完前就立即记录i的值,以备异步事件处理函数使用.
+3.说白了就是利用var只有函数作用域,制造独立空间,让每个i都是独立的
+
+块级作用域
+所以if判断,for循环,function函数等这些有{}包围的地方就可以算作是块级作用域
+但是注意:var没有块级作用域,他只有函数作用域.是说var只有function{}内部才有作用域的概念
+这意味着函数function以外用var定义的变量都是同一个，你所有的修改其实是针对它的
+因此for循环虽然循环了3次,但是循环变量i一直是一个,并不是3个独立的i.同时因为事件处理函数是
+异步的(不知道用户什么时候点击按钮),for循环是同步的
+
+es6方法--let,let具有块级作用域,所以循环三次相当于三个独立的函数,每个i的值都是不同的
+
+

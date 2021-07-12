@@ -1,0 +1,31 @@
+实现动画的必要因素(定时器)
+//定时器:设置一个定时器,在设置一个等待时间,到达指定时间后,执行对应操作
+//循环定时器,隔相同的时间,再进行操作
+//window.setInterval([function],[interval])
+//超时定时器(超出时间,进行相应的操作)
+    window.setTimeout([function],[interval])
+
+var count=0;
+var timer=window.setInterval(function(){
+   count++;
+   console.log(count)
+},1000)
+
+//定时器返回值是一个数字,代表当前是第几个定时器,相当于我们拿取银行办理业务的排队号
+oDiv.innerHTML = "距离下课" + "str";
+var timer=window.setInterval(function(){
+//每隔一秒重新执行方法,然后再写距离下课多长时间
+ var str = getSpanTime();
+ oDiv.innerHTML = "距离下课:" + str;
+},1000)
+
+
+//显示当前时间
+var oDiv = document.getElementById("div1");
+var timeStr = formatTime();
+oDiv.innerHTML = timeStr;
+var timer=setInterval(function(){
+   var timeStr = formatTime();
+//重新设置innerHTML的内容
+   oDiv.innerHTML = '北京时间' + timeStr;
+},1000)

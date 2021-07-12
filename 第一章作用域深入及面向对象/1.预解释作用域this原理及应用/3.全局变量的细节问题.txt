@@ -1,0 +1,32 @@
+console.log(num)//undefined
+var num = 12;
+//在全局作用域中,带var赫尔不带var的关系?
+//区别:带var的可以进行预解释,所以在赋值的前面不会报错;不带var的是不能进行预解释的,
+在前面执行会把错信息
+console.log(num2)//Uncaught ReferenceError:num2 is not defined
+num = 12
+
+//关系:num2=12 ->相当于给window增加了一个叫做num2的属性名,属性值是12
+var num = 12 ->首先给全局作用域增加了一个全局num,但是不仅如此,它也相当于给window
+增加了一个属性名num2,属性值是12
+var num = 12;
+console.log(num);//12
+
+num = 12;
+console.log(num2);// ->12 window.num2
+
+var total = 0
+//在私有作用域中出现了一个变量不是私有的,则往上级作用域进行查找,上级没有则继续向上
+查找,一直找到window,如果window也没有?
+
+
+function fn(){
+console.log(total);//undefined
+var total = 100;
+}
+fn();
+console.log(total) 0
+
+//我们是设置值:total ->相当于给window增加了一个属性名total,属性值是100
+//JS中如果在不进行任何特殊处理的情况下,上面的代码报错,下面代码都不再执行
+

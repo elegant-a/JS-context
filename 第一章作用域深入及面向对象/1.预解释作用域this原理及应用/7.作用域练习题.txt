@@ -1,0 +1,26 @@
+function fn(){
+ var i = 10;
+ return function (n){
+   console.log(n + (++i));
+
+}
+}
+//将fn执行的地址,赋值给f,所以两个f执行的操作的是同一个栈地址
+var f = fn(); 
+f(10);=>fn()(10)//21
+f(20);=>fn(20)//32
+//两个fn操作的是不同的栈地址
+fn()(10)//21
+fn()(20)//31
+
+function fn(i){
+  return function (n){
+  console.log(n + i++);
+}
+}
+
+var f = fn(13)
+f(12);//25
+f(14);//28
+fn(15)(12);//27
+fn(16)(13);//29

@@ -1,0 +1,223 @@
+数组去重
+var ary = [1,3,2,4,6,3,2,1]
+//定义一个空对象
+var obj = {}
+//循环数组
+for(i=0;i<arr.length;i++){
+//取出当前数组元素的值
+let cur = ary[i];
+//判读对象中是否有这个元素
+if(obj[ary] = ary[i]){
+ary[i] = ary[ary.length - 1]
+ary.pop()
+i--;
+}
+obj[cur] = cur
+}
+
+递归
+递归就是函数自己调用自己
+function add(item){
+
+   return item + add(item - 1)
+}
+add(100)
+
+数组常用的方法
+1.增加和删除
+ary.push();向数组末尾增加一个元素,原数组改变,返回添加的元素
+ary.pop();删除数组末尾的元素,原数组改变,返回被删除的元素
+ary.unshift()向数组的开头增加一个元素,原数组改变,
+ary.shift()删除数组开头的元素
+ary.splice(n,m)从数组下标为n的元素开始,删除m个元素
+ary.splice(n,m,c)nm和上述相同,将c添加到元素n的前面
+2.转换字符串
+ary.toString() //[1,2,3]==>"1,2,3"
+ary.join("*")//将元素以对应的分隔符分割,"1*2*3"
+eval()函数将字符串转换为javascript表达式
+window.eval(ary.join("*")) => 6
+3.
+//排序
+//从大到小排序
+ary.sort(function(a,b){
+return a - b
+})
+//从小到大排序
+ary.sort(function(a,b){
+return b - a
+})
+//查找数组中是否包含元素,如果包含,返回当前元素的下标,
+如果不包含,则返回-1
+ary.indexof("苹果")
+//截取数组中的片段
+ary.slice(n,m)/从索引n开始,截取到m处,不包括m
+ary.slice(n)//从第n个下标开始,截取到最后一位
+//ary.concat(a)将连个数组连接到一起,ary在前,a在后
+
+//遍历数组
+ary.foreach(function(item,index){
+console.log(item,index)
+})
+//map会返回新的数组
+let list = ary.map(function(item,index){
+
+return item * 10;
+})
+
+//冒泡,快速,插入排序复习
+
+1.bubbleSort(没有引入新数组)
+
+//冒泡排序是从前往后面排序的
+var bubbleSort = function(ary){
+//循环几轮
+var temp = null;
+for(let i = 0;i<ary.length-1;i++){
+//每轮比较几次
+for(let j = 0;j<ary.length-1-i;j++){
+if(ary[j]>ary[j+1]){
+temp = ary[j];
+ary[j] = ary[j+1];
+ary[j+1] = temp;
+}
+
+}
+}
+return ary;
+}
+
+//快速排序(也引入了空数组)
+var qucikSort = function(ary){
+var middle = Math.floor(ary.length/2);
+var value = ary.splice(middle,1)[0];
+var left = []
+var right = [];
+for(let i = 0;i<ary.length;i++){
+var cur = ary[i];
+ cur < value? left.push(cur):right.push(cur);
+
+return quickSort(left).concat([value],quickSort(cur))
+}
+}
+//插入排序(引入了一个新的空数组)
+var insertSort = function(ary){
+let list = [];
+list.push(ary[0])
+//外面这层循环的是原数组
+for(let i = 1;i<ary.length<i++){
+var cur = ary[i]
+//里面这层循环的新数组
+for(j=ary.length -1;j>=0){
+if(list[j]<cur){
+j--;
+if(j == -1){
+list.unshift(cur)
+}
+}
+else{
+ary.splice(j+1,0,cur)
+}
+}
+}
+return ary
+}
+
+
+rem自动适配
+//获取当前屏幕的宽度
+var width = document.documentElement.clientWidth || document.body.clientwidth;
+//获取比例
+var ratio = width/调试时屏幕尺寸
+//新的font-size大小
+font-size = ratio * 之前font-size的大小
+//获取元素并更改html元素font-size的大小
+document.getElementbyTagName('html')[0].style['font-size'] = fontsize + 'px'
+
+//dom获取元素的方法
+//通过元素的id获取元素
+document.getElementById('xx')
+//通过元素的标签名获取元素(获取的是一组元素)类数组
+document.getElementByTagName('')
+//通过元素的类名获取元素
+document.getElementbyClassName('xx')
+//通过元素的name值获取元素
+document.getElementByName('xx')
+//获取元素
+//document.querySelector()
+//获取每一组元素
+document.querySelectorAll()
+//获取documentElement元素
+document.documentElement
+//获取document.body元素
+document.body
+
+//Dom中节点的关系
+app.parentNode//app元素的父节点
+app.children//app元素的子节点
+app.previousSilbings//app元素的前一个兄弟节点
+app.nextSilbings//app元素的下一个兄弟节点
+
+//Dom的增删改和应用
+//创建一个Dom节点
+let xx = document.createElement('div')
+//将xx元素插入到指定容器的后面
+元素节点document.body.appendChild(xx)
+//删除元素
+oDiv.parentNode.removeChild(oDiv) //删除元素
+//克隆元素
+var clo = oP.cloneNode()//克隆元素,传入一个true把里面的子子孙孙都克隆
+//删除一个元素
+oDiv.parentNode.removeChild()
+
+//克隆一个元素
+//克隆oDiv这个元素
+aa = oDiv.cloneNode(ture)  里面的子节点全部克隆
+
+xx.setArrtibute("属性名","属性值")
+//在ie6~8中是不起作用的
+xx.setArrtibute("class","ccc")
+
+
+
+
+设置一个div水平和垂直居中
+var cw = document.document.clientWidth || document.body.clientWidth
+var ch = document.document.clientHeight || dcument.body.clientHeight
+
+设置元素的上边距和下边距
+
+获取layer这个元素
+var layer = document.getElementById("layer");
+//300是元素自身的宽度
+layer.style.top = (ch-300)/2 + "px"
+//300是元素自身的高度
+layer.style.left = (cw-300)/2 + "px"
+
+//使一个元素水平垂直居中
+设置绝对定位absolute
+获取屏幕宽度和高度
+左边距和上边距的距离就是屏幕宽度高度减去元素的高度宽度/2 +"px"
+
+//获取指定索引位置的字符串
+charAt(索引)
+charCodeAt(索引)获取指定索引位置的字符对应的ASCII值,ASCII值:每一个字母,汉字，特殊符号都有一个对应的ASCII值
+substr(n,m)//从索引n开始截取m个字符
+substring(n,m)
+slice(n,m)//从索引n开始截取到索引m,不包含m
+indexOf("m")//查找m的位置,并返回索引
+lastIndexOf("!")//从后面的位置开始查找
+toLowerCase("")//将字符串中所有的字符转换成小写
+toUpperCase("")//将所有字母转换成大写
+replace("a","b")//将a替换成b
+//在不使用正则的情况下,每一次调用方法,只能替换一次
+//一般情况下,我们都是用正则处理的
+s.split("+")//将数组按照指定的分隔符拆分为数组["1","2","3","4"]
+//拆分出的数组,默认是以逗号分隔的
+
+//Date对象的方法
+var time = new Date()//获取当前的年月日,小时分钟秒.
+var year = time.getFullYear()//获取年
+
+
+
+

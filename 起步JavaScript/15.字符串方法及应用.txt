@@ -1,0 +1,74 @@
+//String:字符串类
+//对象,类,实例
+//例如:自然界中万物都是对象,类是对 对象的一个细分,比如人类,动物类,
+植物类.....,实例是每一个类别中具体的事物,比如xx就是人类中的一个实例
+  //js中的对象就是一个泛指,所有东西都是对象,类是把这个泛指
+具体细分:Object,Array,RegExp,Date,String,Node,所有的节点也是类
+//这些都是js中内置类,
+{}是Object中一个实例,"朱峰"是String中的一个实例...
+    //Array这个数组类中提供了很多方法,每一个数组都是他里面的一个实例
+       所以数组可以用这些方法
+//一个字符串是由多个字符组成的
+//string.length 获取字符串中字符的个数(字符串长度)
+//字符串中也存在索引,也是从0开始的,'w'这个字符索引就是0
+//空格,换行这些特殊符号也是一个字符
+
+//1.charAt(索引)  获取指定索引位置的字符
+//2.charCodeAt(索引) 获取指定索引位置的字符对应的ASII值
+for(var i = 0;i<str.length;i++){
+//打印每一个字符的ASII的值
+    console.log(str.charCodeAt(i))
+}
+
+ASCII值:每一个字母,汉字，特殊符号都有一个对应的ASCII值
+
+2.字符串截取的
+//substr(n,m) 从索引n开始截取m个字符 
+//substring(n,m) 从索引n开始,找到索引m处(不包含m),
+将找到的字符返回
+//slice(n,m),从索引n开始,找到索引m处(不包含m),
+将找到的字符返回
+//如果只写了一个n,没有m:代表截取到末尾位置
+console.log(str.slice(-11))
+3.查找字符的索引
+indexOf("")
+lastIndexOf("!")
+4.大小写转换
+//toLowerCase:将所有字母转换为小写
+//toUpperCase:将所有字母转换为大写
+
+5.替换
+//replace(要替换的老字符,替换成的新字符)
+//在不使用正则的情况下,每一次调用方法,只能替换一次
+//一般情况下,我们都是用正则处理的
+str.replace("zhufeng","珠峰")
+
+console.log(str.replace(/o/g,"欧"));
+
+6.将字符串按照指定的分隔符拆分成数组
+//split(分隔符)
+var s="1+2+3+4"
+console.log(s.split("+"))
+["1","2","3","4"]
+7. match ? 正则常用的
+
+
+function addZero(value){
+ return value<10?"0"value:value
+}
+
+//格式化时间字符串
+function formatTime(timeStr){
+    var ary=timeStr.split(" ");
+    var str1=ary[0];
+    var str2=ary[1];
+    var ary1=str1.split("-")
+    var ary2 = str2.split(":")
+    console.log(ary);
+    return ary[0] + "年"+ zero(ary1[1])+"月"+zero(ary1[2])+"日"
++ zero(ary2[1]) + "分" + zero(ary[2]) + "秒"; 
+}
+formatTime(time); 
+
+
+
