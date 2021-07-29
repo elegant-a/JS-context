@@ -1,0 +1,24 @@
+var oLis = document.getElements ByTagName("div")
+console.dir(oLis);//HTMLCollection元素集合类的一个实例
+->它也是一个类数组集合
+
+oLis = document.getElementsByName("zhufeng")
+console.log(oLis);//->NodeList节点集合 ->它也是一个类数组
+
+
+var oLis = document.getElements ByTagName("div");//获取元素集合
+var ary = Array.prototype.slice.call(oLis);
+在IE6~8中,不支持借用数组的slice实现将元素集合或者节点集合的类数组转换为数组
+//->但是对于arguments借用数组的方法是不存在任何兼容性问题的
+//标准浏览器ie9及以上,非标准ie6~8
+
+var ary = Array.prototype.slice.call(oLis);
+console.log(ary)
+
+//->非标准
+for(var i = 0;i<oLis.length;i++){
+  ary[ary.length] = oLis[i]
+}
+
+
+

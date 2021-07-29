@@ -1,0 +1,170 @@
+面向对象:
+1.对象,万物皆对象
+2.把对象细分成几大类(类是函数数据类型的)
+3.实例,每一个类别中具体的事物就是实例
+所有数据类型都有自己的一个内置类Number,String,Null,Undefined,Date,
+var date = new Date;/获取当前类的一个时间
+//每一个元素标签都有自己的所属类比如div标签HTMLDivElement
+从控制台里面统计一下
+<div id="div1"></div>
+//->div,a,document,window到底有几个内置类它是怎么走的
+只有在document的实例上才能找到document byId
+
+//自己想要创建一个类
+function Fn(){
+  this.x=100;
+//会自动return
+}
+var f1 = new Fn;
+//判断某个实例是否属于某个类 instanceof
+var f2 = new Fn;
+//构造函数模式,原型链模式
+
+//原型链模式,
+//1.所有的函数数据类型(普通函数,类),都自带一个属性:prototype,它存储的是一个对象数据类型
+,浏览器默认为其开辟一个堆内存
+//2.在浏览器prototype开辟的这个堆内存上,有一个默认的属性:
+constructor,指向当前类本身
+//3.每一个对象数据类型都天生自带一个属性:__proto__,指向当前实例所
+属类的原型
+function Fn(){
+   this.x=100;
+   this.y=200;
+   this.getX= function{
+   console.log(this.x);
+}
+//在类的函数体中写的this.xxx=xxx都是给当前类的实例增加私有的
+属性或者方法
+}
+//在类的原型上写的都是给当前类的实例当前类增加的公有的属性或者
+方法
+Fn.prototype.getX= function (){
+  console.log(this.x);
+};
+Fn.prototype.getY=function(){
+   console.log(this.y)
+}
+堆内存,对象数据类型和函数数据类型在定义的时候首先会开辟一块堆内存,堆内存有一个引用的
+地址
+如果外边的变量知道了这个地址,我们就说这个内存被占用了,不能销毁
+
+栈内存,私有作用域:只有函数执行会产生私有作用域
+,全局作用域:window(只有当页面关闭的时候,全局作用域才会销毁)
+
+//1.看方法执行的时候,"."前面是谁,this就是谁
+//2.把函数体中的this替换成分析的结果
+//3.按照原型链的查找模式找到对应的值即可
+
+f1.getX();//->getX中的this是f1,console.log(f1.x)
+Fn.prototype.setX = function (){
+  console.log(this.x)
+}
+f1.__prototype__.getX();//this->f1.__proto__.x //没有undefined
+f1.getX();//100
+f1.__proto__.getX();//300
+f1.setX(500);//this->f1,f1.x = 500把私有的设置为500
+
+f1.y=300;//给f1本身增加一个私有的属性和f2没关系
+f1.__proto__.y=1000;//在原型上增加一个y=1000,f2也可以获取到
+这个 y 的值了
+3.在内置类的原型上扩展方法
+
+HTMLDivElement,HTMLElement,Element,Node,EventTarget,Object
+
+//浏览器实现的方法就是this.length--;
+
+
+//给数组增加一个数组去重的方法
+jQuery
+Array.prototype.myUnique = function unique(){
+//this->ary,当前要操作的数组
+  var obj={}
+  for(var i=0;i<this.length;i++){
+  var cur=this[i]
+  if(obj[cur]==cur){
+  this[i]=this[this.length-1]
+  this.length--;
+  i--;
+}else{
+  obj[cur] = cur
+}
+
+
+ 
+}
+obj = null;
+return ary
+}
+
+
+在数组原型上设置原型
+基于内置类原型扩展的方法,我们需要注意的事项:我们自己编写的方法名最好加上特殊的前缀,防止把
+内置的方法覆盖掉
+
+ary.sort(function(a,b){
+  return a - b
+}).pop();
+console.log(ary)
+//链式写法:执行完成某一个方法,不仅得到了想要的结果,而且,返回的值,
+还需要是当前类的实例,只有这样才能一直链下去
+
+
+//1.基于Number内置类扩展两个方法:plus,minus
+
+
+2.slice这个方法实现的非常强大的,我们自己写一份mySlice实现和slice一模一样的
+功能,(数组中现有的方法一个都不能用)
+
+slice(n,m)
+slice(n)  slice(0)
+slice()
+n和m是负数
+n>m
+n或者m超出了整个数组的范围
+...
+
+//批量设置原型的公有方法
+function Fn(){
+  this.x=100;
+}
+Fn.prototype = pro
+Fn.prototype.a=function(){
+
+}
+Fn.prototype.b=function(){
+
+}
+Fn.prototype.c=function(){
+
+}
+
+如果之前原型上存在一些方法，我们现在新创建的这个对象会把之前写的哪
+那些方法都给覆盖掉;所以浏览器内置类是禁止自己创建新对象来
+扩展原型上的方法的,防止我们Array.prototype={}把内置类都弄没了//自己创建的对象中不会天生
+自带constructor,所以导致了我们f.constructor
+
+Fn.prototype = {
+  constructor:Fn,
+ b:function(){}
+}
+
+function Fn(num){
+  this.x = this.y = num;
+}
+
+Fn.prototype = {
+  x:20,
+  sum:function(){
+  console.log(this.x + this.y)
+}
+};
+var f = new Fn(10);
+console.log(f.sum === Fn.prototype.sum);//true
+f.sum();//20
+Fn.prototype.sum();//20 + undefined = NAN
+console.log(f.constructor);//undefined
+
+
+}
+
+

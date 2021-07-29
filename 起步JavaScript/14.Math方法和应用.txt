@@ -3,8 +3,9 @@
 3.Math.floor()向下取整
 4.Math.round()//四舍五入(正数.5是入,负数.5是舍)
 5.Math.max(val,val,val....)求最大值
-6.Math.min,求最小值
-7.Math.random()获取[0-1)之间的随机小数
+6.Math.pow(a,b)数字取幂
+7.Math.min,求最小值
+8.Math.random()获取[0-1)之间的随机小数
 //获取[n-m]之间的随机整数
 //例如:1-10  14-58
 Math.round(Math.random()*(m-n) + n)

@@ -1,0 +1,35 @@
+var oUl=document.getElementById("ul1");
+var oLis = oUl.getElementsByTagName("li");
+
+表格排序
+//1.先将元素集合类数组,转化为数组
+var ary = utils.listToArray(oLis);
+
+//2.给数组进行排序
+ary.sort(function(a,b){
+return parseFloat(a.innerHTML) - parseFloat(b.innerHTML)
+})
+//3.按照ary中存储的最新顺序,依次把对应的li添加到页面当中
+var frg=document.createDocumentFragment();
+for(vari=0;i<ary.length;i++){
+ frg.appendChild(ary[i])
+}
+//由于dom映射机制，我们操作的dom还是原来的那几个,不发生改变
+oUl.appendChild(frg);
+frg = null;
+3.Dom映射机制
+var oUl = document.getElementById("ul1")
+var oLis = oul.getElementsByTagName("li")
+console.log(oLis.length)
+
+var oLis = document.createElement("li")
+oUl.appendChild(oLi);
+
+console.log(oLis.length);//没有重新的获取,但是oLis这个集合中的长度和内容会自动发生改变
+
+页面中的html结构和我们的dom操作紧紧的联系到一起的
+
+
+//DOM映射机制:页面中的标签和js中获取到的元素对象(元素集合)是紧紧的绑定在一起的,
+页面中的html结构改变了,js不需要重新获取,集合里面的内容也会自动改变
+

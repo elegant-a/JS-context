@@ -1,0 +1,70 @@
+超出文本自动裁切
+text-overflow:ellipsis; 截取后以...作为省略
+white-space:nowrap; /*强制不换行*/
+overflow:hidden;/*溢出隐藏*/
+
+var oUL=document.getElementById("ul1")
+var oLis= oUl.getElementsByTagName("li");HTMLConnection元素集合下的实例
+
+for(var i = 0;i<oLis.length;i++){
+   oLis[i].onmouseover = function(){
+   //设置行内样式
+   this.style.backgroundColor = "pink"
+};
+oLis[i].onmouseout = function(){
+ this.style.backgroundColor = "",
+}
+}
+
+
+动态创建dom,把dom渲染到页面上(请求数据,得到数据,解析数据,绑定数据)
+
+1.利用动态创建元素节点,数组有几个,就创建几个
+for(var = 0;i<ary.length;i++){
+ var cur=ary[i];
+ var oLi=document.createElement("li")
+//innerHTML在设置值的时候,字符串包含的HTML会被解析,innerText不会
+ oLi.innerHTML="<span>{{i}} + 4</span>" + cur.title
+ oUl.appendChild(Oli);
+}
+
+//优势:动态创建标签的方式,追加到页面上,实现了数据绑定,并对原有页面没有任何影响
+//弊端,浏览器每创建一个li,添加到页面中,就触发一次回流,最后引发回流方式过多,影响性能
+
+2.//字符串拼接的方式:首先循环需要绑定的数据,然后把需要动态绑定的标签以字符串拼接到一起
+,拼接完成后,最后统一的添加到页面中
+var str = "";
+for(var i = 0;i<ary.length;i++){
+ var cur = ary[i];
+ str += "<li>";
+ str+="<span>" + (i+4)+"</span>";
+ str+=cur.title
+ str+="</li>";
+}
+
+oUl.innerHTML += str;
+//优势:事先把内容拼接好,最后统一添加到页面中,只引发一次回流,省性能
+//弊端:我们把新拼接的字符串添加到#ul1中,原有的三个li鼠标滑过效果都消失了
+(原来标签绑定的事件都消失了)
+
+oUl.innerHTML += str//->oUl.innerHTML=Oul.innerHTML,把之前的三个li以字符串的方式取到)
++str;  拼接完成的整体还是字符串,最后把字符串统一添加到页面中
+
+//字符串拼接绑定数据,是我们以后工作中最常用的一种绑定数据的方式
+->模板引擎数据绑定(jade,kTemplate,angular,js,backbone.js...) //所有模板引擎绑定数据的方式就是字符串拼接
+
+//JS中DOM深入知识:
+//->回流(重排 reflow):当页面中的HTML结构发生改变(增加,删除元素,位置发生改变...),
+       浏览器都需要从新计算一遍最新的dom结构,从新的进行渲染,从新对当前的页面进行渲染
+//->重绘:某一个元素的部分样式发生改变了(背景颜色s),浏览器只需要重新的渲染当前的元素即可
+
+js优化,内存的手动释放,dom的回流
+
+//3.文档碎片
+var frg = document.createDocumentFragment();//创建文档碎片相当于临时创建了一个容器
+for(var i = 0;i<ary.length;i++){
+  var cur = ary[i];
+  oLi.innerHTML = "<span>" +(i + 4) + "</span>" + cur.title;
+   frg.appendChild(frg);
+}
+oUl.appendChild(frg)

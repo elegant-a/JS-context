@@ -1,0 +1,48 @@
+//引入JS是有顺序限制的:根据JS之间的依赖关系
+
+//想要操作谁,就先获取谁
+
+
+//读取本地txt文件会有跨域问题
+JSON.parse将字符串格式的JSON数据转换为 JSON数据,浏览器会自动解析
+解决跨域的两种手段,CORS和JSONP
+CORS使用express框架
+const express = require('express');
+const app= express();
+const fs = require('fs')
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Authorization,X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method' )
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PATCH, PUT, DELETE')
+    res.header('Allow', 'GET, POST, PATCH, OPTIONS, PUT, DELETE')
+    next();
+    });
+app.get('/data', (req, res)=>{
+    fs.readFile('../json/data.txt',function(err,data){
+       res.send(data)
+        
+    })
+});
+app.listen(8083, ()=>{
+    console.log('Server is running at http://localhost:8083')
+})
+
+后台读取到文件是使用fs.readFile模块
+然后向前台发送数据
+Ajax请求数据的四个步骤
+
+//新建AJAX请求
+var xml = new XMLHttpRequest();
+//设置请求信息
+xml.open('get','请求地址')
+//发送请求
+xml.send()
+//设置响应状态
+xml.onreadystatechange = function(){
+ if(readystate === 4 &&  200<=status<300){
+  执行函数体中的函数
+}
+
+}
+
+取反操作符操作的是布尔值 ,返回的也是布尔值

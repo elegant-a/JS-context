@@ -1,0 +1,54 @@
+对象:万物皆对象
+类:把对象细分
+实例:类当中一个具体的事物
+内置类:
+我们还可以创造自定义的类
+//构造函数中this的指向,毫无疑问指向的是新的实例的
+   function createJsPerson(name,age){
+//浏览器默认创建的对象就是p1->this
+   this.name = name;
+   this.age = age;
+   this.writeJs = function(){
+    console.log("my name is" + this.name + "i can write js 啦!!")
+};
+//浏览器把创建的实例默认的进行返回
+}
+var p1 = new createJsPerson("xx",18);
+p1.writeJs();
+
+var p2 = new CreateJsPerson('cc',48)
+//构造函数模式的目的就是为了创建一个自定义类,并且创建这个类的实例
+//构造函数模式和工厂模式的区别?
+//1.执行的时候
+//普通函数执行->createJsPerson();
+//构造函数模式->new createJsPerson()//此时crateJsPerson叫类名,不叫函数名
+//而函数执行的返回值(p1)就是CreateJsPerson这个类的一个实例
+
+//内置类也是这样的
+//创建一个数组
+var ary=[];//字面量方式  坑:关于构造函数中this的指向
+var ary = new Array();//实例创建的方式->构造函数模式执行的方式
+//不管哪种方式都是ary的实例,JS中所有的类都是函数数据类型的,它通过
+new执行变成为了一个类,但是它本身也是一个普通的函数
+//JS中所有的实例都是对象数据类型的
+
+//2.在函数代码执行的时候,
+相同点:都是形成一个私有的作用域,然后 形参赋值->预解释->代码从上到下执行()
+类和函数一样,也有普通的一面
+//不同:在代码执行之前,不用再手动创建对象了,浏览器会默认的创建一个对象类型的值(这个
+对象,就是我们当前类的一个实例)
+//接下来代码从上到下执行,以当前的实例为执行的主体(this代表的就是当前的实例),
+然后分别的把属性名和属性值赋值给当前的实例
+//最后浏览器会把默认创建的实例返回
+
+//3.
+//p1和p2都是CreateJsPerson这个类的实例,所以都拥有wtriteJs这个方法,不同实例之间的
+方法是不一样的
+//在类中给实例增加的属性(this.xxx=xxx)属于当前实例的私有属性,实例和实例之间是单独的
+个体,所以私有的属性之间是不相等的
+console.log(p1.writeJs === p2.writeJs);//false
+p1.writeJs()//writeJs->this p1
+
+var res = CreateJsPerson("朱峰",7)//undefined
+createJsPerson中的this指向的window
+坑:构造函数中的this是怎么指向实例的

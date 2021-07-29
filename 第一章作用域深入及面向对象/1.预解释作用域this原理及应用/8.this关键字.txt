@@ -35,3 +35,4 @@ document.getElementById("div1").onclick = function(){
 //this->div1
 fn();//this-windows
 }
+4.在构造函数的函数体中,出现的this.xxx=xx中的this是当前类的一个实例

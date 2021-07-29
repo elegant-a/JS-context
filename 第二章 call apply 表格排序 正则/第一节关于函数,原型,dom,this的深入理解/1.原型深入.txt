@@ -1,0 +1,20 @@
+构造函数模式,执行时new Fn，实例不仅继承了私有属性,还继承了公有的属性Fn.prototype
+__proto__
+基于内置类的原型扩展一个方法
+document.getElementByTagName()
+document.getElementByClassName()
+documen.getElementById()
+document.queryselector()
+document.querySelectorAll()
+docment.body.clientWidth || document.ducumentElement.clientWidth
+getElementById的上下文是 document
+var oDiv=document.getElementById("div1");
+//oDiv不是一个方法,上下文只能是document
+var list = document.getElementsByName("n1");
+console.log(list)
+在原型链上只有getElementsByClassName和getElementsByTagName
+
+元素的增删改都定义在node这个原型上,
+//回去后把常用的window,document,div,a的原型链结构一级一级的画出来,画出来后,每一级
+原型上都有哪些属性和方法,哪些兼容,哪些不兼容,这个方法是用来做什么的
+

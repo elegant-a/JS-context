@@ -1,0 +1,40 @@
+//2.重构原型对象的方式->自己开辟一个堆内存,存储我们公有的属性和方法,把浏览器原来给
+Fn.prototype开辟的哪个替换掉
+function Fn(){
+this.x = 100;
+}
+Fn.prototype = {
+   constructor:Fn,
+   a:function(){  },
+   b:function(){  },
+   c:function(){  },
+   d:function(){  }
+}
+var f = new Fn()
+//只有浏览器天生给Fn.prototype开辟的堆内存里面才有constructor,而我们自己开辟的这个堆内存
+没有这个属性,这样constructor指向就不在是Fn而是Object了
+console.log(f.constructor)//->Object
+//为了和原来的保持一致,我们需要手动的增加constructor的指向
+
+//2.用这种方式给内置类增加公有的属性
+//给内置类Array增加数组去重的方法
+Array.prototype.unique=function(){};
+//原型地址指向一个新的堆内存
+Array.prototype = {
+ constructor:Array,
+ unique:function(){
+
+}
+}
+console.dir(Array.prototype);
+//我们这种方式会把之前已经存在于原型上的属性和方法给替换掉,所以我们这种方式修改内置类的
+话,浏览器是给屏蔽掉的,但是我们可以一个个的修改内置的方法,当我们通过下述方式在数组的
+原型上增加方法,如果方法名和原来内置重复了,会把人家内置的修改掉-->我们以后在内置类的
+原型上增加方法,命名都需要条特殊的前缀
+
+var ary=[1,2,2,1,2,3,4,5]
+ary.sort();
+console.log(ary);
+Array.prototype.sort = function(){
+  console.log(this);this->ary我们当前要操作的数组
+};

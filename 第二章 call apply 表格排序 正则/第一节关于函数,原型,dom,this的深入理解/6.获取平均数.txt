@@ -1,0 +1,70 @@
+1.求平均数,去除一个最高分,去除一个最低分,两个数相加求和
+
+//先转换成数组,然后进行操作
+function avgFn(){
+    //给我们传递进来的值按照由小到大进行排序
+    arguments是一个类数组集合,它不是数组,不能直接使用数组的方法
+    var ary = [];
+    for(var i = 0;i<arguments.length;i++){
+   // 数组的长度比数组的索引大1
+    ary[ary.length] = arguments[i];
+}
+//->2.给数组进行排序,去掉开头和结尾,剩下的是求平均数
+ary.sort(function(a,b){
+
+return a - b;
+})
+ary.shift();
+ary.pop();
+return eval(ary.join("+")/ary.length).toFixed(2)
+}
+var res = avgFn(9.8,9.7,10,9.9,9.0,9.8,3.0);
+//保留小数点后面的两位的方法,Number这个类的一个方法
+
+//克隆一份一模一样的
+var ary=[12,23,34]
+ary.slice()
+
+//模拟内置的slice实现数组克隆的功能
+Array.prototype.mySlice = function(){
+//this->当前要操作的这个数组
+ var ary = [];
+ for(var i = 0;i<this.length;i++){
+ ary[ary.length] = this[i]
+}
+    return ary;
+};
+var ary = [12,23,34];
+var newAry = ary.mySlice();
+console.log(newAry);
+
+
+2.优化//借用数组原型上的slice方法,当slice执行的时候,让方法中的this变为我们要处理的arguments,
+实现将类数组转化为数组
+function avgFn(){
+var ary=Array.prototype.slice.call(arguments)
+//将slice里面的this指向arguments
+ary = [].slice.call(arguments);
+ary.sort(function(a,b){
+ return a - b
+}
+ary.shift();
+ary.pop();
+return (eval(ary.join("+"))/ary.length).toFixed(2);
+)
+}
+
+function avgFn(){
+var ary=Array.prototype.sort.call(arguments,function(a,b){
+
+return a - b;
+})
+[].shift.call(arguments);
+[].pop.call(arguments);
+return (eval([].join.call(arguments,"+"))/arguments.length).toFixed(2);
+}
+
+执行时改变this的指向
+
+
+

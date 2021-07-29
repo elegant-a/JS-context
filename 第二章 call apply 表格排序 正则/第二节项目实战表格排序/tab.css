@@ -1,0 +1,60 @@
+@charset "utf-8";
+@import "./normalize.css";
+@import "./base.css";
+/* 禁止用户选中文字 */
+a,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  input,
+  select,
+  button,
+  option,
+  textarea,
+  optgroup{
+  -webkit-user-select: none; 
+  }
+.box{
+   margin: 20px auto;
+   padding:20px;
+   width: 400px;
+   border: 1px solid  #008000;
+   border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   -ms-border-radius: 10px;
+   -o-border-radius: 10px;
+/* 阴影 x偏移 y偏移 阴影的模糊半径 阴影的扩展半径  */
+   box-shadow: 3px 3px 10px black;
+}
+
+.box thead{
+    background: pink;
+    color: #fff;
+
+}
+.box thead tr{
+    height: 35px;
+}
+.box thead tr th{
+    width: 100px;
+    text-align: center;
+}
+.box thead tr th.cursor{
+    cursor:pointer;
+}
+.box tbody tr{
+    height: 30px;
+}
+.box tbody .bg{
+    background: lightblue;
+}
+
+.box tbody tr td{
+   width: 100px;
+   text-align: center;
+}
+

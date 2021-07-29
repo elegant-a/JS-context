@@ -1,0 +1,43 @@
+var ary = [12,23,34,24,35,14,25,36]
+//1.首先给我们的数组由小到大排序,第一个和最后一个就是我们想要的最大值
+ary.sort(function(a,b){
+ return a - b
+})
+2.//假设法:假设当前数组的第一个是最大值,然后拿这个值和后面的项逐一比较,
+如果后面的某一个值比假设的还要大,说明假设错了,我们把假设的值进行替换
+和自定义属性一样都是,JS中用到的最常用的编程思想
+var max =ary[0], var min = ary[0]
+for(let i = 0;i<ary.length;i++){
+  var cur = ary[i]
+  cur>max?max=cur:null;
+  cur<min?min=cur:null;
+
+}
+console.log(min,max)
+
+var min = ary[0]
+var max=ary[ary.length - 1]
+//3.用Math的一个方法
+var min = Math.min(Number(ary.join()));
+也可以用ary. toString()
+//eval:把一个字符串变为JS表达式执行
+//例如:eval("12+23+34+45")  -> 114
+eval("12,34,15")//只获取到最后一项
+}
+字符串转换成数字 Number
+//6.->括号表达式
+ function fn1(){console.log(1)}
+ function fn2(){console.log(2)}
+(fn1,fn2)()->只有fn2执行了->(x1,x2,x3)
+一个括号中出现多项内容,中间用","隔开,但是我们呢最后获取到的结果只有最后一项,
+this不一样了,直接把对应的函数声明弄过来了
+//字符串拼接,首先不要管其他的,先把我们最后要执行的代码都变为字符串,然后把数组中的
+每一项的值都拼接到这个字符串中
+eval("Math.max(" + ary.toString() + ")")
+要求一个一个传参数
+我写的是把数组直接放进来
+var max=Math.max.apply(null,ary);
+由于apply是将值一个一个传入数组的,所以可以这么做
+
+
+

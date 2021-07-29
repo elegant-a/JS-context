@@ -1,0 +1,44 @@
+相同点:三者的作用都是一样的,都是在特定的作用中调用函数,等于设置函数体内this的值,
+以扩充赖以运行的作用域
+
+//首先找到Function原型上的call方法,将fn里面的this变为context,然后再让
+call方法执行
+var obj = {name:"zhufeng"}
+function fn(num1,num2){
+   console.log(num1+num2)
+   console.log(this)
+}
+fn(100,200);//this-window num1 = 100 num2 = 200
+fn.call(100,200)
+fn.call(100,200)//this->100 数字加形参不传值 undefined
+fn.call(obj,100,200),第一个参数改变的this值,100和200都是给函数传递的参数值
+
+fn.call();//this->window 在严格模式下this是undefined
+fn.call(null);//this->window this->null
+fn.call(undefined);//this-window->this -> undefined
+"use strict";//告诉当前浏览器接下来的JS代码将按照严格模式编写
+
+
+
+//而且在严格模式下和非严格模式下第一个参数是null/undefined这种情况的规律也是一样的
+//apply和call方法的作用是一模一样的,都是用来改变方法this的关键字,而apply不是一个一个传
+，而是把要给fn传递的参数值统一的放在一个数组中进行操作,但是也相当于一个个的给fn的形参赋值
+
+//bind:这个方法在IE6~8下不兼容->和call和apply类似,都是用来改变this关键字的
+fn.call(obj,1,2);->改变this和执行fn函数是一起都完成了
+fn.bind(obj,1,2);//只是改变了fn中的this为obj,并且给fn传递了两个参数值1,2,但是此时并没有把
+fn这个函数执行;执行bind会有一个返回值,这返回值tempFn就是我们把fn的this改变后的那个结果
+var tempFn = fn.bind(obj,1,2)
+
+//预处理思想:事先把fn的this改变为我们想要的结果,并且把对应的参数值也准备好,以后要用到了
+,直接执行即可
+
+1.自执行函数执行,this指向window,严格模式是this永远是undefined
+2.为元素某一个行为绑定方法,方法中的this指向的当前元素,严格没点 undefined
+3.当方法执行,看方法前有无点,点前是谁就是谁
+4.构造函数中的this是当前类的一个实例
+5.call,apply,bind改变this指向
+
+//严格模式下,this的主体是undefined
+
+//你以为你以为的就是你以为的 ->切记切记

@@ -1,0 +1,250 @@
+创建对象的方式
+//每一个对象都会从原型中继承属性
+//构造函数方式
+var obj ={};
+//实例创建
+var obj=new Object();
+
+var num = 1;Js独有的弱类型思想
+var num = new Number(1);//面向对象思想  {1}
+Object.prototype.aaa=function(){}
+var obj = {name:"朱峰",age:7};
+for (let key in obj){
+ console.log(obj[key])
+}
+for in公有属性上只可以遍历自己写的属性
+toString()检测数据类型的
+dir()
+
+//私有的属性可以进行枚举,公有的属性不能进行枚举
+//在原型上的都是不可枚举的
+for(var key in obj){
+//for in循环在遍历的时候,默认的话可以把自己的私有和
+在它所属类原型上扩展的属性和方法都可以遍历到,但是
+一般情况下,我们遍历一个对象只需要遍历私有的即可,
+我们用如下的判断进行处理
+ if(obj.prototypeIsEnumerable(key)){
+ console.log(key);
+}
+
+if(obj.hasOwnProperty(key){
+   console.log(key)
+})
+}
+
+for in 循环的时候加的一段代码
+i
+
+
+
+
+
+ECMA5
+//Object.create()  方法创建一个拥有指定原型和若干个指定
+属性的对象
+Obj.create();创建一个对象
+var obj = {
+constructor:Fn,
+getX:function(){
+
+}}
+function Fn(){
+
+}
+Fn.prototype = obj;
+
+var f = new Fn;
+Object.create(prototype,[])
+Fn.prototype.sum = function(){
+}
+
+var obj2=obj;把地址给ob2了.不算克隆
+for(var key in obj){
+ if(ob.hasOwnProperty(key)){
+ obj2[key] = obj[key]
+}
+}
+
+//Object.create(proObj) 创建一个新的对象,把proObj作为这个对象的原型
+
+var obj  ={getX:function(){}}
+//obj2也是一个对象数据类型的
+var obj2 = Object.create(obj);//在Object上面不兼容
+//->obj2
+//__proto__:
+// getX:function.....
+//__proto__:Object.prototype 
+obj2.getX();
+
+obj.getY = function(){
+ console.log(2)
+}
+
+obj2.getY();
+
+原理  
+var obj = {
+ getX:function(){
+
+}
+};
+
+function object(o){
+  function Fn(){
+
+}
+  Fn.prototype = o;
+  return new Fn;
+}
+
+var newObj = object(obj);
+
+//原型继承(将父类里面私有的和公有的通过原型连接起来)
+//->#div->HTMLDivElement.prototype->HTMLElement
+.prototype->Element.prototype->Node.prototype
+->EventTarget.prototype->Object.prototype
+
+function myObject(){
+
+
+}
+myObject.prototype={
+  constructor:myObject,
+  hasOwnProperty:function(){
+
+}
+}
+
+
+function myEventTarget(){}
+myEventTarget.prototype = new myObject();//当前对象指向所属类(函数)的原型
+myEventTarget.prototype.addEventListener=function(){}
+
+
+function myNode(){}
+//改变函数的原型指向
+myNode.prototype=new myEventTarget();
+myNode.prototype.createElement=function(){}
+
+var n = new myNode()
+
+function A(){
+ this.x=100;
+}
+A.prototype.getX=function(){
+ console.log(this.x)
+}
+
+function B(){
+  this.y=200
+}
+//B的原型是A的一个实例对象,而对象中的__proto__指向所属类A的
+原型,故而B继承了类A的私有属性和公有属性,B可以通过查找原型查找对应的属性
+B.prototype=new A();
+//"原型继承"是我们JS中最常用的一种继承方式
+//->子类B想要继承父类A中的所有属性和方法(私有+公有),只需要让B.prototype= new A 即可
+//->原型继承的特点:它是把父类中私有的+公有的都继承到了子类的原型上(子类公有的)
+
+//核心:原型继承并不是把父类中的属性和方法克隆一份一模一演的给B,而是让B和A之间增加了
+原型链的连接,以后B的实例n想要用A中的getX方法,需要一级一级的向上查找来使用
+
+类的三个功能(继承,封装和多态,多态又分为重载和重写,严格意义上讲JS没有重载)子类重写父类的方法
+实现原型继承:
+将需要继承的类的原型地址指向父类的实例
+B.prototype = new A()
+
+
+//call继承(把父类私有的变成子类私有的)
+
+//call继承:把父类私有的属性和方法 克隆一份一模一样的
+作为子类私有的属性
+function A(){
+ this.x = 100;
+}
+A.prototype.getX =function(){
+   console.log(this.x);
+};
+
+functionB(){
+ //this->n
+ A.call(this);//->A.call(n) 把A执行让A中的this变为了n
+}
+var n = new B;
+
+普通函数,类,普通对象(name,length)
+
+//冒充对象继承(将父类私有的和公有的 克隆一份一模一样的给子类私有的)
+function A(){
+ this.x = 100;
+}
+A.prototype.getX = function(){
+ console.log(this.x)
+};
+
+function B(){
+this -> n
+  var temp = new A;
+  for(var key in temp){
+  this[key] = temp[key];
+}
+temp = null;
+}
+var n = newB;
+console.log(n.x)
+
+
+
+
+//混合模式继承:原型继承+call继承
+function A(){
+ this.x = 100;
+}
+A.prototype.getX = function(){
+ console.log(this.x)
+};
+//父类私有的即在它的私有上有一份,也在它的公有上有一份
+function B(){
+  A.call(this);//->n.x=100
+}
+B.prototype=new A;//->B.prototype:x=100
+B.prototype.constructor = B; 
+var n = newB;
+n.getX()
+在项目当中,除了原型继承,最常用的就是公有继承
+//寄生组合式继承(私有的继承私有,公有的继承公有)
+function A(){
+ this.x = 100;
+}
+A.prototype.getX = function(){
+ console.log(this.x)
+};
+
+function B(){
+  A.call(this);
+}
+//创建一个对象让A的原型作为它的原型,并把值赋值给B
+B.prototype = Object.create(A.prototype);
+B.prototype,constructor = B;
+var n = newB;
+
+ie678不兼容
+function objectCreate(o){
+function fn(){}
+fn.prototype = o
+return new fn();
+}
+
+//中间类继承法->不兼容 
+function avgFn(){
+arguments.__proto__ = Array.prototype;
+
+arguments.sort(function(a,b){
+
+return a - b;
+});
+arguments.pop();
+arguments.shift()
+return eval(arguments.join("+")) / arguments.length;
+}
+
+console.log(avgFn(10,20,30,10,30,40,40))
