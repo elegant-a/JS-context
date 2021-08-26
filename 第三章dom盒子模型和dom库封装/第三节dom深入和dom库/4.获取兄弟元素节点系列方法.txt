@@ -1,0 +1,87 @@
+//prev:获取上一个哥哥元素节点
+//首先获取当前元素的上一个哥哥节点,判断是否为元素节点,不是的话基于当前的继续找上面的
+哥哥节点...一直找到哥哥元素节点为止,如果没有哥哥元素节点,返回null即可
+function prev(curEle){
+  if(flag){
+   return curEle.previousElementSibling;
+}
+ var pre = curEle.previousSibling
+ while (pre && pre.nodeType !== 1){
+ pre = pre.previousSibling;
+}
+return pre;
+}
+
+//获取下一个弟弟元素节点
+function next(curEle){
+ if(flag){
+  return curEle.nextElementSibling;
+}
+var nex=curEle.nextSibling
+while(nex && nex.nodeType !== 1){
+
+ nex = nex.nex
+}
+ return nex
+}
+
+//获取所有的哥哥元素节点
+function prevAll(curEle){
+ var ary = [];
+ var pre=this.prev(curEle);
+ while(pre){
+ ary.unshift(pre);
+ pre = this.prev(pre)
+}
+  return ary;
+}
+
+//nextAll获取所有的弟弟元素节点
+function nextAll(curEle){
+ var ary = [];
+ var nex=this.next(curEle);
+ while(nex){
+ ary.push(nex);
+ pre = this.prev(nex)
+}
+  return ary;
+}
+
+//sibling:获取相邻的两个元素节点
+function sibling(curEle){
+var pre = this.prev(curEle);
+var nex = this.next(curEle);
+var ary = [];
+pre?ary.push(pre):null;
+nex? ary.push(nex):null;
+return ary
+}
+
+//siblings:获取所有的兄弟元素节点
+function siblings(curEle){
+ return this.prevAll.concat(this.nextAll);
+}
+
+//获取当前元素索引
+function index(curEle){
+
+return this.prevAll(cueEle).length;
+}
+//firstChild:获取第一个元素子节点
+function firstChild(curEle){
+var chs = this.children(curEle);
+ return chs.length>0?chs[0]:null
+}
+//lastChild获取最后一个元素子节点
+function firstChild(curEle){
+var chs = this.children(curEle);
+ return chs.length>0?chs[chs.length - 1]:null;
+}
+
+低耦合和高内聚
+函数的封装,把实现当前的代码封装起来
+
+
+
+
+

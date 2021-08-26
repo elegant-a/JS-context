@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery版轮播图</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/iconfont.css">
+    <link rel="stylesheet" href="./css/banner.css">
+
+
+</head>
+<body>
+
+<!--  //刚开始进来,四张图片叠加到一起,每一张图片的透明度和z-index都是0,让第一张图片的透明度为1,z-index也为1-->
+<!--  //当进过间隔时间第二张z-index为1,透明度变为1,其他的透明度变为0,z-index变为0-->
+  <div class="banner" id="bannerFir">
+      <div class="bannerInner">
+<!--          <div><img src=""  trueImg="./imgs/img1.png" alt=""></div>-->
+<!--          <div><img src=""  trueImg="./imgs/img2.jpg" alt=""></div>-->
+<!--          <div><img src=""  trueImg="./imgs/img3.jpg" alt=""></div>-->
+<!--          <div><img src=""  trueImg="./imgs/img4.jpg" alt=""></div>-->
+      </div>
+      <ul class="bannerTip">
+<!--          <li class="bg"></li>-->
+<!--          <li></li>-->
+<!--          <li></li>-->
+<!--          <li></li>-->
+      </ul>
+      <div class="conL">   <div class="iconfont">&#xe65f;</div></div>
+      <div class="conR">   <div class="iconfont">&#xe615;</div></div>
+  </div>
+
+<!--//阻止点击时的默认行为-->
+<div class="conL"><div class="iconfont">&#xe623;</div>   </div>
+<div class="conR"><div class="iconfont">&#xe624;</div>   </div>
+<script charset="UTF-8" src="./jQuery1.11.1/jquery-1.11.1.min.js"></script>
+<script src="./js/banner.js"></script>
+<script type="text/javascript">
+    $(".banner").banner("http://localhost:8083/data",3000)
+</script>
+</body>
+</html>

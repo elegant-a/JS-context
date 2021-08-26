@@ -73,3 +73,168 @@ num>=0?console.log("正数或零"):console.log("负数")
 js中异步编程的四种情况:定时器是异步编程的,所有的事件绑定都是异步编程的,Ajax读取数据的时候,
 我们一般都设置为异步编程,回调函数也是异步编程的
 
+
+
+原型上都是不可枚举的
+数据类型检测的四种方式
+//1.typeof 用来检测数据类型的运算符
+
+console.log(typeof 12);"number"
+//->使用typeof检测数据类型,首先返回的都是一个字符串,其次，字符串中包含了对应的数据类型
+例如 number,"string","boolean","undefined","function","object"
+//局限性 typeof null->"object"
+console.log(typeof typeof typeof function(){}) "string"
+//->不能具体的细分是数组还是正则,还是对象中其他的值,因为使用typeof检测数据类型,
+对于对象数据类型中的左右的值,最后返回的结果都是"object"
+function(num1,num2){
+  if(typeof num2 === "undefnied"){
+  num2 = 0;
+}
+  num2 = num2 || 0;
+fn(10,false);
+
+function fn (callback){
+  typeof callback === "function" ? callback() : null;
+  callback && callback()
+
+
+}
+fn(function(){
+
+
+})
+
+}
+
+//2.instanceof 检测某一个实例是否属于某个类
+var obj = [12,23];
+console.log(obj instanceof Array);
+console.log(obj instanceof RegExp);
+
+//局限性(多)
+//1.不能用来及检测和处理字面量方式创建出来的基本数据类型
+//对于基本数据类型来说,字面量创建出来的方式和实例创建出来的方式是有一定的缺别的
+//从严格意义上讲,只有实例创建出来的结果才是标准的对象数据类型,也是Number的一个实例
+,对于字面量创建出来的结果是基本数据类型值,不是严谨的实例,但是由于JS的松散特点,
+导致了可以使用Number.prototype上提供的方法
+console.log(1 instanceof Number);//false
+console.log("" instanceof String);//false
+console.log(true instanceof Boolean)//false
+//console.log(new Number(1) instanceof Number);//true
+//2.instanceof的特性:只要在当前实例的原型链上,我们用其检测出来的结果都为true
+HTMLDivElement.prototype ->HTMLElement.prototype ->Element.prototype->Node.prototype
+->Event.prototype->Event.prototype->object.prototype
+oDiv instanceof EventTarget
+//原型继承:让子类的原型等于父类的一个实例
+function Fn() {
+
+}
+//在类的原型继承中,检测结果不一定准确
+var ary=new Array;
+将ary赋值给Fn.prototype
+Fn.prototype = ary;//原型继承:让子类的一个原型等于父类的一个实例
+var f = new Fn;
+f->Fn.prototype->Array.prototype->Obect.prototype
+
+//自己写一个类,作用是创建一个类数组(索引和length),但是可以使用数组的方法(在它的原型上就应该有Array.prototype了)
+
+
+
+
+//3. constructor 构造函数 作用和instanceof非常的相似
+var obj=[];
+先找私有里面的有没有,如果没有就找prototype上面的,
+obj是数组,找的就是数组上面的prototype
+console.log(obj.constructor=== Array);
+
+constructor可以处理基本数据类型的检测
+var reg = /^$/;
+console.log(reg.constructor === Object);//false
+console.log(reg.constructor === RegExp);//true
+
+//局限性:我们可以把类的原型进行重写,在重写的过程中,很有可能把之前写的constructor覆盖了,
+这样检测的结果就不准确了
+
+
+//对于特殊数据类型null和undefined,他们的所属类是Null和Undefined,但是浏览器把这两个
+类保护起来了,不允许我们在外面访问使用
+
+//对象数据类型的基类
+//4.Object.prototype.toString.call() //最准确最常用的方法
+//->首先获取Object原型上的toString方法,让方法执行,并改写方法中this的指向
+
+
+//5.toString的理解
+
+Object.prototype.toString它的作用是返回当前方法的执行主体(方法中this)所属类
+的详细信息
+
+var obj={name:"zhufeng"};
+console.log(obj.toString());//->toString中的this是谁obj,返回的是obj所属类的信息
+->"[object Object]" 第一个是object代表当前实例是对象数据类型的(这个是固定死的),
+第二个Object代表的是obj所属的类是哪个类
+
+//Math.toString() ->toString中的this是Math,那么返回的是Math所属类的信息->"[object Math]"
+
+var ary = [];
+console.log(Object.prototype.toString.call(ary));
+->"[object Array]"
+console.log(Object.prototype.toString.call(ary));
+//"[object RegExp]"
+
+console.log(({}).toString.call(new Date));//->[object Date]
+console.log(Object.prototype.toString.call(1));
+console.log(Object.prototype.toString.call("朱峰"));
+console.log(Object.prototype.toString.call(true));
+console.log(Object.prototype.toString.call(null));
+console.log(Object.prototype.toString.call(undefined));
+console.log(Object.prototype.toString.call(function(){}));
+[object Number]
+[object String]
+[object Boolean]
+[object Null]
+[object Undefined]
+[object Function]
+
+所有类型都可以用来检测
+
+var ary = []
+console.log(Object.prototype.toString.call(ary)=== "[object Array]");
+//true
+
+var reg =/^\[object Array\]$/
+console.log(reg.test(Object.prototype.toString.call(ary))) 
+
+function Fn(){}
+Fn.prototype = new Array;
+var f = new Fn;
+console.log(f instanceof Array);// ->true
+console.log(Object.prototype.toString.call(f)) [object Object]
+
+
+
+
+
+
+
+//->乍一看应该是转化为字符串,但某些toString方法不仅仅是转换为字符串
+console.log((1).toString());Number.prototype.toString()
+转化为字符串"1"(128).toString(2/8/10);把数字转化为二进制,八进制,十进制
+
+布尔toString也是转化为字符串
+null和undefinedtoString没有
+数组转化为字符串
+[12,23,34].toString() "12,23,34"
+正则也可以转化为字符串
+var date = new Date().toString()转化为字符串
+//({name:"朱峰"}).toString()->"[object Object]"
+//Math.toString() -> "[object ]"
+
+
+(1).__proto__.proto__.toString()"[object Object]"
+
+
+//对于Number,String,Boolean,Array,RegExp,Date.Function原型上的toString方法都是
+把当前的数据类型转换为字符串的类型(它们的作用仅仅是用来转换为字符串的)
+Object.prototype.toString()并不是用来转换为字符串的
+

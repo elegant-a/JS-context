@@ -1,0 +1,22 @@
+<video width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+您的浏览器不支持Video标签。
+</video>
+
+video标签里面写 source标签 标签上的src是视频的地址
+
+HTML5 Audio/Video方法
+play() 开始播放当前音频,视频
+pause() 暂停播放当前的音频,视频
+
+HTML5 Audio/Video属性
+autoplay 是否在加载完成后随即播放音频/视频
+controls设置是否显示音频或者视频的控件(比如播放/暂停等)
+
+
+HTML5 Audio/video事件
+video元素可以对这些事件进行监听,然后进行回调处理
+pause  当音频/视频已暂停时
+timeupdate 当目前播放的位置更新时
+

@@ -1,9 +1,12 @@
-//->jsonParse:把JSON格式的字符串转换为JSON格式
+ //->jsonParse:把JSON格式的字符串转换为JSON格式
 jsonParse:function(str){
- var var=null
-  try{
-  val=JSON.parse(str)
-}catch{
-  eval("(" + str ")")
-}
+    var val=null
+     try{
+     val=JSON.parse(str)
+   }catch{
+     eval("(" + str + ")")
+   }
+
+   return val
+   }
 }

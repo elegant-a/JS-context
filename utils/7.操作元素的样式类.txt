@@ -1,0 +1,32 @@
+//验证当前元素中是否包含className这个样式名
+function hasClass(curEle,className){
+ var reg = newRegExp("(^| +)"+className+"( +|$)")
+ return reg.test(curEle.className);
+
+}
+//addClass:给元素增加样式类名
+function addClass(curEle,className){
+//->为了防止className传递进来的值包含多个样式类名,我们把传递进来的字符串
+按照一到多个空格拆分成数组中的每一项
+var ary = className.split(/ +/g);
+//循环数组,一项项的进行验证增加即可
+for (var i = 0,len = ary.length;i < len;i++){
+var curName = ary[i]
+if (!hasClass(curEle,curName)){
+  curEle.className += "" + curName;
+}
+}
+}
+
+
+//->removeClass:给元素移除样式类名
+function removeClass(curEle,className){
+var ary = className.split(/ +/g);
+for (var i = 0,len = ary.length;i < len;i++){
+var curName = ary[i]
+if (hasClass(curEle,curName)){
+    var reg = new RegExp("(^| +)" + curName + "( +|$)","g");
+    curEle.className=curEle.className.replace(reg," ");
+}
+}
+}

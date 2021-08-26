@@ -1,0 +1,85 @@
+//图片延迟加载/图片懒加载
+
+作用:保证页面打开的速度(3s之内首页如果打不开,就已经算是死亡页面了)
+
+原理:
+1）对于首屏幕中的图片:首先给对应的区域一张默认图片占着位置(默认图需要非常的小,一般可以
+维持在5kb以内),当首屏内容都加载完成后(或者也可以给一个延迟到的时间),我再开始加载真实的图片
+2)对于其他屏中的图片；也是给一张默认的图片站位,当滚动条滚动到对应区域的时候,
+我们再开始加载真实的图片
+
+  扩展:数据的异步加载,开始只把前两屏的数据加载绑定出来,后面的数据不进行处理,
+当页面滚动到对应区域的时候在从新请求数据然后绑定渲染数据
+
+<img src="img">
+找到服务器,获取HTML页面,缓存页面
+代码从上到下执行
+link ->css 又向服务器发送一个请求,服务器发送回css
+图片也要请求
+
+script 也要发送请求,然后返回相应的script代码
+
+网站性能优化:尽量减少向服务器请求的次数"减少HTTP请求"
+"css/js文件进行合并,icon图片也进行合并->雪碧图/精灵图"
+图片的延迟加载
+数据的异步加载
+在移动端,如果我做的是一个简单的宣传页,尽量把css和js写成内嵌式
+
+//在开始的时候img的src属性没有地址,这样的话在IE浏览器中容器会显示一张碎图,
+不美观,所以我们让其默认是隐藏的,当真实的图片加载完成后在显示
+
+给banner加一个默认的背景图片
+.
+.banner img{
+ display:none;
+ width:100%
+ height:100%
+.banner {
+ margin:10px auto;
+ width:350px;
+ height:200px;
+ border:1px solid green;
+ background；URL（"img/default.gif"）no-repeat center center水平居中 垂直居中 #e1e1e1;/给当前的区域再加一个默认图占位,告诉用户此处/
+
+
+}
+}
+<div class="banner">
+//trueImg是当前img标签的自定义属性,存储的是真实的图片地址
+  <img src="" trueImg="img/jd.jpg/">
+</div>
+
+
+var banner = document.getElementByClassName("banner"),imgFir = 
+banner.getElementsByTagName("img")[0];
+
+window.setTimeout(function(){
+//->以上处理还是不完整的:如果我们获取的真实图片地址时错误的,当前赋值给IMG的src属性
+的时候,不仅控制台会报错,而且页面中会出现碎图/叉子图影响视觉效果
+//获取图片的地址,验证地址的有效性,是有效的才赋值,不是有效的是不进行赋值处理的
+          var oImg = new Image;//创建一个临时的IMG标签
+          var oImg = document.createElement("img")
+          使oImg的地址为imgFir的一个属性
+          oImg.src= imgFir.getAtribute("trueImg")
+
+          oImg.onload = function(){ //当图片能够正常加载
+          
+          imgFir.src的地址就位this.src的地址 
+
+          imgFir.src=this.src;
+          imgFir.style.display = "block"
+          oImg = null;
+console.log(图片加载完成)
+var now Time = new Date;
+console.log(nowTime - time);
+}
+console.log(图片正在加载中)
+//判断一张图片需要多长时间加载出来
+var time = new Date;
+},500)
+
+图片包一个容器,使真实图片的src为空 自定义一个真实的自定义属性 trueImg="img/jd.jpg"
+样式首先使img隐藏,然后设置一个背景图,避免出现碎图等情况
+js中设置定时器,500ms临时创建一个新的 img标签,把我自定义的属性赋值给src
+如果能成功就会触发onload行为
+就给img赋真实的地址,如果不成功,就设置默认的行为

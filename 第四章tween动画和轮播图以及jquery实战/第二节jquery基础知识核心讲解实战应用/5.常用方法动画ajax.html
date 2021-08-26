@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery 的ajax事件</title>
+    <style>
+        #box{
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            margin-left: -10px;
+            width: 20px;
+            height: 30px;
+            background: red;
+
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+        input{
+            margin-left: 50%;
+            transform: translateX(-100px);
+            display: block;
+            width:200px;
+            height:35px;
+            border: 1px solid green;
+            cursor: pointer;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="操作"  id="submit"/>
+<div id="box"></div>
+<script src="jQuery1.11.1/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    // $.ajax({
+    //     url:"json/test.test?_="+Math.random(),
+    //     type:"get",
+    //     dataType:"text", //"html","jsonp","text"....
+    //     success: function (data){
+    //         console.log(data)
+    //     }
+    // })
+    //
+    // //事件
+    // $("#box").on("click",function(){
+    //           //this；当前元素(JS原生对象)
+    // })
+    // $("box").on("click",function (){
+    //     console.log(2);
+    // })
+    // $box.on("mouseover",function(){
+    //     console.log(3)
+    // })
+    // $box.on("mouseout",function (){
+    //     console.log(4);
+    // })
+    //
+    // //工具
+    // //jQuery.browser.version()
+    // //each:jQuery中有两个each
+    // //循环选择器获取到的集合中的每一项的结果
+    // $("div").each(function (index,item){
+    //
+    // })
+    //
+    // //循环数组,类数组,对象中的每一项
+    // $.each([12,23,34],function (index,item){
+    //     console.log(item);
+    // })
+    // //可以遍历数组,类数组,对象
+    // $.each(document.getElementsByTagName("*"),function(index,item){
+    //     console.log(item);
+    // })
+    //
+    // // ->$.makeArray ==> listToArray
+    // //jQuery将类数组转换为数组的方法
+    //
+    // var ary = $.makeArray(document.getElementsByTagName("div"));
+    // arr.reverse();//使用数组反转
+    //
+    // $.unique(array) //数组去重
+    // $.parseJSON()//将字符串格式的JSON转换成JSON格式的对象
+    //
+    // //->动画
+    // //->$(""#box).animate({left:xxxx,top:xxx,xxx},duration,"linear/ease/easeIn/easeOut/easeInOut",function(){
+    //
+    // // })
+    // // 起始位置,所需时间,运动男速度,回调函数
+    // //->stop:结束之前正在运行的动画,开启下一个新的动画
+    // $("#box").stop().animate({},1000,function (){
+    //
+    // })
+
+    //->fadeIn(淡入),fadeOut(淡出),fadeToggle()
+
+    //delay:延迟
+    //->show,hide,toggle
+    //->slideUp,slideDown,slideToggle
+    $(function(){
+        var submit = $("#submit"),box=$("#box");
+        submit.on("click",function(){
+           // box.stop().hide("fast")
+            //里面的参数支持fast,slow具体的时间
+            // box.stop().slideUp(500)收起
+            // box.stop().fadeOut()//淡出
+
+            // box.stop().delay(1000).slideToggle(500);//delay延迟
+             // $box.finish().slideToggle(500);
+
+            box.slideUp(500).stop().hide();
+
+            box.slideUp(500).finish().hide(500);  //-。stop的意思是结束上一个动画,从当前位置开始,下一个动画是紧接着当前位置开始运动
+
+            //finish的意思是:结束上一个动画,并且而昂元素快速的到达目标位置,在开始下一个动画
+
+            // box.slideUp(1000).stop().hide(100);
+
+          box.stop().animate({
+              top:600,
+              opacity:0.5
+          },5000,function(){
+              $(this).css("background","000");
+          })
+        })
+    })
+
+    //一些常用的方法
+</script>
+</body>
+</html>

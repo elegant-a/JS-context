@@ -1,0 +1,53 @@
+HTML表格
+<table></table> 表格主体
+<tr></tr>标签每一行
+<td></td>行中的每一列
+<th></th>表头中的每一列
+
+HTML列表
+
+HTML无序列表
+<ul>
+<li></li>
+<li><li/>
+<ul/>
+
+有序列表
+<ol>
+<li></li>
+<li><li/>
+<ol/>
+
+HTML区块元素
+大多数HTML元素被定义为块级元素或内联元素
+<h1>.<p>,<ul>,<table>,<div>
+
+HTML内联元素
+<b>,<a>,<img>,<span>
+
+HTML布局-
+1.使用div布局
+2.使用table布局
+
+
+HTML表单
+文本域(textarea),下拉列表<select><option><option/></select>
+<form>
+表单元素
+<input type="text" value="123">
+text,password,Radio,Checkboxes,Submit Button,
+value属性是表单元素初次加载时的默认值
+</form>
+
+HTML框架
+通过使用框架,你可以在同一个浏览器窗口显示不止一个页面
+<iframe src="URL"></iframe>
+
+
+HTML脚本
+<script>标签用于定义客户端脚本,比如javaScript
+<script> 元素既可包含脚本语句，也可通过 src 属性指向外部脚本文件。
+
+
+
+

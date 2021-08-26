@@ -1,0 +1,8 @@
+function win(attr,value){
+if(typeof value === "undefined"){//->没有传递value值->"获取"
+   return docuemnt.documentElement[attr] || document.body[attr]
+}
+//->"设置"
+document.documentElement[attr] = value;
+document.body[attr]=value;
+}

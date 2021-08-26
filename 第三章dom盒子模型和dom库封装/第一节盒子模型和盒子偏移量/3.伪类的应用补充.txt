@@ -1,0 +1,89 @@
+//补充css伪类
+window.getComputedStype(curEle,null).width
+curEle.currentStyle.width
+<style type="text/css">
+.box{
+margin:20px auto;
+padding:30px;
+width:300px;
+border:1px solid green
+}
+.box p :before{
+  display:block;
+  height:30px;
+  line-height:30px;
+  text-aligin:"center"
+  line-height:30px
+  content:"朱峰培训";
+  background:"lightgreen"
+}
+.box p:after{
+display:block;
+  height:30px;
+  line-height:30px;
+  text-aligin:"center"
+  line-height:30px
+  content:"朱峰培训";
+  background:"lightgreen"
+
+}
+</style>
+/*:before :after*/
+在一个元素标签的前面或者后面,创建一个新的虚拟标签,我们可以给这个标签
+增加样式,也可以增加内容
+<div class="box">
+<p>
+
+哒哒哒哒哒哒
+<p>
+</div>
+
+/*CSS3中新增加的伪类:nth-child*/
+.list{
+margin:20px auto;
+
+width:300px;
+border:1px solid #000;
+}
+//奇偶行变色
+.list li:nth-child(odd){
+  background:lightblue
+}
+
+.list li:nth-child(even){
+background:lightgreen;
+}
+.clear {zoom:1;}
+.clear:after{
+display:block;
+width:0;
+height:0;
+content:"";
+overflow:hidden;
+clear:both;
+}
+.list li:nth-child(4n+1){
+background:green;
+}
+.list li :nth-child(4n+2){
+
+}
+
+里面的元素一浮动的话,
+父级的高度就撑不开了
+
+清除浮动的代码
+.clear {zoom:1;}
+.clear:after{
+display:block;
+width:0;
+height:0;
+content:"";
+overflow:hidden;
+clear:both;
+}
+
+css和CSS3常用的选择器一览表
+var boxP = document.getElementById("boxP");
+//虽然获取不到标签,但是我能获取到样式
+console.log(window.getComputedStyle(box,"before".content))

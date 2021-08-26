@@ -1,0 +1,159 @@
+盒子偏移量
+<style type="text/css">
+*{
+margin:0;
+padding:0;
+}
+#outer{
+margin:50px auto;
+padding:50px;
+width:180px;
+height:300px;
+border:10px solid #000;
+background:orange;
+}
+</style>
+#inner{
+padding:50px;
+width:80px;
+border:10px solid #000;
+background:green
+}
+
+
+var outer = document.getElementById("outer"),inner=document.getElementById("inner"),
+center=document.getElementById("center")
+
+//1.parentNode:父级节点 HTML结构层级关系中的上一级元素
+center.parentNode //->inner
+inner.parentNode//->outer
+/outer.parentNode//->body
+
+
+document.parentNode(浏览器天生自带的一个属性:父亲节点的属性)
+->null(因为一个页面中的document已经是最顶级元素了，它没有父亲)
+
+null和undefined都代表没有,但是null是只不存在,undefined是这个属性都不存在
+
+
+null和undefined的区别
+
+//2.offsetParent:父级参照物
+在同一个平面中,最外层的元素是里面所有元素的父级参照物
+//->一般来说一个页面中的所有父级参照物都是body
+center.offsetParent->body
+inner.offsetParent->body
+
+document.body.offsetParent->null
+
+//想要改变父级参照物需要通过position定位来改变
+position:absolute;
+position:relative;
+position:fixed;
+posiiton:static;
+position:inherit;
+
+outer.style.position
+
+
+absolute,relative,fixed任意一个值都可以把父级参照物进行修改
+outer.style.position = "relative";
+
+console.log(center.offsetParent);//outer
+console.log(inner.offsetParent);//->outer
+console.log(outer.offsetParent);->body
+
+
+//outer.style.position = "relative";
+//inner.style.position = "relative";
+// console.log(center.offsetParent);//inner
+//console.log(inner.offsetParent);//->outer
+//console.log(outer.offsetParent;//->body
+
+//3.offsetTop/offsetLef:当前元素(外边框)距离其父级参照物(内边框)的偏移距离
+center.offsetParent->inner
+inner.offsetParent->outer
+outer.offsetParent->body
+
+//不管center的父级参照物是谁,获取其距离body的左偏移
+
+var left=null;
+left+=center.offsetLeft//距离inner内边框的距离
+
+var par = center.offsetParent;->center的父级参照物inner
+left+=inner.clientLeft(2);inner的左边框宽度
+left+=inner.offsetLeft(3);inner距离outer的距离
+
+par = par.offsetParent;inner的父级参照物outer
+left+=outer.clientLeft(4)outer的边框
+left+=outer.offsetLeft(5)outer距离边框的偏移量
+
+求出页面中任意一个元素(不管他的父级参照物)获取距离body的左偏移量?
+->首先加上自己本身的左偏移
+->获取自己的父级参照物p，把左边框和做偏移都加上
+->基于当前的p在向上找父级参照物,找到后依然是累加边框和其左偏移s
+->一直到父级参照物为null,已经找到body
+
+//->offset:等同于jQuery中的offset方法,实现获取页面中任意一个元素,距离
+body的偏移(包含做偏移和上偏移),不管当前元素的父级参照物是谁
+
+
+
+//获取任何元素距离body的偏移量
+//在标准的IE8,浏览器中,我们使用offsetLeft和offsetTop
+其实是把父级参照物的边框已经算在内部了
+function offset(curEle){
+var totalLeft = null,totalTop = null,par = curEle.offsetParent
+  //首先把自己本省的进行累加
+  totalLeft += curEle.offsetLeft;
+  totalTop += curEle.offsetTop;
+  //只要没有body,我们就把父级参照物的边框和偏移也进行累加  
+  while(par){
+//不是标准浏览器才进行了累加 
+  if(navigator.userAgent.indexOf("MSIE 8.0")=== -1){
+   //->累加父级参照物的边框
+  totalLeft += par.clientLeft;
+  totalTop += par.clientTop;
+
+}
+
+ 
+
+ //累加父级参照物本身的偏移量
+  totalLeft += par.offsetLeft;
+  totalTop += par.offsetTop;
+  
+  par=par.offsetParent;
+}
+
+return {left:totalLeft.top:totalTop}
+
+}
+
+
+
+//获取里面的left值
+console.log(offset(center).left)
+
+求两个元素的距离
+offset(center).top - offset(inner).top-inner.clientTop
+
+
+
+不过父级参照物是谁,都获取距离body的offset值
+function offset(curEle){
+var totalLeft = null,totalTop = null,par = curEle.offsetParent
+  totalLeft += curEle.offsetLeft;
+  totalTop += curEle.offsetTop;  
+  while(par){ 
+  if(navigator.userAgent.indexOf("MSIE 8.0")=== -1){
+  totalLeft += par.clientLeft;
+  totalTop += par.clientTop;
+}
+  totalLeft += par.offsetLeft;
+  totalTop += par.offsetTop;
+  par=par.offsetParent;
+}
+return {left:totalLeft.top:totalTop}
+}
+

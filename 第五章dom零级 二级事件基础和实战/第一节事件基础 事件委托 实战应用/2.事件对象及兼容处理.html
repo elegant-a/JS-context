@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text">
+<a href="http://www.baidu.com.cn" target="_blank">珠峰培训</a>
+<!--点击会跳转到默认的页面,增加target属性,则会新建一个标签页-->
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    var input1  = document.getElementById("input1")
+    input.onkeyup = function(e){
+        e = e || window.event;
+        //->keyboard键盘事件
+        console.log(e);
+        //->e.keyCode:当前键盘上：当前键盘上每一个键对应的值 空格(space):32 删除(Backspace)->8 //回车键(Enter) -> 13
+        //删除键(del) 46
+        //四个方向键->(左上右下)37 38 39 40
+    }
+    //document.body.onkeyup = function(){
+    //  e = e || window.event;
+    //  console.log(e.keyCode)
+    // }
+    //->我们是把匿名函数定义的部分当做一个值赋值给oDiv的点击行为(函数表达式
+    //->当我们触发#div1的点击行为的时候,会 执行对应绑定上的方法
+    //->重要:不仅仅把绑定的方法执行了,而且浏览器还默认的给这个方法传递了一个参数值
+    //MouseEvent:鼠标事件,对象数据类型值
+    //1)它是对象数据类型值,里面包含了很多属性名和属性值,这些都是用来记录当前的鼠标信息的
+    //2)mouseEvent ->UIEvent->Event-Object(原型)
+    //3)MouseEvent记录的是页面个唯一一个鼠标每一次触发时候的相关信息,和到底是在哪个元素上触发的没有关系
+
+    //2.关于事件对象MouseEvent的兼容问题
+    //->1)事件对象本身的获取存在兼容问题:标准浏览器是浏览器给方法传递的参数,我们只需要定义形参e就可以获取到;在IE6-8中浏览器
+    //不会给方法传递参数,我们如果需要的话,需要到window.event中获取查找
+        oDiv.onclick = function (e){
+            console.log(e)//e就是我们想要的鼠标事件对象
+            console.log(window.event)
+            e = e || window.event;
+            e.clientX/e.clientY;//当前鼠标触发点距离当前屏幕左上角x/y轴的坐标值,浏览器窗口可视区域的x坐标
+            e.type//存储的是当前鼠标触发的行为类型 "click"
+            e.target//事件源,当前鼠标触发的是哪个元素,那么它存储的就是哪个元素,
+            //但是在ie6-8中,不存在这个属性(e.target的值是undefined),我们使用e.srcElement来获取事件源
+            e.pageX/e.pageY//:当前鼠标触发点距离body左上角(页面第一屏幕最上端)的x/y轴的坐标,返回鼠标相对于文档页面的X坐标
+            //但是在ie6-8中没有这个属性我们通过使用clientY+滚动条卷去的高度来获取也可以
+            e.pageX = e.pageX||(e.clientX+(document.documentElement.scrollLeft ||document.body.scrollLeft))
+            e.pageY = e.pageY||(e.clientY+(document.documentElement.scrollTop || document.body.scrollTop))
+            //e.preventDefault:阻止浏览器的默认行为
+            //a标签的默认行为就是挑战者页面,但是我们有时候使用a标签,只是想应用它的特殊性,并不想点击的时候跳转
+            //我们li加:hover伪类在IE6浏览器中是不兼容的 只有a标签的这个伪类才是兼容所有浏览器的
+                //e.preventDefault:阻止浏览器的默认行为,在IE6-8中没有这个方法,我们需要使用e.returnVlaue=false;来替代
+                //在href中添加javascript:;阻止a标签跳转的默认行为
+                //href="javascript:void 0 ;"href="javascript:void 1;"
+                //思考题搜索三种写法的区别
+                //e.stopPropagation:阻止事件的冒泡传播,在ie6-8不兼容,使用e.cancelBubble阻止事件冒泡传播
+                e.stopPropagation()?e.stopPropagation():e.cancelBubble=true
+            <a href="#"></a>
+            //a:hover兼容ie6
+            var linkList = document.getElementsByTagName("a")
+            for(var i = 0;i<linkList.length;i++){
+                linkList[i].onclick = function (e){
+                    e = e || window.event;
+                    e.preventDefault();
+                    // return false;//和上述的代码是一样的效果,都是在阻止默认的行为
+
+                }
+            }
+
+
+
+            document.body.onclick = function(e){
+                e.target = e.target || e.srcElement;
+                console.log(e.pageY,e.ctrlKey);
+                //距离当前屏幕的宽度
+
+            }
+        }
+        document.body.onclick=function (e){
+
+        }
+</script>
+</body>
+</html>

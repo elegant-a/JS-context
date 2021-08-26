@@ -1,0 +1,43 @@
+
+//2015年06月10日 14时53分00秒 
+
+把时间格式的字符串,换为时间格式对象
+var a = new Date(str);
+
+var str = "2015-06-10 14:53:00",reg=
+/^(\d{4})[-/](\d{1，2})[-/](\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})$/
+
+var ary = [];
+str.replace(reg,function(){
+   //将原型上slice上的this指向arguments的this,将类数组转换为数组
+   ary = [].slice.call(arguments);
+   ary = ary.slice(1,7);
+   
+
+})
+var resStr = "{0}年{1}月{2}日{3}时{4}分{5}秒",reg=/{(\d+)}/g;
+
+
+var ary = ["2015","6","10","14"."53","0"]
+
+resStr=resStr.replace(reg,function(){
+  var num = arguments[1],val = ary[num];
+  val.length === 1 ? val = "0" + val : void 0;
+  return val
+})
+
+console.log(resStr)
+//设定好我们目标时间格式,把数组中对应的项替换到指定的区域内
+{0}替换成2015:首先要先获取{0},而且我们还要获取那个0,这个0相当于
+我们ary数组中的索引,我们要做的就是把对应索引的内容替换我们{0}
+ //每一次都会把正则匹配的内容捕获到:如果没有分组,一般是三个参数;
+  但是正则中如果有需要捕获的分组,参数的个数就不确定了,从arguments[1]开始就是对应
+  分组捕获的内容,arguments[0]是大正则捕获的内容
+console.log(reg.exec(resStr))
+console.log(reg.exec(resStr))
+console.log(reg.exec(resStr))
+console.log(reg.exec(resStr))
+console.log(reg.exec(resStr))
+console.log(reg.exec(resStr))
+
+这样大正则捕获到了,小括号里面的也捕获到了

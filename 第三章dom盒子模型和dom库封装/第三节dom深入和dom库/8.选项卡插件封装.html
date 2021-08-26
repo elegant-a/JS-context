@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei UI";
+        / / 禁止用户选中文字 -webkit-user-select: none;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        .box {
+            margin: 10px auto;
+            width: 500px;
+        }
+
+        .box ul {
+            display: flex;
+            position: relative;
+            top: 1px;
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .box ul li {
+            flex: 1;
+            border: 1px solid green;
+            cursor: pointer;
+        }
+
+        .box ul li:nth-child(1) {
+            border-right: none;
+        }
+
+        .box ul li:nth-child(2) {
+            border-right: none;
+        }
+
+        .box ul li.select {
+            background: lightblue;
+            border-bottom: lightblue;
+        }
+
+        .box div {
+            display: none;
+            height: 150px;
+            line-height: 150px;
+            background: lightblue;
+            border: 1px solid green;
+        }
+
+        .box .select {
+            display: block;
+        }
+
+        /*    清除浮动的方法
+             1.在父元素上添加overflow:hidden
+             2.clear:both清除哥哥元素的浮动
+             3..box ul:after{
+                display:"block";
+                content:"";
+                clear:both;
+             }*/
+    </style>
+</head>
+<body>
+<div class="box" id="tabFir">
+    <ul id="tabOptions">
+        <li class="select">页卡一</li>
+        <li>页卡二</li>
+        <li>页卡三</li>
+        <li>页卡四</li>
+    </ul>
+    <div id="test" class="select">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+    <div>内容2</div>
+    <div>内容3</div>
+    <div>内容4</div>
+</div>
+<script type="text/javascript" src="../../utils/utils.js"></script>
+<script type="text/javascript">
+    // import "../../utils/utils"
+    var tabFir = document.getElementById("tabFir");
+    var tabFirst = utils.firstChild(tabFir);
+    var tabOptions = document.getElementById("tabOptions");
+    var oLis = utils.children(tabFirst);
+    var oDivs = utils.children(tabFir, "div");
+
+
+    for (let i = 0; i < oLis.length; i++) {
+        oLis[i].onclick = function () {
+            //首先把兄弟元素的select样式都移除掉
+            var curSiblings = utils.siblings(this);
+            for (let i = 0; i < curSiblings.length; i++) {
+                utils.removeClass(curSiblings[i], "select");
+            }
+            //再让当前点击这个元素有选中样式
+            utils.addClass(this, "select");
+            //再让当前点击这个LI父亲的弟弟元素(三个div)和当前点击的这个Li索引相同的有选中样式,其余的移除选中样式
+            var index = utils.index(this);
+            var divList = utils.nextAll(this.parentNode);
+            for (let i = 0; i < divList.length; i++) {
+                i === index ? utils.addClass(divList[i], "select") : utils.removeClass(divList[i], "select");
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+null:
+1.我们设定一个变量,后期需要使用,那么我们前期设置默认值为null
+
+2.在JS释放内存中,我们想释放一个堆内存,就让其值变为null即可
+
+3.我们通过DOM中提供的属性和方法获取页面中的某一个元素标签,如果当前这个标签不
+存在,获取的结果是null,而不是undefined
+
+4.在正则的exec/字符串的match捕获中,
+如果想要捕获的字符串和正则不匹配的话,捕获到的结果为null
+
+undefined:
+1.在JS预解释的时候,只声明未定义,默认的值是undefined
+console.log(num);->undefined
+var num=13;
+2.在一个函数中,如果没有写return,或者return后啥都没返回,默认的返回值是undefined
+
+3.函数设置了形参,但是执行的时候如果没有传递参数值,那么形参的
+默认值是undefined
+
+4.获取一个对象的属性名对应的属性值,如果当前的这个属性名
+不存在的话,属性值默认是undefined
+var obj={};
+console.log(obj.name);->undefined
+
+->我们也可以用这个道理来检测当前的浏览器是否兼容
+某一个方法
+

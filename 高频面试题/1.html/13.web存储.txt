@@ -1,0 +1,23 @@
+localStorage和sessionStorage
+localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间,直到手动去除
+sessionStroge-用于临时保存同一窗口的数据,在关闭窗口或标签页之后将会删除这些数据
+
+
+localStorage.sitename = "菜鸟教程"
+
+移除localStorage中的sitename
+//查找
+document.getElementById("result").innerHTML = localStorage.sitname;
+localStorage.remove("sitename")
+
+
+不管是 localStorage，还是 sessionStorage，可使用的API都相同，常用的有如下几个（以localStorage为例）：
+
+保存数据：localStorage.setItem(key,value);
+读取数据：localStorage.getItem(key);
+删除单个数据：localStorage.removeItem(key);
+删除所有数据：localStorage.clear();
+得到某个索引的key：localStorage.key(index);
+提示: 键/值对通常以字符串存储，你可以按自己的需要转换该格式。
+
+下面的实例展示了用户点击按钮的次数。

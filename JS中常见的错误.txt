@@ -1,0 +1,3 @@
+ReferenceError,引用错误
+在作用域中找不到
+TypeError在作用域中找到了, 做了它不可能做的事情

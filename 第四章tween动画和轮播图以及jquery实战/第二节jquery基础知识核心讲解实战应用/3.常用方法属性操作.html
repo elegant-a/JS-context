@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+<div id="div1">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<div id="div2"></div>
+<div id="div3"></div>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+    <div id="div4"></div>
+</div>
+<script src="jQuery1.11.1/jquery-1.11.1.min.js"></script>
+<script>
+    //1.jQuery的回调函数
+    function fn1(value) {
+        console.log("fn:" + value)
+    }
+
+    function fn2(value) {
+        console.log("fn:" + value)
+    }
+    // var $call = $.Callbacks();//创建一个回调函数的列表集合
+    // $call.add(fn1);//->向集合中增加一个叫做fn1的函数
+    // $call.add(fn2)//->向集合中增加一个fn2的函数
+    // $call.fire(100);//->触发fire方法的时候,把回调函数集合中的方法执行,并且把对应的参数值传递给对应的方法 ->""
+    // $call.remove(fn1);//在集合中,移除我们的回调函数
+    // $(function(){})//和原生JS中的window.onload对应
+    // //window.onload的意思是:当页面中的HTML结构,图片,文字等所有的资源全部加载完成才会触发这个行为,并且在一个页面中
+    // //只能执行一次后面编写的会把前面的覆盖掉
+    // //$(document).ready(function(){}):只要HTML结构加载完成就会触发对应的行为
+    //
+    // //所有的HTML都加载完成了,形成了一个闭包
+    // $(function(){
+    //
+    // })
+    //
+    // //2.属性
+    // //->attr:获取和设置元素的自定义属性,等价于原生中的set/getAttribuute
+    // //避免jQuery的两次执行
+    // var $box = $("#box");
+    // $box.attr("xxx",100);//->传两个值是获取,传一个值就是设置
+    // $box.attr("xxx");//查询某一个值
+    // $box.removeAttr("zhufeng");//移除某一个值
+    // $box.attr({
+    //     index:1,
+    //     name:"zhufeng"
+    // })//->批量设置
+    // //->prop:获取和设置元素的自定义属性,等价于原生中的set/getAttribuute,和attr是不同的两套方式,两者之间不能相互混用:
+    // //用attr获取的只能用attr删除或者修改或者获取,同理用prop设置的,也只能用prop操作
+    // //->prop内置的属性可以在HTML结构体现出来,但是不是内置的属性体现不出来(但是可以获取到值)
+    // $box.prop("id","box2");
+    // $box.prop({
+    //     index:100,
+    //     class:"w100"
+    // })
+    // //attr和prop的区别:attr一般用来设置和操作元素的自定义属性的,而prop一般都是用来操作元素的内置属性的(尤其是表单元素操作我们大部分都在使用
+    // // prop)
+    //
+    // //addClass增加样式类名
+    // $box.addClass("w100");//增加样式类名
+    // $box.removeClass("w100")//移除样式类名
+    // $box.toggleClass("w100")//之前有就是移除,之前没有就是新增
+
+
+    //4.内置遍历机制和手动循环方法
+    var $box = $("#box"),$boxDivList=$("#box>div");
+    console.log($boxDivList)
+    // $("div",$box)//第一个参数是选择器,第二个参数是上下文,但是我们也可以指定具体的上下文来获取需要的元素 ===$("#box div")
+    //   ->("#box>div")//只获取子级元素
+    $boxDivList.addClass("w1");//通过jQuery获取到一个集合,然后让集合直接调用jQuery中提供的方法,相当于给集合中的每一个元素都调取了
+    //对应的方法(jQuery内置循环操作)
+
+    for(var i = 0;i<$boxDivList.length;i++){
+        //->$boxDiv获取的都是js原生对象
+        $($boxDivList[i]).addClass("w2")
+    }
+   //   jquery中有一个天生自带的循环方法each,和内置的forEach是倒过来的
+
+    //和数组中的foreach相似
+    //jquery会默认循环里面的默认集合
+    //循环这个数组,把数组里面的项传递给item
+    $boxDivList.each(function (index,item){
+        //arguments是传入参数的每一项
+        //this->this就是我们当前遍历的这一项内容:item
+         $(this).addClass("w2")
+
+        console.log(arguments);
+        $(item).addClass("w2")
+    });
+     $box.html("Hello <b>world</b>!")//获取html内容,传参是设置,不传参是获取 innerHTML,返回一个html字符串，返回一个html字符串,
+     //接收两个参数,可设置html的内容,用于设定HTML内容的值
+     $box.text() //innerText,用于设置元素内容的文本
+     $box.val() //要设置的值,一般用于表单元素
+</script>
+</body>
+</html>

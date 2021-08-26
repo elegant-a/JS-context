@@ -1,0 +1,43 @@
+1.基本选择器
+通配符 *
+元素选择器
+ID选择器
+类选择器
+群组选择器
+
+2.层次选择器
+后代选择器 E F
+子选择器 E > F
+相邻兄弟选择器
+E + F
+
+3.动态伪类选择器
+E:link 连接伪类选择器,未访问
+E:visited 连接已访问
+E:active 行为之元素激活
+E:hover  行为之鼠标停留
+E:focus   行为之焦点获取
+
+E:target
+
+UI状态伪类选择器
+E:checked
+E:enbled
+E:disabled
+
+6.结构伪类选择器
+E:first-child[第一个元素]
+E:last-child[最后一个元素]
+E F:nth-child(n)[E下的第n个子元素F]
+
+
+let a = {
+n:1;
+}
+let b = a;
+a.x = a ={
+n:2
+}
+
+console.log(a.x);
+console.log(b);

@@ -1,0 +1,37 @@
+//append:向指定容器的末尾追加元素
+//prepend:向指定容器的开头追加元素*面试会问
+//insertBefore:向容器中指定元素的前面追加
+//insertAfter:向容器中指定元素的末尾追加*
+
+
+//append:向指定容器的末尾追加元素
+function append(newEle,container){
+  container.appendChild(newEle);
+}
+//prepend:向指定容器的开头追加元素 ->把新的元素添加到容器中第一个子元素节点的前面
+//如果一个元素子节点都没有,就放在末尾
+function prepend(newEle,container){
+  var fir=this.firstChild(container);
+  if(fir){
+  container.insertBefore(newEle,fir);
+  return;
+}
+  container.appendChild(newEle)
+}
+
+//insertBefore:追加到指定元素的前面
+function insertBefore(newEle,oldEle){
+oldEle.parentNode.insertBefore(newEle,oldEle);
+}
+
+//insertAfter:向容器中指定元素的末尾追加,相当于追加到oldEle弟弟元素
+的前面,如果弟弟不存在,也就是当前元素已经是最后一个,我们放到最末尾即可
+
+function insertAfter(newEle,oldEle){
+  var nex = this.next(oldEle);
+  if(nex){
+  oldEle.parentNode.insertBefore(newEle,nex);
+  return;
+}
+  oldEle.parentNode.appendChild(newEle)
+}

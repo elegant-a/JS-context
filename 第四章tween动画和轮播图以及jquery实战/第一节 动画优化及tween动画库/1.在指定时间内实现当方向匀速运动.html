@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <style>
+        @import "../css/base.css";
+    </style>
+    <style>
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+        }
+    </style>
+
+
+</head>
+<body>
+<div id="box">
+
+</div>
+<script type="text/javascript" src="../../utils/utils.js"></script>
+<script type="text/javascript">
+    var oBox = document.getElementById("box");
+    // var maxLeft = (document.documentElement.clientWidth || document.body.clientWidth)  - oBox.offsetWidth
+    // console.log(maxLeft)
+    //->实现一个匀速运动,在指定时间内完成动画:计算出总距离\总时间,根据总距离和总时间求出对应的步长(每10ms走一步)
+    // var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+    // var duration = 4000;
+    // //每隔10ms运动一次
+    // var step = (maxLeft / duration) * 10;
+    // //设置一个定时器,让元素每一次在当前的基础上累加步长即可
+    // var timer = window.setInterval(function () {
+    //     var curLeft = utils.css(oBox, "left");
+    //     if(curLeft>=maxLeft){
+    //         window.clearInterval(timer);
+    //         return;
+    //     }
+    //     curLeft += step;
+    //     utils.css(oBox,"left",curLeft);
+    //
+    // }, 10)
+    //
+    // 实现匀速运动除了步长
+
+    //2)第二种思想->实现一个匀速运动,在指定时间内完成动画:自己写一个动画公式,根据当前总的时间,总时间，起始位置,计算出我们当前元素应该在的位置,
+    //   让当前元素运动到这个位置即可
+    function Liner(t,b,c,d){
+        return c*t/d+b;
+    }
+    var oBox = document.getElementById("box");
+    var target = utils.win("clientWidth") - oBox.offsetWidth,
+        begin = utils.css(oBox, "left"),change=target-begin;
+    var duration = 4000,time=null;
+    var timer = window.setInterval(function(){
+        time += 10;
+        if(time>=duration){
+            utils.css(oBox,"left",target);
+            window.clearInterval(timer)
+            return;
+        }
+        //获取当前位置
+        var curPos=Liner(time,begin,change,duration);
+        //设置left的值
+        utils.css(oBox,"left",curPos)
+    },10);
+
+
+
+</script>
+</body>
+</html>
+<!--引入外部样式表的两种方式
+在head中加入link标签
+在<style>
+ @import "../../xxx.css"
+</style>
+-->
+<!--外部引入js文件的方式
+<script type="xxxxx" src="xxxxx"></script>
+<script>
+  import "../../xxxxxxx"
+</script>
+-->

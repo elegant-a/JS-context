@@ -1,0 +1,11 @@
+function a(){
+var name = 'dov';
+return function(){
+ return name
+}
+}
+var b = a();
+console.log(b())
+a执行的返回的的堆内存被a的作用域以外的 b 保存了,导致堆内存不会销毁
+堆内存不销毁作用域也不销毁,作用域不销毁,变量也不销毁,
+因此实现了全局变量下,获取到了局部变量

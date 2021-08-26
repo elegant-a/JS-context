@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> 
+    <title>Document</title>
+    <style >
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+        ul li{
+          list-style: none;
+        }
+        img{
+            display: block;
+            border: none;
+        }
+        /* 最外层容器是不设置固定的宽高的 */
+        #news {
+            padding:  10px;
+        }
+        #news li{
+            position: relative;
+            padding: 10px 0;
+            height: 60px;
+            border-bottom: 1px dashed gray;
+        }
+
+        #news li > div:nth-child(1){
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 75px;
+            height: 60px;
+            background: url('./img/default.png') no-repeat center center;
+            background-size: 100% 100%;
+
+        }
+        #news li > div:nth-child(1) img{
+            display: none;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        #news li > div:nth-child(2){
+            margin-left: 80px;
+            height: 60px;
+
+        }
+        #news li > div:nth-child(2) h2{
+            display: block;
+            font-size: 1.5em;
+            font-weight: bold;
+            height: 20px;
+            line-height: 20px;
+            /* 实现文字超出一行自动裁切 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        #news li > div:nth-child(2) p{
+            line-height: 20px;
+            font-size: 12px;
+            color: #616161;
+        }
+    </style>
+</head>
+<body>
+    
+    <ul id="news">
+
+    </ul>
+    <!-- 自适应 包住的盒子不设置宽高,左侧固定宽高,绝对定位,右侧固定写死 -->
+    <script type="text/javascript" charset="utf-8" src="./js/utils.js"></script>
+    <script type="text/javascript">
+    var news = document.getElementById("news");
+    var imgList = news.getElementsByTagName("img");
+
+    //获取需要绑定的数据\
+    var jsonData = null;
+    //URL地址后面加的参数是每次请求数据产生的缓存
+    var xx = function () {
+       var  xhr = new XMLHttpRequest();
+       xhr.open('get','http://localhost:8083/data?' + Math.random());
+       xhr.send();
+       xhr.onreadystatechange = function(){
+           if(xhr.readyState == 4){
+                
+                var val = xhr.responseText;
+                jsonData = utils.jsonParse(val);
+        // 由于请求数据是异步操作,所以全局下的console.log(jsonData)值为Null
+    var f = function(){
+    var str = '';
+    if(jsonData){
+        for(var i = 0,len = jsonData.length;i <len;i++){
+        var curData = jsonData[i];
+        str += '<li>';
+        str += '<div><img src = "" trueImg="' + curData["img"] +'"/></div>';
+        str += '<div>';
+        str += '<h2>' + curData["title"] + '</h2>';
+        str += '<p>' + curData["desc"] + '</p>';
+        str += '</div>';
+        str += '</li>';
+        }
+        
+    }
+    news.innerHTML=str;
+    }()
+        //3.图片的延迟加载,先编写一个方法,实现单张图片的延迟加载
+  
+
+
+
+
+
+       }
+    }
+}
+       xx();
+           // ----------------------------------------------------------
+           function lazyImg(curImg){
+  var oImg=new Image;
+  oImg.src=curImg.getAttribute("trueImg");
+  oImg.onload = function(){
+  curImg.src = this.src;
+  curImg.style.display="block";
+  fadeIn(curImg);
+  oImg = null;
+    }
+  curImg.isLoad = true;
+}
+
+//实现渐现效果
+function fadeIn(curImg){
+         var duration = 500,interval = 10,target = 1;
+         var step = (target / duration) * interval;
+         var timer = window.setInterval(function(){
+             console.log(step)
+         var curOp = utils.getCss(curImg,"opacity");
+             curOp = parseFloat(curOp)
+          if(curOp >= 1){
+              curImg.style.opacity = 1;
+              window.clearInterval(timer)
+              return;
+          }  
+          curOp += step;
+          curImg.style.opacity = curOp;
+         console.log(curOp)
+         },interval)
+         
+       }
+
+
+       //循环处理每一张图片
+       function handleAllImg(){
+       for(var i = 0,len=imgList.length;i<len;i++){
+        var curImg = imgList[i];
+            //->当前的图片处理过的话,就不需要再重新的处理了
+            if(curImg.isLoad){
+                continue;
+            }
+         //只有A<B的时候再进行处理
+    //因为隐藏的时候是没有高度和宽度的,所以要用其父节点
+        var curImgPar = curImg.parentNode;
+        var A = utils.offset(curImgPar).top + curImgPar.offsetHeight,
+        B = utils.win("clientHeight") + utils.win("scrollTop");
+        if(A < B){
+            lazyImg(curImg)
+        }
+        //    console.log(curImg)
+           }
+       }
+
+       //开始的时候()
+window.setTimeout(handleAllImg,500);
+window.onscroll = handleAllImg;
+
+
+   
+
+
+
+    </script>
+</body>
+</html>
+<!-- curImg is not defined -->
+<!-- continue执行continue操作,跳出本次循环,从下一个迭代继续运行,内层循环执行完毕,外层大代码继续运行 -->
+<!-- 字符串与数字相加会默认转换成字符串,如果需要得到数字类型的值,需要将字符串转换成数字 -->

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../css/normalize.css">
+  <style>
+    @import "../css/base.css";
+  </style>
+  <style>
+    #box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background-color: lightblue;
+    }
+  </style>
+
+
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="../../utils/utils.js"></script>
+<script type="text/javascript">
+  var oBox = document.getElementById("box");
+  var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+  //没有时间仅用步长,实现动画
+  var step = 5;
+  //使用递归思想完成setTimeout的轮询动画,每一次执行动画之前首先把上一次设置的那个没用的定时器清除掉,节约我们的内存空间
+  var timer = null;
+  function move(){
+    //在执行之前清除上一次的timer
+    window.clearTimeout(timer);
+    var curLeft = utils.css(oBox, "left");
+    if (curLeft + step >= maxLeft) {//边界判断,加上步长进行计算
+      utils.css(oBox,"left",maxLeft)
+      window.clearInterval(timer);
+      return;
+    }
+    curLeft += step;
+    utils.css(oBox, "left", curLeft);
+    timer = window.setTimeout(move,10)
+  }
+  move()
+
+  //->问题:当总距离/我们设定的步长=不是一个整数->我少走一步的话还差点在到目标的位置,多走一步会超出目标位置
+  //************边界判断问题********
+  // 在进行边界判断的时候,加上步长来进行处理
+
+</script>
+</body>
+</html>
+<!--引入外部样式表的两种方式
+在head中加入link标签
+在<style>
+ @import "../../xxx.css"
+</style>
+-->
+<!--外部引入js文件的方式
+<script type="xxxxx" src="xxxxx"></script>
+<script>
+  import "../../xxxxxxx"
+</script>
+-->

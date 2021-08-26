@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery选择器</title>
+</head>
+<style>
+    #div1{
+        width: 100px;
+
+    }
+</style>
+<body>
+<div id="div1">
+    <div>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div></div>
+    <div id="div3"></div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<!--以后使用jQuery一定切记标明我们使用的版本号-->
+<script type="text/javascript" src="./jQuery1.11.1/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    //选择器
+    //通过传递对应的规则内容(ID,标签名,样式类名....),获取到页面中指定的元素/元素集合
+
+    //通过jQuery选择器获取到的结果是一个jQuery对象,可以使用jQuery提供的那些属性和方法,但是不能直接使用浏览器内置的属性和方法
+    var $oDiv=$("#div1");
+    console.log($oDiv.innerWidth())
+    console.log($oDiv.attr("zhufeng"))
+
+    //原生的js,通过js获取到的结果是属于元素对象/元素结合,节点集合...它们可以使用浏览器为其提供的天生自带的属性和方法
+    //原生JS不能用jquery来获取
+    var oDiv=document.getElementById("div1")
+    oDiv.getAttribute("zhufeng");
+
+
+    //2.关于原生JS对象和jQuery对象之间的转换
+    //->原生转变为jQuery
+    //选择器将元素对象,转换为jQuery元素对象
+    $(oDiv)
+
+    //jQuery转变为原生的:直接通过索引获取对应的元素对象即可
+    //该对象的第一个键值就元素
+    $oDiv[0] || oDiv.get(0)//都是通过索引来获取指定围着的元素对象
+    //3.更多的jQuery选择器
+    $("div1")
+    $("div")
+    $(".w100")
+    $("*")
+    $("#div1,div,.w100")//把每一个选择器获取到的jQuery对象最后融合在一起,一起获取到,返回一个数组,里面是获取到的元素
+    $("#div1 li")//子子孙孙及的元素都获取到
+    $("#div>li")//在子集中进行查找
+    $("#div3+ul")//匹配紧接着之后的元素,弟弟元素节点,并且标签名是ul的
+    $("#div3~ul")//获取prev元素之后所有的siblings
+    $("#div:first")
+    $("#div1>div:not(.w100)")  //#div下所有子集DIV中样式类名不包含w100的
+    $("div:eq(1)")//通过索引来获取一个集合中的某一个,但是获取的结果依然是一个jQuery对象(
+       //而之前讲到的get方法,虽然是通过索引来获取,但是获取到的结果是一个JS原生对象
+    // )
+    $("div:gt(1)")//大于索引1的
+    $("div:lt(1)")//小于索引1的都获取到
+    $("div:contains('123')")//包含指定文本的元素
+    $("#div1 div:has(ul)")//匹配含有选择器所匹配的元素的元素
+    //获取素有的子元素
+    $("div1>*")
+    $("#div1>*:nth-child(1)")//获取集合中的第一个
+    $("#div1>*:eq(1)") //获取索引当中的第二个
+
+</script>
+
+</body>
+</html>

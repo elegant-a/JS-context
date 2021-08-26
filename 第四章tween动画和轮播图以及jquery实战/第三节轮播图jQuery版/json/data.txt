@@ -1,0 +1,4 @@
+[{"img":"./imgs/img1.png","desc":"我是图片的描述信息"},
+{"img":"./imgs/img2.jpg","desc":"我是图片的描述信息"},
+{"img":"./imgs/img3.jpg","desc":"我是图片的描述信息"},
+{"img":"./imgs/img4.jpg","desc":"我是图片的描述信息"}]

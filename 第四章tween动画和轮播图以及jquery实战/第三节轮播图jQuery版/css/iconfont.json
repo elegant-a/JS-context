@@ -1,0 +1,37 @@
+{
+  "id": "2760873",
+  "name": "prev next",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1420819",
+      "name": "next",
+      "font_class": "next",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "1508318",
+      "name": "prev",
+      "font_class": "prev",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "7554686",
+      "name": "prev",
+      "font_class": "lunbo",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "7555016",
+      "name": "next",
+      "font_class": "lunbo-next",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    }
+  ]
+}

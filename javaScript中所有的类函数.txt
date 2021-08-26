@@ -1,0 +1,3 @@
+Array,Date,RegExp,c,Function,Boolean,String,Number,Object
+
+数字1并不是一个Object值,也不是Number值,它只是一个Primitive

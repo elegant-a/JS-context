@@ -1,0 +1,82 @@
+复习dom (文档对象模型)
+//获取页面中元素的方法
+document.getElementById()
+//在指定的上下文中,获取标签元素
+context.getElementByTagName() ->把指定容器中子子孙孙所有标签名为
+TAGNAME都获取到了
+<div>
+<span></span><span>
+</div>
+var oDiv = document.getElementById("div1");
+console.log(oDiv.getElementsByTagName("span"))
+
+//接下来写的所有的方法在jQuery中的作用和方法名一模一样
+//-function children ->获取某一个容器中所有的元素子节点(还可以筛选出指定签名的)
+
+//->getElementsByClass ->通过元素的样式类名获取一组元素(兼容所有的浏览器)
+(jQuery中没有这个方法名,但是jQuery的一部分选择器也是基于这个方法的原理来实现的)
+
+//获取上一个哥哥元素节点(prev),获取下一个弟弟元素节点(next),获取所有的哥哥元素节点
+(prevAll),获取所有的弟弟元素节点(nextAll),获取相邻的两个元素节点(sibling),获取
+所有的兄弟元素节点(siblings)
+
+//获取第一个元素的子节点(firstChild),获取最后一个元素的子节点(lastChild)
+这两个方法jQuery中也没有
+// ->index获取当前元素的索引
+
+//prepend->和appendChild对应 增加到某一个容器的开头
+//insertAfter ->和insertBefore对应 增加到容器中某一个元素的后面
+
+
+//addClass 增加样式类名
+//remove 删除样式类名
+//hasClass 判断是否存在某一个样式类名
+
+//->jQuery:css
+//getCss
+//setCss
+//setGroupCss
+
+//->基于内置类的原型扩展一些我们常用的方法
+
+
+
+
+
+
+
+
+获取到的是一个元素集合
+//context.getElementsByClassName(CLASSNAME) ->在ie678中不兼容
+//docuemnt.getElementsByName() ->在IE浏览器中只对表单元素的name起作用
+//document.body
+//document.docuemntElement
+//通过选择器来获取元素
+//context.querySelector /context.querySelectorAll 
+通过这个获取的节点集合不存在DOM映射
+
+//->描述节点和节点知寄件关系的属性(在标准的浏览器中,会把空格和换行当做文本节点处理)
+//childNodes获取所有的子节点(包括文档,注释节点)
+//children 获取所有的元素子节点 ->在IE6~8下获取的结果和标准浏览器获取的结果不一样
+//parentNode(返回元素父节点)
+//previousSibling(返回前一个兄弟节点,包括文本注释)/previousElementSibling(只返回元素兄弟节点)
+//nextSibling(返回某个元素之后的兄弟节点)/nextElementSibling(返回某个元素之后的兄弟元素节点)
+
+//lastChild(返回文档的最后一个子节点)/lastElementChild(返回元素的最后一个元素节点)
+//firstChild(返回文档的第一个子节点)/firstElementChild(返回文档的第一个元素节点)
+
+->DOM盒子模型
+//
+
+//动态操作dom的方法
+//DOM的增删改
+(创建一个元素)
+//createElement
+(创建一个文档碎片模型)
+//document.createDocumentFragment()
+//appendChild增加到容器的末尾
+//insertBefore增加到某一个之前
+//cloneNode(true/false)(克隆标签)
+//replaceChild
+//removeChild
+//get/set/removeAttribute(获取或删除自定义属性) 

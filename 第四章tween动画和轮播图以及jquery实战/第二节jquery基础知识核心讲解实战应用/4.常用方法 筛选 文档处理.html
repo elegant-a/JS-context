@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <div id="div1">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div id="div4"></div>
+</div>
+<script src="jQuery1.11.1/jquery-1.11.1.min.js"></script>
+<script>
+    //1.CSS
+    //css:获取设置(批量设置)当前元素的样式值
+    var $box = $("#box");
+
+    console.log($box)
+    // $box.css({
+    //     background:"red";
+    //     opacity:0.5
+    // })
+    //-<offset:不管父级参照物是谁,获取当前元素距离body的偏移距离(top/left)
+    //position:获取当前元素距离父级参照物的偏移(top/left)
+
+    //scrollTop/scrollLeft:获取或设置卷去的高度或宽度
+    //width/height:获取或设置元素的宽高
+    //innerWidth/innerHeight:获取元素可视区的宽高(等价于clientWidth/clientHeight),保留padding的值,把width值进行改变
+    // #box.offset()
+    $box.position()
+    $box.css({
+        margin: 50,
+        padding: 30,
+        width: 200,
+        height: 200,
+        border: "10px solid #000"
+    })
+    //->outerWidth/outerHeight:获取或者设置元素可是区域的宽高(包括边框),设置具体的值的时候和上边的效果是一样的
+    //如果传递进来的参数是true,默认把margin的职业计算在内了(相当于scrollwidth/scrollHeight)
+
+    //2.jQuery非常强大的地方在于它的链式写法(执行完成一个方法后返回的结果依然是一个jQuery对象,这样就可以继续调用下一个方法执行了)
+    $box.css(xxx).width(...)
+
+    //3.文档处理
+    //->append:向指定元素的末尾追加一个新的元素
+    var oDiv = document.createElement("div") //相当于appendchild
+    oDiv.id = "div5";
+    $box.append(oDiv)
+
+    //appendTo:元素追加到某个容器
+    $(oDiv).appendTo($box);
+
+    //prepend / prependO向指定元素的开头追加元素
+    //after/before在当前元素的前面或后面追加新的元素
+    //insertAfter/insertBefore://把匹配的元素插到指定元素的前面或者后面
+    $box.insertBefore(#box);//把匹配的元素插到指定元素的前面
+
+    //replaceAll(selector):用匹配的结果替换所有selector匹配的元素
+    $box.replaceAll("ul")//->页面中所有的UL都用oDiv给替换了
+
+    //->remove:把匹配的结果在页面中移除掉
+    //把ul2删除
+    //$("p").remove("#ul2")
+
+    //clone克隆一份一样的
+    $box.clone().prependTo("p");
+
+
+    //4.筛选
+    //->eq(index),first(),last(),hasClass(strClass)拥有哪个样式类名的
+    $("div").hasClass("w1")//->检测当前元素中是否包含某一个样式类名
+
+    //filter,children,find 常用的三个筛选方法
+    //filter:同级顾虑
+    //children:子集过滤
+    //find:后代过滤
+
+
+    console.log($box.children(".w1"))//子集中所有类名为w1的
+    console.log($box.children("#div")
+    console.log($box.children("#div1,#div2"))
+
+   //find后代过滤:
+    $box.find()//->结果是一个空集合
+    console.log($box.find("li"))//子子孙孙都得到
+    console.log($box.find("[name = 'xxx']"))
+    //jQuery这个元素对象的私有属性中叫做selector这个属性存储的值是当前本次查找的选择器的内容;
+    //context是当前本次查找的上下文
+
+    //filter：同级过滤 首先通过选择器获取一个集合,在获取的内容中进行二次筛选
+    console.log("*",$box).filter("ul")//获取$box这个上下文下所有的元素,再过滤出ul元素
+    $("p").filter("selected")
+
+    //->map:jQuery集合中每一项,并且可以支持返回值把每一项进行修改,类似数组中的map方法
+    //parent父亲节点,parents:所有的父亲节点(从当前一直往前找)
+    // next(),nextAll(),prev(),prevAll(),siblings()获取所有的同辈元素节点
+    $box.siblings(".select"))
+</script>
+</body>
+</html>

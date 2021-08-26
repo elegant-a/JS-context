@@ -1,0 +1,30 @@
+HTML5 浏览器支持
+现代的浏览器都支持 HTML5。
+
+此外，所有浏览器，包括旧的和最新的，对无法识别的元素会作为内联元素自动处理。
+
+正因为如此，你可以 "教会" 浏览器处理 "未知" 的 HTML 元素。
+
+我们可以使用 Sjoerd Visscher 创建的 "HTML5 Enabling JavaScript", " shiv" 来解决该问题:
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>渲染 HTML5</title>
+  <!--[if lt IE 9]>
+  <script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  <![endif]-->
+</head>
+ 
+<body>
+ 
+<h1>我的第一篇文章</h1>
+ 
+<article>
+菜鸟教程 —— 学的不仅是技术，更是梦想！！！
+</article>
+ 
+</body>
+</html>
+

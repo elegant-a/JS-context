@@ -1,0 +1,37 @@
+
+<div id="banner">
+<img src=""/>
+</div>
+
+<script type="text/javascript" src="s/utils.js"></script>
+<script type="text/javascript">
+var banner = document.getElementById("banner"),imgFir = banner.gerElementByTagName("img")[0];
+
+window.onscroll = function (){
+if(banner.isLoad){
+return;
+
+
+
+}
+内容+边框+内填充+距离顶部的高度
+  var A = banner.offsetHeight + utils.offset(banner).top;
+一屏的高度+被卷去的高度
+  var B = utils.win("clientHeight") + utils.win("scrollTop")
+   
+  if(A < B){
+  //当条件成立时,我们加载真实的图片,第一次加载完成后,我们在让页面继续滚动的过程中,
+A<B一直成立,又从新的执行了下面的操作,导致了重复给一个容器中的图片进行加载
+
+  var oImg=new Image;
+  oImg.src=imgFir.getAtribute("trueImg");
+  oImg.onload = function(){
+  imgFir.src = this.src;
+  imgFir.style.display="block";
+  oImg = null;
+}
+ banner.isLoad = true;//设置一个自定义属性,告诉浏览器我已经把图片加载完了
+(不管是否正常加载,只要处理过一次,都不再处理了)
+}
+}
+</script>

@@ -1,0 +1,68 @@
+1.实现拖放的步骤
+将对象的draggable属性设置为true,这样才能进行拖放.另外,img元素与
+a元素(必须指定href)默认允许拖放
+DataTransfer 对象:拖拽对象用来传递的媒介,使用一般为Event.data Transfer.
+DataTransfer对象用于保存并放下过程中的数据,它可以保存一项或者
+多项数据,这些数据可以是一种或者多种数据类型
+
+在拖拽目标上触发事件(源元素),作用在被拖拽的元素上
+ondragstart 用户开始拖放时触发 ***
+ondrag      元素正在拖放时触发
+ondragend   用户完成元素拖放后触发\
+
+释放目标时触发的事件,作用在目标元素上
+ondragenter 进入容器范围内触发
+ondragover-被拖动的对象在另一对象容器内拖动 ***
+ondragleave 拖动的对象离开容器范围内触发
+ondrop 释放鼠标时触发
+
+Event.preventDefault()方法:
+阻止默认的事件方法执行,在dragover中一定要执行prevevtDefalt()
+否则事件不会被触发
+
+dataTransfer对象提供了一些方法用于在源元素与目标元素中共享数据
+-setData(type,data):用于声明所发送的数据与类型
+-getData(type):返回指定type的数据
+-clearData(type):删除指定类型的数据
+
+draglists[i].ondragstart = function(ev){
+//开始拖拽
+ev.dataTransfer.setData('text',ev.target.innerHTML)
+}
+
+
+
+    <script>
+	function init(){
+		var source = document.getElementById('dragme');
+		var dest = document.getElementById('text');
+		//拖放开始
+		source.addEventListener('dragstart',function(ev){
+			//向dataTransfer对象追加数据
+			var dt = ev.dataTransfer;
+			console.log(dt.types);
+			dt.effectAllowed ="all";
+			dt.setData('aa','你好');
+		},false);
+		//拖放结束
+		dest.addEventListener('dragend',function(ev){
+			//不执行默认处理(拒绝被拖放)
+			ev.preventDefault();
+		},false);
+		//被拖放
+		dest.addEventListener('drop',function(ev){
+			//从DataTransfer对象那里取得数据
+			var dt = ev.dataTransfer;
+			var text = dt.getData('aa');
+			dest.textContent += text;
+			//不执行默认处理(拒绝被拖放)
+			ev.preventDefault();
+			//停止事件传播
+			ev.stopPropagation();
+			ev.target.appendChild(source);
+		},false);
+	}
+    //页面不执行默认事件
+	document.ondragover = function(e){e.preventDefault();}
+	document.ondrop = function(e){e.preventDefault();}
+    </script>

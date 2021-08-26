@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图标跟随jQuery版</title>
+    <style>
+        body, div, img {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .box {
+            position: relative;
+            display: flex;
+            margin: 20px auto;
+            width: 430px;
+        }
+
+        .box img {
+            flex: 1;
+            margin-right: 10px;
+            width: 100px;
+            height: 75px;
+            border: 1px solid green;
+        }
+
+        .box img:last-child {
+            margin-right: 0;
+        }
+
+        #mark {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            width: 400px;
+            height: 300px;
+            border: 1px solid #0077b0;
+        }
+
+        #mark img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <img src="./imgs/img1.png" alt="" bigImg="./imgs/img1.png"/>
+    <img src="./imgs/img2.jpg" alt="" bigImg="./imgs/img2.jpg"/>
+    <img src="./imgs/img3.jpg" alt="" bigImg="./imgs/img3.jpg"/>
+    <img src="./imgs/img4.jpg" alt="" bigImg="./imgs/img4.jpg"/>
+    <div id="mark">
+        <img src="./imgs/img1.png">
+    </div>
+</div>
+<script src="jQuery1.11.1/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    // $(function(){})->等价于(document).ready()
+    (function () {
+        var box = $(".box"), mark = $("#mark");
+        //获取当前元素的偏移
+        var boxoff = box.offset();
+        // var imgList = box.children("img").mouseover(function () {
+        // })
+        // var imgList = box.children("img").on("mouseover", function () {
+        // })
+        var imgList = box.children("img").bind("mouseover", function (e) {
+            console.log(box.css("width"))
+            e = e || window.event;
+            e.target = e.target || e.srcElement;
+            var left = e.clientX-boxoff.left+10;
+            var top = e.clientY - boxoff.top+ 10;
+            mark.stop().show(500).css({left:left,top:top}).find("img").attr("src",e.target.getAttribute("bigImg"))
+            //展示
+            // mark.fadeIn()渐现,hide,toggle,slideUp,slideToggle,fadeIn,fadeOut,fadeToggle,animate...
+            // mark.slideDown()下拉展示
+        })
+            //记得要加stop用jQuery作动画
+            .bind("mouseout", function (e) {
+               mark.stop().hide(500);
+            })
+    })()
+</script>
+</body>
+</html>

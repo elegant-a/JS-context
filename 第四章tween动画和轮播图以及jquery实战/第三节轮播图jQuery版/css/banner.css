@@ -1,0 +1,125 @@
+@charset "UTF-8";
+* {
+    font-family: "Microsoft YaHei UI", sans-serif;
+    font-size: 14px;
+    color: #424242;
+    -webkit-user-select: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+img {
+    display: none;
+    border: none;
+}
+
+a, a:hover, a:active, a:target, a:visited {
+    color: #424242;
+    text-decoration: none;
+}
+.banner{
+    position: relative;
+    margin: 10px auto;
+    width: 600px;
+    height: 300px;
+    overflow: hidden;
+}
+.banner .bannerInner{
+    width: 100%;
+    height: 100%;
+    background: url("../imgs/img1.png") no-repeat;
+    background-size: 100% 100%;
+}
+/*轮播图区域样式*/
+.banner .bannerInner div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*//设置每一张图片的初始样式,透明度也为0*/
+    z-index: 0;
+    width: 100%;
+    height:100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.banner .bannerInner div img{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+/*焦点区域样式*/
+.banner .bannerTip{
+    position: absolute;
+    bottom: 20px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    border-radius: 10px;
+    height: 19px;
+    overflow: hidden;
+
+    background: rgba(255,255,255,.3);
+}
+.banner .bannerTip li{
+    float: left;
+    margin: 2px 5px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.banner .bannerTip .bg{
+    background: orange;
+}
+
+/*左右按钮区域*/
+.banner .conL {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    color: white;
+    background: black;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    opacity: 0.4;
+}
+.banner .conL:hover{
+    opacity: 0.8;
+}
+
+.banner .conR {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    background: black;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    opacity: 0.4;
+}
+.banner .conR:hover{
+    opacity: 0.8;
+}
+.banner .conL>div{
+    padding-top: 6px;
+    text-align: center;
+    color: white;
+}
+.banner .conR>div{
+    padding-top: 6px;
+    text-align: center;
+    color: white;
+}
+

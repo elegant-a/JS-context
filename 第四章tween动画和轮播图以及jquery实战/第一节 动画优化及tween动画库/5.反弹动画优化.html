@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../css/normalize.css">
+  <style>
+    @import "../css/base.css";
+  </style>
+  <style>
+    #box {
+      position: absolute;
+      top: 0;
+      left: 500px;
+      width: 100px;
+      height: 100px;
+      background-color: lightblue;
+    }
+
+    .btn {
+      position: absolute;
+      top: 200px;
+      left: 100px;
+      height: 50px;
+    }
+
+    .btn input {
+      display: inline-block;
+      margin-left: 50px;
+      outline: none;
+      width: 100px;
+      height: 50px;
+      border: 1px solid green;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+
+
+</head>
+<body>
+<div id="box"></div>
+<div class="btn">
+  <input type="button" value="向左" class="btnLeft">
+  <input type="button" value="向右" class="btnRight">
+
+</div>
+<script type="text/javascript" src="../../utils/utils.js"></script>
+<script type="text/javascript">
+  var oBox = document.getElementById("box");
+  var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+  var minLeft = 0;
+  // var timer = null;
+  //为了保证当前元素只运动一个timer,所以当前timer应该是共享的，(下一个动画开始的时候,首先把上一个动画的定时器清除掉):保证当前元素所有动画
+  //接收定时器返回值那个变量需要共享,还有一种方式是操作当前元素的自定义属性
+  //把这个值放在当前元素的自定义属性上
+  function move(target){//告诉我要运动的目标位置
+    _move();
+    function _move(){
+      window.clearTimeout(oBox.timer);
+      var curLeft = utils.css(oBox,"left");
+      if(curLeft < target){//向右走
+        if (curLeft + 5 > target){
+          utils.css(oBox,"left",curLeft);
+          return;
+
+        }
+        curLeft+=5;
+        utils.css(oBox,"left",curLeft);
+      }else if(curLeft > target){//向左走
+        if(curLeft <= target){
+          utils.css(oBox,"left",curLeft);
+          return;
+
+        }
+        curLeft-=5;
+        utils.css(oBox,"left",curLeft);
+      }else{//不需要动了
+        return;
+      }
+      //这样写性能不好,因为每一次到达时间的时候,都需要先执行一次匿名函数(形成一个私有的作用域),在匿名函数中再执行move,但是move中需要用到
+      //  数据值在第一次执行move方法中,需要把匿名函数形成的这个私有的作用域作为跳板找到之前的,这样就导致了匿名函数形成的这个私有作用域
+      //  不能销毁....
+      oBox.timer = window.setTimeout(function(){
+        _move(target);
+      },10)
+    }
+
+
+  }
+
+
+  console.log(utils.getElementsByClassName("btnLeft").onclick)
+  document.getElementsByClassName("btnLeft")[0].onclick = function () {
+    move(minLeft);
+  }
+  utils.getElementsByClassName("btnRight")[0].onclick = function () {
+    move(maxLeft);
+  }
+//避免作用域层级嵌套导致的累计问题,我们设计了一个_move
+//  函数执行完成,作用域才销毁
+
+  //1.边界判断需要加步长,
+  //2.setTimeout定时器,需要销毁上一次的定时器
+  //3.在执行定时器中的函数时,避免作用域的嵌套,新建了一个小_move
+  //4.timer需要共享,全局下不好放变量,可以放到元素的自定义属性上
+
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link rel="stylesheet" href="../css/normalize.css">-->
+<!--    <style>-->
+<!--        @import "../css/base.css";-->
+<!--    </style>-->
+    <style>
+        #box {
+            position: absolute;
+            top: 0;
+            left: 500px;
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+
+            opacity: 1;
+            filter: alpha(opacity=1);
+
+        }
+
+        .btn {
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            height: 50px;
+        }
+
+        .btn input {
+            display: inline-block;
+            margin-left: 50px;
+            outline: none;
+            width: 100px;
+            height: 50px;
+            border: 1px solid green;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+<body>
+<div id="box"></div>
+<div class="btn">
+    <input type="button" value="向左" class="btnLeft">
+    <input type="button" value="向右" class="btnRight">
+
+</div>
+<script type="text/javascript" src="../../utils/utils.js"></script>
+<script type="text/javascript" src="../../utils/tween.js"></script>
+<script type="text/javascript">
+    var oBox = document.getElementById("box");
+
+        animate(oBox,{left:0,top:500,opacity:0.55},4000,function(){
+            utils.css(this,"background","red");
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //
+    // function Linear(t,d,tar) {
+    //     return (t/d)*tar;
+    // }
+    //
+    // var beginLeft = utils.css(oBox, "left"), beginTop = utils.css(oBox, "top");
+    // var targetLeft = 1000, targetTop = 500;
+    // var changeLeft = targetLeft - beginLeft, changeTop = targetTop - beginTop;
+    // var duration = 4000, time = 0;
+    //
+    // oBox.timer=window.setInterval(function (){
+    //     time += 10;
+    //     console.log( beginLeft)
+    //     if(time>=duration){
+    //         utils.css(oBox,{
+    //             left:targetLeft,
+    //             top:targetTop
+    //         });
+    //         window.clearInterval(oBox.timer);
+    //         return;
+    //     }
+    //     var curLeft=Linear(time,duration,targetLeft);
+    //     var curTop=Linear(time,duration,targetTop)
+    //     utils.css(oBox,{
+    //         left: curLeft,
+    //         top: curTop
+    //     })
+    // },10)
+    // //多方向之内的匀速运动动画
+
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  //   //回调函数:把一个函数a当做一个值传递给另一个函数B,这样在B方法执行的时候,可以在任何位置执行一到多次a方法
+  // function A(){
+  //     console.log("A");
+  // }
+  // function B(callback){
+  //     console.log(B);
+  //     callback()
+  // }
+  // B(A);
+  // ary.sort(function(a,b){
+  //     return a - b;
+  // })
+  //   //正则匹配也包含回调
+  //   str.replace(/\d+/g,function (){
+  //
+  //   })
+  //   window.setTimeout(function(){},10)
+    function fn(callback){
+           console.log(1);
+           if(typeof callback === "function"){
+               callback.call(obj,100,200)//callback是在全局作用域下面执行的,
+               //所以callback的值就是window
+           }
+    }
+    var obj = {fn:fn};
+    obj.fn(function(a,b){
+        console.log(this,a,b);//->this是window
+    });
+//    通过回调函数执行的都是window
+</script>
+</body>
+</html>

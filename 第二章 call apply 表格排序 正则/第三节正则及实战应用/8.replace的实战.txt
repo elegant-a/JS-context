@@ -1,0 +1,17 @@
+//目标字符串
+var str="20151213";
+//目标数组
+var ary=["零","壹","叁","肆","伍","陆","柒","捌","玖"];
+
+//每有一个就执行一次
+//利用replace方法替换字符串,每有一次匹配的正则,就匹配一次
+str = str.replace(/\d/g,function(){
+//每一次捕获到的字符
+var num = arguments[0];
+因为字符串数字和数组中的下标是一样的,所以字符串的值就是数组对应数组下标的值
+var str = ary[num];
+return str
+})
+
+
+简写 return ary[arguments[0]]

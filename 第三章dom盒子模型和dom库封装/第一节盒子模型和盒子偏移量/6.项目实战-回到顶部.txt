@@ -1,0 +1,148 @@
+JS中的定时器(超时定时器和循环定时器)
+//设置第一个定时器(setTimeot),等到1000毫秒后开始执行对应的方法,
+方法执行完成后,定时器结束
+widnow.setTimeout(function(){},1000)
+
+//设置第一个定时器(setInrervaal),等到1000毫秒后开始执行对应的方法,
+方法执行完成后,定时器没有结束,以后每隔1000ms都会把定时器中的方法执行一次...
+直到手动清除定时器为止
+widnow.setInterval(function(){},1000)
+
+
+//2.设置定时器的时候是有返回值的
+var timer1=window.setTimeout(function(){
+console.log(timer1)//->1
+},1000)
+var timer2=widnow.setTimeout(function(){
+console.log(timer2)//->2
+},1000)
+
+var timer3=widnow.setInterval(function(){
+console.log(timer3)//->3
+},1000)
+
+window.clearTimeout(1);//清除定时器的时候,
+我们里面放一个数字,代表把这个数字代表的第N个定时器清除掉
+window.clearInterval(timer2)//->使用的是setTimeout设置第二个定时器,
+使用clearInterval可以把把它清除掉
+
+
+//3.
+//->setInterval来实现一个多次运动的动画
+var n = 0;
+var timer=window.setInterval(function(){
+ n++;
+ console.log(n)
+ if( n === 5){
+ window.clearInterval(timer)
+}
+},1000)
+
+
+//setTimeout实现多次运动的动画(递归)
+var n = 0;
+function move (){
+//每一次执行之前,先把之前设置的没用的定时器清除掉
+win.clearTimeout(timer);
+n++;
+console.log(n);
+if(n === 5){
+ return
+ 
+}
+//->第一次执行完成后,我设置一个定时器,过1000ms后再重新执行move,
+"递归":自己执行的时候重新调用自己再执行
+timer = window.setTimeout(move,1000);
+}
+move();
+
+
+回到顶部
+var goLink = document.getElementById("goLink");
+//总时间(duration):500ms
+//频率(interval):多长时间走一步 10ms
+//总距离(target):当前的位置(当前的scrollTop值)-目标的位置(0)
+//需要在500毫秒内全部走完,就要算出每10ms走的距离
+target/duration*interval
+//->步长(step):每一次走的距离 总距离 target/duration->每1ms走的距离*inverval->每一次走的
+距离;
+
+//当点击GO的时候,首先把每一步要走的步长计算出来
+goLink.onclick = function(){
+ var duration = 500,interval = 10,target = document.documentElement.scrollTop || document.
+body.scrollTop
+var step = (target / duration) * interval;
+
+//计算完成步长后,让当前的页面每隔interval这么长时间走一步:在原来的scrollTop基础上-
+步长
+var timer=window.setInterval(function(){
+ var curTop=document.documentElement.scrollTop || docuemnt.body.scrollTop;
+if(curTop === 0){//已经到头了
+   window.clearInterval(timer);
+   return
+
+
+}
+ curTop -= step;
+ document.documentElement.scrollTop = curTop;
+ document.body.scrollTop = curTop;
+
+
+},interval);
+
+}
+
+
+
+
+//回到顶部优化
+var goLink = document.getElementById("goLink");
+//开始GO按钮时不显示的,只有当浏览器卷去1屏的高度才显示,只要浏览器的滚动条在滚动,
+我们就需要判断GO显示还是隐藏
+//->浏览器的滚动条:拖动滚动条,滚轮,键盘上下键或者pageDown,pageUp键,点击滚动条的
+空白或者箭头(自主操作行为)...我们还可以通过JS控制srollTop实现滚动条滚动
+//不管如何操作的.只要滚动条动了,就会触发这个行为
+ window.onscroll = computedDisplay;
+function computedDisplay(){
+var curTop=document.documentElement.scrollTop || docuemnt.body.scrollTop;
+ 当前一屏幕的高度
+ var curHeight = document.documentElement.clientHeight || docuemnt.body.clientHeight;
+ goLink.style.display = curTop > curHeight ? "block" : "none" 
+
+
+}
+
+goLink.onclick = function(){
+//当点击的时候让当前的GO消失
+this.style.display="none";
+//光这样还不行:我们往回走的时候,我们又把window的onscroll触发了,让Go又显示了
+我们把onscroll方法取消掉
+window.onscroll = null
+var duration = 500,interval = 10,target = document.documentElement.scrollTop || document.
+body.scrollTop
+var step = (target / duration) * interval;
+var timer=window.setInterval(function(){
+ var curTop=document.documentElement.scrollTop || docuemnt.body.scrollTop;
+if(curTop === 0){
+   window.clearInterval(timer);
+   window.onscroll = computedDisplay;
+   return
+}
+ curTop -= step;
+ document.documentElement.scrollTop = curTop;
+ document.body.scrollTop = curTop;
+},interval);
+}
+
+默认是隐藏的
+display:none;
+
+
+
+作业:jd左侧出现的楼层导航
+刚开始没有楼层导航-,只有出现在一楼的时候才出现楼层导航,
+随着页面的继续滚动,每一个楼层到达某个区域的时候,
+我们让楼层导航对应的区域也跟着选中
+->当我们点击楼层导航中的某一项的时候,可以实现一个简单的动画,实现定位到具体的
+楼层
+

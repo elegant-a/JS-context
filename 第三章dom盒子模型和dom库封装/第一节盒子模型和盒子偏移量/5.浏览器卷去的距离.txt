@@ -1,0 +1,109 @@
+//之前我们学习的JS盒子模型中client系列/offset系列/scrollWidth/scrollHeight都是
+"只读"属性->只能通过属性获取值,不能通过属性修改值
+box.clientWidth=1000
+
+//2.scrollTop/scrollLeft:滚动条卷去的高度/宽度(这两个属性是唯一"可读写属性")
+
+//box.scrollTop = 0;//直接回到了容器的顶部
+//我们的scrollTop的值是存在边界值(最大和最小值),我们设置的值比最小值小
+或者比最大值大都没用,起到的效果依然是边界的值
+box.scrollTop = -1000;->直接回到顶部,没有超出
+//console.log(box.scrollTop);//->
+
+
+//最大值是多少
+[最大值=真实的高度-当前容器一屏的高度]
+clientWidth和clientHeight是一屏幕的宽度
+scrollHeight和scrollWidth是真实的宽度
+var maxTop=box.scrollHeight - box.clientHeight;
+console.log(maxTop);
+
+
+
+overflow:auto;溢出时会显示滚动条
+
+
+document.documentElement.scrollHeight || document.body.
+scrollHeight
+
+document.documentElement.scrollTop = 0;
+让它立马回到顶部scrollTop = 0
+就可以获取
+
+
+*{
+margin:0;
+padding:0;
+font-family:"微软雅黑",
+font-size:14px;
+}
+
+html,body{
+width:100%;
+height:1000%
+//css3背景颜色渐变
+background；#11c900
+background:-webkit-linear-gradient(top,#11c900)
+
+}
+
+<a href="#target" id="goLink">go</a>
+
+a{
+   text-decoration:none;
+   color:#000;
+}
+a:hover,a:active,a:target,a:visited{
+ text-decoration:none;
+ coloe:#000;
+}
+</style>
+<a >
+
+#goLink{
+display:block
+position:fixed;
+bottom:150px;
+right:50px;
+width:100px;
+height:100px;
+line-height:100px;
+text-algin:center;
+background:center;
+background:red;
+opacity:0.2
+/*CSS3盒子圆角*/
+border-radius:50%;
+filter:alphar(opacity=20)
+}
+user-select:none禁止用户选中文字 
+<!--A标签本身是跳转页面的,把跳转的地址写在href这个属性中,不写值的话是刷新本页面>
+1)不写值的话是刷新本页面
+2)写的如果是#target,是锚点定位,定位到当前页面id=target这个位置
+3)href="javascript:;"取消它的默认行为
+#goLink:hover{
+opacity:1;
+filter:alpha(opacity=100)
+}
+
+
+#target{
+ margin:1000px auto; 
+ height:50px;
+ background:red;
+}
+
+
+锚点定位
+
+
+var golink = document.getElementById("goLink")
+goLink.onclick = function(){
+ document.documentElement.scrollTop = 0;
+ docment.body.scrollTop = 0;
+
+}
+
+
+回到顶部使用的是position:fixed
+固定定位
