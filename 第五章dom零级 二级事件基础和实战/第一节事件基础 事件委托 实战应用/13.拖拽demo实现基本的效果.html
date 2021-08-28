@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽demo实现基本的效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #box {
+            /*position: absolute;*/
+            /*top: 50%;*/
+            /*left: 50%;*/
+            /*margin: -100px 0 0 -100px;*/
+            /*第二种使元素居中的方式*/
+            /*移动端开发不知道盒子多宽多高,主要应用于移动端开发*/
+
+            /*position: absolute;*/
+            /*top: 0;*/
+            /*left: 0;*/
+            /*bottom: 0;*/
+            /*right: 0;*/
+            /*margin: auto;*/
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #ff6600;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript">
+    //->使用js实现盒子的居中效果
+    var box = document.getElementById("box")
+    box.style.top = ((document.documentElement.clientHeight || document.body.clientHeight) - box.offsetHeight) / 2 + "px"
+    box.style.left = ((document.documentElement.clientWidth || document.body.clientHeight) - box.offsetWidth) / 2 + "px"
+
+    //拖拽的原理
+    //当鼠标在盒子上按下的时候 我们开始拖拽(给盒子绑定onmousemove和onmouseup)
+    //当鼠标移动的时候,我们计算盒子的最新位置
+    //当鼠标抬起说明拖拽已经结束了,我们的move和up就没用了,我们再把这两个方法移除
+    box.onmousedown = down;
+
+
+    //当鼠标按下时，执行的事件
+    function down(e) {
+        e = e || window.event;
+        //记录开始位置的信息
+        //#把属性存在#box里面,用box存储属性值,记录鼠标的坐标和盒子的偏移量
+        this["strX"] = e.clientX;
+        this["strY"] = e.clientY;
+        this["strL"] = parseFloat(this.style.left);
+        this["strT"] = parseFloat(this.style.top);
+
+        console.log(this)
+        //给元素绑定事件,绑定移动和抬起事件
+        //当鼠标移动时,执行的事件
+        if (this.setCapture) {    //this.setCapture(); 把盒子和鼠标绑定到一起
+            //把当前的鼠标和#box这个盒子解除绑定
+            this.setCapture();//->把当前的鼠标和this(#box)绑定在一起
+            this.onmousemove = move;
+            //当鼠标抬起时,执行的事件
+            this.onmouseup = up;
+        } else {
+            //document.onmousemove = move;
+            //当鼠标抬起时,执行的事件
+            //document.onmouseup = up;}
+            //这样绑定的话,move和up中的this都变为document了
+            var _this = this;
+            //记得把事件对象传进去
+            document.onmousemove = function (e){
+                //我们要用call或者apply改变this的指向
+                move.call(_this,e)
+            }
+            document.onmouseup = function (e){
+                up.call(_this,e)
+            };
+        };
+
+
+
+        }
+
+        function move(e) {
+            e = e || window.event;
+            //鼠标的xy坐标移动距离就是盒子的xy方向上偏移量的距离,总的来说就是盒子变化的偏移量,加上盒子原始的left,top值
+            var curL = (e.clientX - this["strX"]) + this["strL"];
+            var curT = (e.clientY - this["strY"]) + this["strT"];
+
+
+            //边界判断
+            var minL = 0, minT = 0,
+                maxL = (document.documentElement.clientWidth || document.body.clientWidth) - box.offsetWidth;
+            var maxT = (document.documentElement.clientHeight || document.body.clientHeight) - box.offsetHeight;
+            curL = curL < minL ? minL : (curL > maxL ? maxL : curL)
+            curT = curT < minT ? minT : (curT > maxT ? maxT : curT)
+            this.style.left = curL + "px";
+            this.style.top = curT + "px";
+        }
+
+        function up(e) {
+            if (this.releaseCapture) {
+                this.releaseCapture()//->把当前的鼠标和#box这个盒子解除绑定
+                //当拖动效果完成的时候,我们完成解绑,解除绑定
+                this.onmousemove = null;
+                this.onmouseup = null;
+            } else {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+    //clientX值移动多少,我们scrollTop移动的值就是多少
+    //开始记录一下鼠标开始位置 strX/strY和盒子的开始位置/strL/strT
+    //当鼠标移动的过程中  获取最新的鼠标位置,用现有的位置-起始的位置=鼠标移动的距离A
+    //当前盒子的位置 = 盒子的起始位置 + 鼠标的移动距离A
+
+    //当鼠标移动过快的时候,我们的鼠标会脱离盒子,导致盒子的mouseup和mousemove事件都移除不到->我们，我们称之为"鼠标焦点丢失"问题
+    //在IE和火狐浏览器中,我们用一个方法把爱盒子和鼠标绑定到一起即可->this.setCapture()
+    //但是这个方法在谷歌下不兼容
+
+    //鼠标再快也跑不出文档:我们把mousemove/mouseup绑定给document
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom2兼容处理this</title>
+</head>
+<body>
+<script type="text/javascript" src="../js/event.js"></script>
+<script type="text/javascript">
+  var box = document.getElementById("box");
+  function fn1(){
+      console.log(this.window)}
+  box.attachEvent("onclick",fn1.call(box));//->在给box绑定事件的时候,首先执行fn1方法,让方法中的this变为box,然后把fn1执行的
+  //返回结果绑定给onclick
+  box.attachEvent("onclick",fn1);
+  // box.attachEvent("onclick",function(){
+  //     fn1.call(box)
+  // })
+  //这样虽然解决了this的问题,但是又抛出了一个新的问题,不知道该如何删除了,我们不知道匿名函数是谁
+
+  var tempFn=function (){
+      fn1.call(box)
+  }
+  box.attachevent("onclick",tempFn);
+//这样就能移除了
+  box.detachEvent("onclick",tempFn);
+
+  bind(box,"click",fn1);
+  bind(box,"click",fn2);
+  bind(box,"mouseover");
+  unbind(box,"click",fn1);
+
+  on(box,"click",fn1);
+  on(box,"click",fn2);
+  on(box,"click",fn2);
+  on(box,"click",fn3);
+  on(box,"click",fn4);
+</script>
+</body>
+</html>
