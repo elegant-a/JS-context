@@ -1,0 +1,17 @@
+//混合模式继承:原型继承+call继承
+
+funciton A(){
+  this.x = 100;
+}
+
+A.prototype.getX = function(){
+   console.log(this.x)
+}
+
+function B (){
+  A.call(this);//->n.x=100
+}
+B.prototype = new A;//->B.prototype:x=100,getX
+var n = new B;
+
+//混合模式继承,私有和公有的都有一份

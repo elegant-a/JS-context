@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>http报文及谷歌控制台的使用</title>
+</head>
+<body>
+<script>
+    //http报文及谷歌控制台的使用
+    //HTTP报文,客户端传递给服务器的内容和服务器传递给客户端的内容，都属于http报文
+    //起始行:请求起始行,响应起始行
+    //首部:请求首部 响应首部 通用首部(请求和响应都有的)自定义首部
+    //主体:请求主体 响应主体
+
+    //3.Request Headers(view source)
+    /*
+    *GET / HTTP/1.1 ->请求起始行 HTTP METHOD(请求方式),请求地址,使用的http传输协议的版本号
+    * //请求首部所有的东西都是传递给服务器端,客户端会把一些信息放在请求首部中传递给服务器端,服务器端就可以在请求首部中获取到相关的内容
+       在请求首部获得相关信息获取相关内容
+        view source是用代码的方式来看 view
+GET / HTTP/1.1
+Host: www.baidu.com
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 用户使用的浏览器
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+    // Sec-Fetch-Site: none
+    // Sec-Fetch-Mode: navigate
+    // Sec-Fetch-User: ?1
+    //     Sec-Fetch-Dest: document
+    // Accept-Encoding: gzip, deflate, br
+    // Accept-Language: zh-CN,zh;q=0.9,zh-TW;q=0.8,en-US;q=0.7,en;q=0.6
+    // Cookie: BIDUPSID=8C64E416598366435BC746C7CC0B5B45; PSTM=1611204888; BD_UPN=12314753; __yjs_duid=1_a23c21634eb5f2e0154606682f2ff48a1619175588133; BAIDUID=60BFFBF826DBAAC0EC85A3B2041A6099:FG=1; BDUSS=W9WUzdOR3RNNjB1SUpYSmloRE5taEpGY01tMTBPYVBleDBZOWVlQUhWSnN6RUZoRVFBQUFBJCQAAAAAAAAAAAEAAADup7LS0KG2ubD8Njk2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGw~GmFsPxphY; BDUSS_BFESS=W9WUzdOR3RNNjB1SUpYSmloRE5taEpGY01tMTBPYVBleDBZOWVlQUhWSnN6RUZoRVFBQUFBJCQAAAAAAAAAAAEAAADup7LS0KG2ubD8Njk2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGw~GmFsPxphY; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; BAIDUID_BFESS=9728776CC8D238B7FEC8ACEBCD9CF606:FG=1; Hm_lvt_aec699bb6442ba076c8981c6dc490771=1630223896,1630294635,1630295445,1630382798; COOKIE_SESSION=84_0_9_9_13_24_1_0_9_5_1_7_94_0_15_0_1630382836_0_1630382821%7C9%23433161_331_1630223893%7C9; BD_HOME=1; H_PS_PSSID=34438_34441_34378_34497_31254_34004_34525_34092_34505_26350_34415; BA_HECTOR=a58g8k8h8120a5852i1gis28f0r
+    // */
+
+    //Response Headers
+    //请求首部是客户端设置,服务器端获取
+    //响应首部是服务器端设置,客户端获取
+    // HTTP/1.1 200 OK  ->响应起始行:HTTP版本号,响应状态码,状态码的说明
+    //->响应首部:服务器端传递给客户端的一些信息可以放在响应首部中,客户端可以在响应首部中获取到服务器的相关信息
+    //(服务器端设置,客户端获取)
+    // Bdpagetype: 2
+    // Bdqid: 0xf0ea01e1001ed8b5
+    // Cache-Control: private
+    // Connection: keep-alive
+    // Content-Encoding: gzip
+    // Content-Type: text/html;charset=utf-8;响应内容的格式和编码
+    // Date: Tue, 31 Aug 2021 10:56:19 GMT 服务器当前本次响应的时间(服务器时间 格林尼治时间),在得到时间的基础上再加上8个小时
+    // Expires: Tue, 31 Aug 2021 10:56:19 GMT
+    // Server: BWS/1.1
+    // Set-Cookie: BDSVRTM=300; path=/
+    // Set-Cookie: BD_HOME=1; path=/
+    // Set-Cookie: H_PS_PSSID=34438_34441_34378_34497_31254_34004_34525_34092_34505_26350_34415; path=/; domain=.baidu.com
+    // Strict-Transport-Security: max-age=172800
+    // Traceid: 1630407379240463975417359689779534289077
+    // X-Frame-Options: sameorigin
+    // X-Ua-Compatible: IE=Edge,chrome=1
+    // Transfer-Encoding: chunked
+
+    //[Response]响应主体 服务器传递给客户端的数据内容都在响应主体中,客户端可以在响应的主体中获取到这些内容(服务器端设置 客户端获取)
+
+
+    [Request Payload]//请求主体 客户端传递给服务器端的数据内容可以放在请求主体中传递给服务器,服务器可以在请求主体中获取到传递进来的
+    //内容
+
+    //客户端传递给服务器端数据?
+    //->请求URL后面问号传参的方式传递给服务器 /getList?name=4464566&zhufeng2333
+    //->设置请求的首部(设置请求头信息)
+    //->设置请求主体,把传递给服务器的内容放在请求主体中传递给服务器
+
+    //服务器传递给客户端数据:
+    //->设置响应头信息
+    //->设置响应主体内容
+    //Timing记录了http时间
+</script>
+</body>
+</html>

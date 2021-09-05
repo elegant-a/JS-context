@@ -1,0 +1,24 @@
+//->call继承:把父类私有的属性和方法 克隆一份摸一样的 作为子类私有的属性
+
+
+function A(){
+ this.x=100;
+}
+
+A.prototype.getX = function(){
+
+}
+
+B.prototype.constructor = B;
+
+
+function B(){
+//this->n
+this.x = 200;
+//继承过来了,将A执行,并将A中的this指向
+A.call(this);//->A.call(n) 把A执行,让A中的this变为了n
+}
+
+
+
+var n = new B;

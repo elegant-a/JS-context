@@ -1,0 +1,27 @@
+1.获取url传递进来的id值
+2.向服务器发送请求getInfo
+?id=xxx
+3.服务器返回内容,data
+4.得到内容后,进行字符串拼接一次绑定到区域
+queryURlparmter获取到
+获取url后面传递进来的id值
+//->http://192.168.0.22:81/add.html?id=2&name=3 {id:2,name:3}
+//获取当前页面的url地址
+window.location.href
+
+//->获取url地址栏问号后面的参数值
+String.prototype.queryURLParameter = function(){
+var obj = {};
+ reg = /(^?=&#)+=([^?=&#]+)/g;
+ this.replace(reg,function(){
+ var key = arguments[1],
+     value = arguments[2];
+     obj[key] = value;
+ })
+ return obj;
+}
+
+var urlObj=window.location.href.queryURLparameter();
+console.log(urlObj)//->{id:"2",name:"3"}
+customId=urlObj["id"],
+isFlag = typeof customId === "undefined" ? false : true;//是否为修改操作TRUE代表修改,false代表不修改

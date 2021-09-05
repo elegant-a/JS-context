@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5表单元素新特性</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            overflow-x: hidden;
+            color: #000000;
+            font-size: 14px;
+            font-family: "Microsoft YaHei UI",sans-serif;
+        }
+        input{
+            outline: none;
+        }
+        #userEmailTwo:valid{
+            border: 1px solid green;
+        }
+        #userEmailTwo:invalid{
+            border:1px solid red;
+        }
+        input{
+            display: inline-block;
+            outline: none;
+        }
+        .box{
+            margin: 20px auto;
+            position: relative;
+            width: 200px;
+        }
+        .box input{
+            padding: 0 5px;
+            width: 198px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #ccc;
+        }
+        .box .tip{
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+<input type="date">
+<!--可以找一个日历插件-->
+<!--&lt;!&ndash;disabled不可编辑的 &ndash;&gt;-->
+<!--<input type="number" id="number" max="65" min="0" step="0.1" value="25" disabled/>-->
+<!--<input type="range" id="range" min="18" max="65" step="1" value="25"/>-->
+<!--<script type="text/javascript">-->
+<!--    var range = document.getElementById('range'),number = document.getElementById('number');-->
+<!--    range.oninput = function (){-->
+<!--        number.value = this.value;-->
+<!--    }-->
+<!--HTML5还提供了一些新的表单元素 dataList,progess-->
+<!--提供了更加强大的功能,方便我们开发 它的出现是为了简化我们的开发-->
+<!--css3里面比较难得是3D动画flex box-->
+<!--在移动端使用对应的INPUT类型,当用户输入的时候,可以调取出对应的虚拟键盘,
+方便用户的快速输入(这个是HTML5表单新类型最核心的作用)
+->相对于传统的表单类型提供了新的验证方式
+css中提供的input:valid/input:invalid验证的方式,事件正则
+HTML5除了给input新增加类型外,还新增加一个常用的属性
+placeholder,但是在IE浏览器中支持的不是特别好
+IE浏览器下实现placeholder效果
+
+
+-->
+<!--//IE下实现placeholder效果-->
+<div class="box">
+    <input type="email" id="userEmail" placeholder="请输入您常用的邮箱地址!">
+    <span class="tip" id="tipEmail">请输入您常用的邮箱地址</span>
+</div>
+<input type="text" id="userEmailFir"/>;
+<input type="email" id="userEmailTwo"/>;
+
+
+<input type="search" id="searchInp" list="searchList"/>
+<select name="" id=""></select>
+<datalist id="searchList">
+    <option>北京</option>
+    <option>上海</option>
+    <option>广东</option>
+    <option>珠峰培训前端就业非常好</option>
+
+</datalist>
+<script>
+    ~function (pro){
+        function myTrim(){
+            return this.replace(/^ +| +$/g,'')
+        }
+
+        //在原型上扩展一个方法
+        pro.myTrim = myTrim
+    }(String.prototype)
+
+</script>
+<script type="text/javascript">
+ var userEmailFir=document.getElementById('userEmailFir'),
+     userEmailTwo = document.getElementById('userEmailTwo');
+ userEmailFir.onblur = function (){
+     var val = this.value.myTrim();
+     var reg = reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     if(!reg.test(val)){
+         console.log('邮箱格式不正确')
+     }
+ }
+ //提供了新的验证模式;JS中提供的是input.checkValidity
+ userEmailTwo.onblur = function (){
+     var val = this.value.myTrim();
+     if(!this.checkValidity()){
+         console.log('邮箱格式不正确')
+     }
+ }
+ userEmailFir.onkeyup = function (){
+     var val = this.value.myTrim();
+     var reg = reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     if(!reg.test(val)){
+         this.style.border = '1px solid red'
+     }else{
+         this.style.border = '1px solid green'
+     }
+ }
+
+
+
+
+</script>
+<!---->
+<!--HTML5中新增加了一些类型:search,url,email,tel,number,range,color,data,time,dataTime...-->
+<!--传统表单元素事件有哪些: click,change,focus,blur,keydown,keyup-->
+<!--移动端表单元素事件:在移动端没有keydown,keyup事件(当然有的手机是识别的),移动端用的是虚拟的键盘
+ 移动端多了一个事件类型:oninput
+-->
+<!--&lt;!&ndash;表单按钮一般是用name来进行分组&ndash;&gt;-->
+<!--<input type="radio" name="sex" value="man" id="sexMan" checked/><label for="sexMan">男</label>-->
+<!--<input type="radio" name="sex" value="woman" id="sexWoman"/><label for="sexWoman">女</label>-->
+<!--<input type="submit" id="submit"/>-->
+
+
+<input type="file"/>
+<!--由前端把获取的文件进行二进制编码,-->
+
+
+<!--<input type="checkbox" value="游泳" name="hobby" id="swimming"/> <label for="swimming">游泳</label>-->
+<!--<input type="checkbox" value="唱歌" name="hobby" id="singing"/> <label for="singing">唱歌</label>-->
+<!--<input type="checkbox" value="爬山" name="hobby" id="climbing"/> <label for="climbing">爬山</label>-->
+<!--<input type="checkbox" value="摄影" name="hobby" id="photoing"/> <label for="photoing">摄影</label>-->
+<!--<input type="checkbox" value="敲代码" name="hobby" id="code"/> <label for="code">敲代码</label>-->
+
+<!--<input type="submit" id="submit"/>-->
+<!--  /*传统的INPUT表单类型:text,password,submmit,reset,button,radio,checkbox,file(上传文件),hidden(当前文本框是隐藏)*/-->
+<!--  // var submit = document.getElementById('submit'),-->
+<!--  //     sexMan = document.getElementById("sexMan"),-->
+<!--  //     sexWoman = document.getElementById("sexWoman");-->
+<!--  // submit.onclick=function (){-->
+<!--  //     var sexType = 0;-->
+<!--  //     if(sexMan.checked){-->
+<!--  //       sexMan.checked?sexType = 1 :null;-->
+<!--  //     }-->
+<!--  }-->
+<!--  // sexMan.onclick=sexWoman.onclick=function (){-->
+<!--  //     console.log(this.value)-->
+<!--  // };-->
+<!--  //onchange这个事件大部分都是在给表单元素使用-->
+<!--  // sexMan.onchange=sexWoman.onchange=function (){-->
+<!--  //     console.log(this.value)-->
+<!--  // };-->
+<!--<script type="text/javascript">-->
+<!--    var submit = document.getElementById('submit'),-->
+<!--        hobbyList = document.getElementsByName('hobby');-->
+<!--    submit.onclick = function (){-->
+<!--        // console.log(hobbyList)-->
+<!--        for(var i = 0;i<hobbyList.length;i++){-->
+<!--            var curHobby = hobbyList[i];-->
+<!--            if(curHobby.checked){-->
+<!--                console.log(curHobby.value)-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+
+<script>
+    ~function (pro){
+    function myTrim(){
+        return this.replace(/^ +| +$/g,'')
+    }
+
+    //在原型上扩展一个方法
+    pro.myTrim = myTrim
+    }(String.prototype)
+
+</script>
+
+</body>
+</html>

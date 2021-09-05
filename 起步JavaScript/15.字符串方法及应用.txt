@@ -53,6 +53,7 @@ var s="1+2+3+4"
 console.log(s.split("+"))
 ["1","2","3","4"]
 7. match ? 正则常用的
+8.trim()去除字符串的首尾空格
 
 
 function addZero(value){

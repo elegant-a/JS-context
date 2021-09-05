@@ -1,0 +1,27 @@
+function avgFn(){
+//让类数组借用数组原型上的方法
+arguments是一个类数组
+   Array.prototpe.sort.call(arguments,function(a,b){
+  return (a - b)
+});
+//删除结尾的一个
+ Array.prototype.pop.call(arguments);
+//删除开头的一个
+ Array.prototype.shift.call(arguments);
+//用+号分隔,将数组转化成字符串,用eval将数组中的项加到一起
+ return (eval(Array.prototype.join.call(arguments,"+"))/arguments.length).toFixed(2)
+}
+
+cosnole.log(avgFn(10,20,30,60,10,30,40,40))
+
+
+
+
+
+arguments.callee是当前函数本身
+
+
+//以后在移动端开发后,直接让自己这个类的原型指向它的那个函数的类的prototype
+
+//从此以后,arguments就可以用所有的数组方法了
+arguments.__proto__ = Array.prototype

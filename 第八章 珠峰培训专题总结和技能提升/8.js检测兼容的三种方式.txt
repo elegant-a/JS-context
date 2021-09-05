@@ -1,0 +1,72 @@
+//检测兼容的三种方式
+//获取一个元素的属性名和属性值
+//1.元素.style.属性名
+//->需要我们把元素的样式都写在行内样式上才可以(写在样式表中是不管用的)
+//->在真实项目中不常用,因为我不能为了获取值而把所有的样式都写在行内
+(无法实现CSS和HTML的分离)
+
+//2.使用window.getComputedStyle这个方法获取所有经过浏览器计算过的样式
+//->所有经过浏览器计算过的样式值:只要当前的元素标签可以在页面中呈现出来,那么它
+的所有样式都是经过浏览器计算过得(渲染过的)->哪怕有些样式你没有写,我们也可以获取到
+
+//->
+
+  console.log(window.getCmputedStyle);//->function
+
+//在ie6-8下不兼容:因为window下没有getComputedStyle这个属性
+window.getComputedStyle(当前要操作的元素对象,当前元素的伪类[一般我们不用伪类写null])
+//获取的结果是CSSStyleDeclaration这个类的一个实例:包含了当前元素的所有样式
+window.getComputedStyle(box).height;
+//在IE6-8下我们可以使用currentStyle获取所有的经过浏览器渲染的样式
+curEle:我们当前样操作的元素对象
+function getCss(curEle,attr){
+var val = null;
+try{
+ val = window.getComputedStyle(curEle,null)
+
+}catch(e){
+val = curEle.currentStyle[attr];
+}
+return val;
+}
+
+//->getCss:获取当前元素所有经过浏览器计算过的样式中的[attr]对应的值
+
+
+window.getComputedStyle(box,null).height
+box.currentStyle.height
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//1.使用try catch处理兼容
+//->前提:必须保证try中的代码在不兼容浏览器中执行的时候报错,这样的话我们才可以
+用catch捕获到异常的信息,进行其他的处理,不管当前是什么浏览器,都需要把try中的代码执行
+一遍,如果当前是IE7,window.getComputedStyle本身是不兼容的,但是我也要先把它执行一遍,
+报错了,再把curEle.currentStyle执行一遍(消耗性能)
+
+//2.判断当前浏览器中是否存在这个属性或者方法,存在就兼容,不存在就不兼容
+function getCss(curEle,attr){
+v ar val = null;
+if("getComputedStyle" in window){
+//首先获取属性值,兼容返回的是一个函数,转为布尔是true,不兼容返回的结果是undefined,
+转换成布尔是false
+var val = null;
+if(window.getComputedStyle){
+ val = window.getComputedStyle(curEle,null)[attr]
+}
+}
+}
+3.通过检测浏览器版本和类型来处理兼容
+window.navigator.userAgent//取得当前浏览器的userAgent字符

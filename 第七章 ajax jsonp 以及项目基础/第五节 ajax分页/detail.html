@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="static/css/public.css" charset="UTF-8">
+</head>
+<body>
+<ul class="box2" id="box2">
+    <li>
+        <span>编号</span>
+        <span>4</span>
+    </li>
+    <li>
+        <span>姓名</span>
+        <span>xxx</span>
+    </li>
+    <li>
+        <span>性别</span>
+        <span>男</span>
+    </li>
+    <li>
+        <span>分数</span>
+        <span>99</span>
+    </li>
+</ul>
+
+<script charset="UTF-8" type="text/javascript" src="./js/queryURLparamters.js"></script>
+<script charset="UTF-8" type="text/javascript" src="./js/ajax.js"></script>
+<script charset="UTF-8" type="text/javascript">
+    console.log()
+    var detailModule = (function () {
+        var box2 = document.getElementById("box2");
+        var urlObj = window.location.href.queryURLParameter()
+        var customId = urlObj["id"];
+        var data = null, name = null, sex = null, score = null;
+        var ary1 = ["编号", "姓名", "性别", "分数"];
+        var ary2 = [];
+
+        //->sendAJAX:发送AJAX请求,
+        function sendAJAX() {
+            ajax({
+                url: "/getInfo?id=" + customId,
+                success: function (jsonData) {
+                    if (jsonData && jsonData.code == 0) {
+                        data = jsonData["data"];
+                        for (item in data) {
+                            if (item == "sex") {
+                                ary2.push(data[item] == 1 ? "女" : "男");
+                                //跳出本次循环
+                                continue;
+                            }
+                            ary2.push(data[item]);
+                        }
+                        bindHTML()
+                    }
+                }
+            })
+        }
+
+        function bindHTML() {
+            var str = '';
+            for (var i = 0; i < ary.length; i++) {
+                var curA = ary1[i], curB = ary2[i];
+                str += '<li>';
+                str += '<span>' + curA;
+                str += '</span>';
+                str += '<span>' + curB;
+                str += '</span>';
+                str += '</li>';
+            }
+            box2.innerHTML = str;
+        }
+
+        //程序入口文件
+        function init() {
+            sendAJAX()
+        }
+
+
+        return {
+            init: init
+        }
+    })()
+    detailModule.init();
+</script>
+</body>
+</html>

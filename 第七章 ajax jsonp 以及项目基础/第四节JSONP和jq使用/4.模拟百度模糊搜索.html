@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4模拟百度模糊搜索</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            outline: none;
+            display: block;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        html, body {
+            font-size: 14px;
+            font-family: "Microsoft YaHei UI", sans-serif;
+            color: #000000;
+        }
+
+        .box {
+            margin: 50px auto;
+            width: 300px;
+
+        }
+
+        .box input {
+            padding: 0 10px;
+            width: 278px;
+            height: 30px;
+            border: 1px solid green;
+        }
+
+        .box ul {
+            display: none;
+            padding: 10px 0;
+            border: 1px solid green;
+            border-top: none;
+        }
+
+        .box ul li {
+            padding: 0 10px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+
+        .box ul li:hover {
+            background: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text" id="searchInp"/>
+    <ul id="searchBox">
+        <!--        向百度请求之后动态创建li   -->
+        <!--        <li>珠峰培训</li>-->
+        <!--        <li>珠峰培训怎么样?</li>-->
+        <!--        <li>珠峰培训地址在哪?</li>-->
+        <!--        <li>珠峰培训就业怎么样?</li>-->
+    </ul>
+</div>
+//引入jQuery
+<script charset="UTF-8" type="text/javascript" src="./jQuery1.11.1/jquery-1.11.1.min.js"></script>
+<script charset="utf-8" type="text/javascript">
+    //当我输入内容向百度服务器发送一个请求,当文本框失去焦点,下面展示就隐藏,当点击时,把对应的文本展示在下边
+    //根据文本的内容向,百度的服务器发送请求
+    var searchModule = (function () {
+        var $searchInp = $("searchInp"),
+            $searchBox = $("#searchBox");
+        var interval = 100;
+        //应该是onkeyup才可以
+        //设置一个变量多少时间执行一次就可以了
+        //->向百度的服务器发送JSOPN请求,把数据获取到之后绑定到容器中
+        //https://sp0.baidu.com/xxxxxxxxx/su?wd=文本框中的关键字&cb=jQuery222311321
+        var searchKey = $searchInp.val();
+        //绑定数据
+        function bindHTML(){
+            function  callback(data){
+                      data = data["s"];
+                      var str = '';
+                      //遍历数据,绑定字符串
+                      $.each(data,function (index,item){
+                         if (index <= 3 ){
+                             str += '<li>'+item+'</li>>'
+                         }
+                      });
+                      if(str.length === 0){
+                          return;
+                      }
+                      //.html是innerHTML的缩写
+                      $searchBox.html(str).stop().slideDown(300);
+            }
+
+
+            $.ajax({
+                //把文本框中的内容作为参数传递给百度服务器
+                //jQuery把得到的随机函数中的data值传递给了你的success值
+                //({"code":0,"data":{"today":"2021-9-2"}})
+                url:"https://sp0.baidu.com/xxxxxxxxx/su?wd="+searchKey,
+                dataType:"jsonp",
+                jsonp:"cb",
+                //请求回来的内容长什么样子
+                //会把默认请求回来的值传入进success中的函数中的data
+                //把函数定义在$.ajax({})的外面
+                success:callback
+            })
+        }
+
+        //事件绑定和模块入口
+        function init(){
+         //事件委托处理；点击的是li我们让li中的内容显示在文本框中,展示框消失;点击的是文本框什么事情都不做,否则展示框消失
+         $searchInp.on("focus keyup keydown",function (){
+                var val = $(this).val();
+                if(val.length>0){
+                    bindHTML();
+                    return;
+                }
+                $searchBox.stop().slideUp(300)
+         });
+         //->给展示框中的LI绑定方法，当点击LI的时候,让当前LI中的内容放入到文本框中,并且隐藏展示框
+            //当你点外面的时候,依然触发了文本的失去焦点事件,触发了blur事件的执行
+            $(document).on("click",function (e){
+                var tar = e.target,tarTag = tar.tagName.toUpperCase(),
+                    $tar = $(tar);
+                //注意输出一下事件源
+                console.log(tarTag);
+                if(tarTag === "LI" && tar.parentNode.id === "searchBox"){
+                    //将li中的HTML内容,放入文本框中
+                    $searchInp.val($tar.html());
+                    //将$searchbox停止并收起
+                    $searchBox.stop().slideUp(300);
+                    return;
+                }
+                if(tar.id === "searchInp"){
+                    return;
+                }
+                $searchBox.stop().slideUp(interval);
+            })
+        }
+        return {init:init}
+    })()
+    //最主要的核心就是用jsonp向服务器发送跨域请求,将请求会来的数据遍历,并赋值给li
+    searchModule.init();
+    //所有东西都应该用事假委托来做
+    //input搜索框的设置分为四步,
+    //bindHTML
+    //1.向服务器端请求数据
+    //2.将请求回来的数据进行遍历,并用字符串拼接的方式动态创建li，并拼接数据
+    //init事件绑定和函数入口
+    //当输入框,聚焦了,抬起了,或者按下了,给文档委托一个是事件
+    //获取input输入框的内容,并利用jQuery下拉取消display:none的样式
+    //如果事件源是Li,则获取li的内容并将input的val值替换,并隐藏ul
+</script>
+</body>
+</html>

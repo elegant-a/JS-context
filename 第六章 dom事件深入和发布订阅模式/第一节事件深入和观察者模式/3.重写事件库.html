@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a id="a1" href="https://www.baidu.com">测试</a>
+    <script>
+        //用观察者模式重写event事件库
+        function on(ele,type,fn){
+            if(/^self/.test(type)){//判断是否是自定义事件
+               if(!ele[type]){
+                   ele[type] = [];
+               }
+               var a=ele[type];
+               //负责检测这个方法是否被重组绑定了
+               for(var i = 0;i<a.length;i++){
+                     if(a[i] == fn) return;
+               }
+               a.push(fn);
+
+            }
+            if(ele.addEventListener){
+                ele.addEventListener(type,fn,false)
+            }else{
+                if(!ele["aEvent"+type]){
+                ele["aEvent" + type] = []
+                ele.attachEvent("on"+type,function(){run.call(ele)})
+            }
+            var a=ele["aEvent"+type];
+            for(var i = 0 ;i<a.length;i++){
+                if(a[i]==fn)return;
+            }
+            a.push(fn);
+            }
+     
+        }
+        function run(){//这个方法只解决系统事件的兼容性问题
+            var e=window.event;
+            var type = e.type;
+            var a = this["aEvent"+type];
+            e.target=e.srcElement;
+            e.stopPropagation=function(){e.cancelBubble=true}
+            e.preventDefault=function(){e.returnValue=false}
+            e.pageX=(document.documentElement.scrollLeft||document.body.scrollLeft + e.clientX)
+        e.pageY=(document.documentElement.scrollTop||document.body.scrollTop + e.clientY)
+            for(var i = 0;i<a.length;i++){
+                //将事件池里面的事件this指向当前run的this，又由于run的this指向的是当前元素
+                if(typeof a[i]!="function"){
+                    a.splice(i,1)
+                }else{
+                    a[i].call(this,e);
+                    i++
+                }
+                
+            }
+        }
+
+        function fire(selfType,e){//第一个参数是自定义事件类型,第二个参数是系统的事件对象
+            var a=this[selfType];
+            if(a){
+                for(var i=0;i<a.length;i++){
+                    if(typeof a[i]==function){
+                        a[i].call(this,e);
+                        i++
+                    }else{
+                        a.splice(i,1)
+                    }
+                }
+            }
+        }
+
+        function off(ele,type,fn){
+            if(/^self/.test(type)){
+              var a=ele[type];
+              if(a){
+                  for(var i=0;i<a.length;i++){
+                      if(a[i]==fn){
+                          a[i]=null;
+                          return;
+                      }
+                  }
+              }
+            }else{
+                if(ele.removeEventListener){
+                ele.removeEventListener(type,fn,false)
+            }else{
+                var a=ele["aEvent"+type];
+            if(a&& a.length){
+                for(var i =0;i<a.length;i++){
+                    if(a[i]==fn){
+                        a[i]=null;
+                        return;
+                    }
+                }
+            }
+            }
+            }
+            
+        }
+        function fn1(e){
+            this.innerHTML += e.pageY;
+            e.preventDefault();
+        }
+        var a1 = document.getElementById("a1");
+        on(a1,"click",fn1)
+    </script>
+</body>
+</html>

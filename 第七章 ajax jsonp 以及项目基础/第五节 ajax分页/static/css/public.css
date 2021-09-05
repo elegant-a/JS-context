@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    outline: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    color: #000;
+    font-size: 14px;
+    font-family: "Microsoft YaHei UI", sans-serif;
+    -webkit-user-select: none;
+}
+
+/*index*/
+.box {
+    margin: 20px auto;
+    padding: 20px;
+    width: 800px;
+    border: 2px solid green;
+    text-align: center;
+}
+
+.box h2 {
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+}
+
+.box h2 {
+    display: flex;
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    background: pink;
+    color: #fff;
+}
+
+.box h2 span {
+    flex: 1;
+    text-align: center;
+}
+
+.con li{
+   display: flex;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+.con{
+    height: 300px;
+}
+
+.con li span{
+    flex: 1;
+    cursor: pointer;
+
+}
+
+
+
+.con li:nth-child(even){
+    background: #eee;
+}
+.con li:hover{
+    background: lightgreen;
+}
+
+.page{
+    display: inline-block;
+    margin-top: 10px;
+    height: 22px;
+    line-height: 22px;
+}
+.page span,.page ul,.page input,.page li{
+    float: left;
+    margin: 0 2px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid green;
+    cursor: pointer;
+}
+.page ul{
+    border: none;
+}
+.page span,.page input{
+    width: 45px;
+}
+.page li{
+    width: 20px;
+}
+.page li.bg{
+    color: #fff;
+    background: pink;
+}
+
+
+
+/*detail*/
+.box2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -100px;
+    width: 200px;
+    height: 200px;
+    border: 2px solid green;
+}
+.box2 li{
+    height: 50px;
+    line-height: 50px;
+}
+.box2 li:nth-child(even){
+    background: #eee;
+}
+
+.box2 li span{
+    display: inline-block;
+    float: left;
+    width: 100px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+/* css中的继承问题和flex布局,问题*/
+/*使用css3的属性实现各行变色和鼠标滑过变色*/
+/*display:inline-block,表示的是变为文字*/

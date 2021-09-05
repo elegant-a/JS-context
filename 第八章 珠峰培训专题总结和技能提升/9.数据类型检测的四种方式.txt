@@ -1,0 +1,141 @@
+//1.typeof 用来检测数据类型的运算符
+//console.log(typeof 12)
+//var num = "zhufeng";
+//使用typeof检测数据类型,首先返回的都是一个字符串,其次字符串中包含了对应的数据类型
+//例如:"number","string","boolean","undefined","function","object"
+//局限性
+///->typeof null ->"object"
+consolt.log(typeof typeof function(){})//->"string"
+//不能具体细分是数组还是正则,还是对象中的其他值,因为typeof检测数据类型,对于对象数据类型
+中的左右的值,最后的返回结果都是"object"
+function fn(callback){
+
+callback && callback();
+
+}
+
+fn(function(){})
+
+//2.instance检测某一个实例是否属于某个类
+var obj = [12,23];
+console.log(obj instanceof Array);
+//对于基本数据类型来说,字面量创建出来的结果和实例创建出来的结果是有一定区别的,
+//从严格意义上来讲,只有实例创建出来的结果才是标准对象数据类型的值,也是标准的Number
+这个类的一个实例;对于字面量方式创建出来的结果是基本数据类型的值,不是严谨的实例,
+由于JS的松散型,导致了可以使用Number.prototype上的提供的方法
+//局限性 
+1 instanceof Number;//false
+"" instanceof Boolean;//false
+new Number(1) instanceof Number
+//1.不能用来检测和处理字面量方式创建出来的基本数据类型的值
+
+//2.instanceof的特性:只要在其原型链上,我们检测出来的结果都是true
+instanceof的原理:查找目标对象的原型链
+function Fn(){
+
+}
+var ary = new Array;
+Fn.prototype = ary;//原型继承:让子类的原型等于父类的一个实例
+var f = new Fn;
+//f->Fn.prototype->Array.prototype->Object.prototype
+console.log(f instanceof Array);//->true
+//f不是一个数组,但是在它的原型链上有数组,所以返回的结果为true
+
+
+var ary = [];
+console.log(ary instanceof Object);//true
+console.log(fn instanceif Object);//true
+//原型继承:让子类的一个原型等于父类的一个实例
+function Fn(){}
+Fn.prototype = new Array;//
+//字节写一个类,作用是创建一个类数组(索引和length),但是可以使用数组的方法
+
+
+
+function myInstance(L,R){//代表instance的左边,R代表右边
+var RP = R.prototype
+var LP = L.__proto__
+ while(true){
+ if(LP == null){
+  return false
+}
+ if(LP = RP){
+    return true
+}
+LP = LP.__proto__
+
+}
+}
+
+
+
+
+
+//3.constructor 构造函数
+constructor可以处理基本数据类型
+ 作用和instanceof非常相似
+var obj = [];
+console.log(obj.constructor === Array);//->true
+console.log(obj.constructor === RegExp);//->false
+
+var num = 1;
+console.log(num.constructor === Number)
+//constructor检测Object和instance不一样,一般情况下是检测不了的
+
+//局限性:我们可以把类的原型进行重写,在重写的过程中很有可能出现
+//把之前的constructor给覆盖了,这样检测出来的结果就是不准确的
+
+
+
+//4.Object.prototype.toString.call()
+//首先获取Object原型上的toString方法,让方法执行,并且改变方法中的this
+关键字的指向
+
+
+//toString的理解:
+//->乍一看应该是转换为字符串,但是某些toString方法不仅仅是转换为字符串
+Number.toString()转换为字符串
+
+原型上的属性是不可枚举的
+
+//->对于特殊的数据类型null和undefined,他们所属的类是Null和Undefined,
+//但是浏览器把这两个类保护起来了,不允许我们在外面访问使用
+
+zhufeng.toString
+
+//->对于Number,String,Boolean,Arra,RegExp,Date,Function原型上的toString
+方法都是把当前的数据类型转换为字符串的数字类型
+//->Object.prototype.toString并不是把用来转换字符串的
+
+//->Object.prototype.toString它的作用是返回当前方法的执行主体(方法中this)所属类的详细信息
+//toString中的this是谁obj,返回的死obj所属类的信息->"[object Object]"第一个object
+代表的当前实例是对象数据类型的(这个是固定死的,第二个Object代表的是obj所属类是Object)
+var ary = [];
+console.log(Object.prototype.toString.call(ary));
+->"[object Array]"
+console.log(Object.prototype.toString.call(/^$/));
+//->"[object RegExp]"
+console.log(({}))
+
+
+xxx === ["object"]
+var reg = /^[\object Array]\$/
+console.log(reg.test(Object.prototype.toString.call(ary)))
+
+
+function mYinstanceof(L,R){
+L = L.__proto__;
+R = R.prototype;
+while(true){
+ if(L == null){
+   return false;
+}if(L = R){
+
+return true
+}
+L = L.__proto__
+
+}
+
+
+}

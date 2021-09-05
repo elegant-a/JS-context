@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSONP的原理</title>
+</head>
+<body>
+
+<script>
+    var xhr = new XMLHttpRequest();
+    //在ajax中,协议,域名,端口号都相同,我们前面那些东西就都可以省略掉的
+    xhr.open("get", "./data.txt", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+        }
+    }
+    xhr.send(null);
+    //JSONP的原理,在script标签不区分同源非同源
+    //JSONP的原理(JSONP请求一定需要对方的服务器做支持才可以):
+    //->在SCRIPT的世界中,没有同源跨域这一说,只要你给我SRC属性中的地址是一个合法的地址,SCRIPT都可以把对应的内容请求回来
+    //->SCRIPT是没有国界的
+
+    //JSONP就是利用了SCRIPT的这个原理
+    //1.我们首先把需要请求数据的那个跨域的API数据接口的地址赋值给SCRIPT的SRC
+    //2.把当前页面中某一个参数名当做传递值传递给需要跨域请求的服务器(URL问号传参:?callback=fn)
+    //3.腾讯服务器接收到你的请求后,需要进行特殊的处理,把你你传递进来的函数名和他需要给你的数据拼接成一个字符串 例如:我们传递进去的函数名是
+    //fn,它准备好的数据是'fn'({"name":"zhufeng"}) ->我的传递的函数名(需要给我们的数据)
+    //JSONP需要请求的服务器做特殊处理
+    //4.最后腾讯把准备的数据通过HTTP协议返回给我们客户端,客户端发现其实就是让我们的fn执行,而且还给fn传递了一堆的数据,那些数据就是我们想要的
+
+
+</script>
+
+<!--服务器端返回的数据是一个函数执行fn(con) 返回的类型是text/javascript,会被浏览器执行-->
+<!--在jsonp请求中,服务器端返回给客户端的数据格式一般返回的的JSONP格式的字符串-->
+<!--请求头中是text-javascript 所以浏览器会把返回的值当做javascript来执行-->
+<script src="./js/index.js"></script>
+<script src="http://pingjs.qq.com/ping.js"></script>
+</body>
+</html>

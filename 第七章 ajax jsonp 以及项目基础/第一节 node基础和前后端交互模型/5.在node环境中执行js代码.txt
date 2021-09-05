@@ -1,0 +1,37 @@
+3.如何让js代码在js中执行
+->利用webStorm嵌入NODE的机制,直接把编写的JS通过右键"Run xxx.js"在NODE环境中执行(不建议大家经常使用,因为有些时候我执行的操作
+因为有些时候会有缓存)
+->在命令窗口中执行
+在当前要执行的JS文件目录下,shift+右键 => 在此处打开命令窗口 => node xxx.js 相当于把JS代码在node环境中打开
+
+
+
+4.NODE模块
+  ->内置模块(NODE环境天生提供的):http(createServer..),fs(writeFileSync,readFileSync..),url...
+  ->自定义模块:我们自己定义的模块
+    在NODE环境中,我们在当前的项目下创建了一个JS文件,就相当于创建了一个模块,例如:新建一个a.js,相当于创建了a模块
+       如果需要提供一些方法给其他的模块使用,则需要通过module.exports把方法导出,例如:在A模块中写了 module.export={fn:fn}/
+       module.exports.fn=fn
+
+       //如果想在B模块中使用,我们需要先导入 var a = require("./a");这样的话我们就可以调用a模块中导出的方法了
+       a.fn()
+
+
+
+  ->第三方模块：别人写好的模块我们拿来使用   在NODE中我们如果需要使用别人的模块,需要使用npm这个命令
+    安装:npm install 第三方模块名称 -g (安装到NODE的全局环境中)
+    卸载:npm uninstall 第三方模块名称 -g
+    安装成功后,我们在js中通过 var less= require("less")把刚才安装的第三方模块导入到js中,这样的话我们就可以使用这个模块提供的方法了
+
+    node引入js模块要导出
+    require ,
+    module.exports = {
+    }
+
+    5.服务器创建成功后,如何向服务器端发送请求?
+    http默认请求找的是80端口
+    ->在浏览器中输入http://localhost:80
+    ->在浏览器中输入 http://本机的ip地址加端口号就可以了
+     http://192.168.0.32:80(端口号可以加也可以不加) ip地址必须联网,localhost不用联网
+     webstorm会自己给你的电脑开一个63342服务器端口,并创建一个服务
+

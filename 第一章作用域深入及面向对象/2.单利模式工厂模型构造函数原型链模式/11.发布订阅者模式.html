@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--    发布订阅者模式实现思路-->
+<!--1.创建一个类-->
+<!--2.在该类上创建一个缓存列表(调度中心)-->
+<!--3.emit方法取到event事件类型,根据event值去执行对应的缓存列表中的函数
+      (发布订阅者发布事件到调度中心,调度中心处理代码)-->
+<!--off方法可以根据event事件类型取消订阅-->
+<script>
+    /*
+    * 分析构造函数
+    * 属性:消息队列
+    * {
+    * "click":[fn1,fn2,fn3]
+    * "abc":[fnA,fnB]
+    * 能向消息队列里面添加内容 $on
+    * 删除消息队列中的内容 $off
+    * 触发消息队列里面的内容 $emit
+    * }
+    *
+    *
+    * */
+    class Observer{
+        //类里面的constroctor函数在创建实例的时候会自动执行
+        constructor() {
+            this.message = {};
+        }
+        //type表示的是 我拜托你要看着什么行为?
+        //fn 行为发生后 我应该做什么事情
+        $on(type,fn){
+            //先判断有没有这个属性
+            //如果message没有这个属性 就初始化一个空的数组
+            if (!this.message[type]){
+                this.message[type] = [];
+            }
+            //紧接着向message的type里面添加一个新的方法
+            this.message[type].push(fn);
+        }
+        $off(type,fn){
+            //判断你有没有订阅
+         if(!this.message[type]) {
+             return;
+         }
+         if(!fn){
+             this.message[type] = undefined;
+             //如果没有fn我就删掉整个事件
+             //如果有fn我就仅仅只是过滤掉这个方法
+             return;
+         }
+         this.message[type] = this.message[type].filter((item) => item !== fn)//true保留 false弃掉,通过filter这个方法操作
+            //判断你没有有fn这个参数
+            //如果没有fn我就删掉整个事件
+            //如果有fn我就仅仅只是过滤掉这个方法
+        }
+        $emit(type){
+            //判断你有没有订阅
+            if(!this.message[type]){
+                return;
+            }
+            //用forEach遍历执行
+            this.message[type].forEach((item) => {
+                item();
+            })
+        }
+    }
+
+    //使用构造函数创建一个实例
+    const person1 = new Observer()
+    //我现在想要向person1委托一些内容,帮我观察
+    person1.$on("abc",handleA)
+    person1.$on("abc",handleB)
+    person1.$on("abc",handleC)
+    //直接整个队列都不用你来管了
+    //但是我要把handlerB删掉
+    person1.$off("abc",handleA)
+    person1.$emit("abc");
+
+
+
+
+    function handleA() {
+        console.log(handleA)
+    }
+    function handleB(){
+        console.log(handleB)
+    }
+    function handleC(){
+        console.log(handleC)
+    }
+
+
+    //它的核心只有三个
+    //第一个静态的message
+    //on
+    //off
+    //emit
+</script>
+</body>
+</html>

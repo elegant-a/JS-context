@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用ajax进行jsonp请求</title>
+</head>
+<body>
+     <script src="jQuery1.11.1/jquery-1.11.1.min.js"></script>
+     <script charset="utf-8" type="text/javascript">
+      //->AJAX
+      // $.ajax({
+      //     url:"data.txt",
+      //     type:"get",
+      //     dataType:"json",
+      //     data:null,
+      //     async:true,
+      //     timeout:3000,//设置超时时间,一般都设置为3000毫秒
+      //     cache:false,//->设定get请求的时候,不走缓存数据,原理其实就在url末尾加随机数,默认值是true
+      //     success:function (data){
+      //         console.log(data)
+      //     }
+      // })
+
+      //JSONP http://matchweb.sports.qq.com/kbs/calendar?columnId=10000;
+
+      //JSONP都是GET和异步请求的,不存在其他的请求方式和同步请求,而且jQuery默认就会给JSONP的请求清除缓存
+      //项目中,不管是ajax请求还是jsonp请求都是jQueryajax请求方式
+      //->JSONP都是GET和异步请求的,
+      $.ajax({
+          url:"data.txt",
+          type:"get",
+          dataType:"jsonp",
+          data:null,
+          // jsonpCallback:"fn",//自定义传递给服务器的函数名,而不是使用jQuery自动生成的
+          //jsonp:"cb",//把传递函数名的那个形参callback变为cb
+          //callback=jQuery111300079623017345
+          //服务器返回的结果就是随机函数名执行
+          success:function (data){
+              console.log(data)
+          }
+      })
+      //dataType换成jsonp就成功了,jsonp会自动清缓存
+     </script>
+</body>
+</html>

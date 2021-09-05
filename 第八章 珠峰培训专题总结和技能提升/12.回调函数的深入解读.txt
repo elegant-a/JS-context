@@ -1,0 +1,108 @@
+var ary = [12,23,34,45,56];
+//->forEach:用来遍历数组中的每一项
+//1)数组中有几项,那么我们传递进去的匿名回调函数就需要执行几次
+//2)每一次执行匿名函数的时候,我们还给其传递了三个参数值,数组中的当前项item,当前项的索引
+index,原始的数组input
+//数组中有几项,我们这个匿名函数就执行几次
+//理论上我们forEach方法是没有返回值的,不对原来的数组进行修改,
+//但是我们可以用自己通过数组的索引来修改原来的数组
+用forEach来代替for循环
+ary.forEach(function(item,index,input){
+  console.log("ok");
+})
+
+
+2.//forEach方法的兄弟可以用map来替换
+  //->map:和forEach非常相似,都是用来遍历数组中的每一项的值的
+  //1)map的回调函数中支持return返回值,return的是啥,相当于把数组中的这一项改变为啥(但是并不影响
+原来的数组,只是相当于把原数组克隆一份,把克隆的这一份的数组中的对应项改变了)
+var res = ary.map(function(item,index,input){
+
+return item * 10;
+})
+
+
+var obj = {name:"zhufengpeixun"}
+var ary = [12,23,34,45,56];
+//->forEach方法中this是ary;匿名函数回调函数中的this默认是window;
+ ary.forEach(function(item,index){
+   console.log(this);
+})
+
+//给forEach的时候,首先把匿名函数执行,把匿名函数中的this变为obj,把匿名函数执行的返回结果
+undefined赋值给forEach(不行)
+ ary.forEach(function(item,index){
+   console.log(this);
+}.call(obj))
+
+
+
+
+//用bind可以解决这个问题
+ary.forEach(function(item,index){
+   console.log(this);
+}.bind(obj))
+
+//不管是foreach还是map，都支持第二个参数值,第二个参数的意思是把,匿名回调函数中的this
+//进行修改
+ ary.forEach(function(item,index){
+   console.log(this);
+},obj)
+
+"zhufeng".replace(/\w/g,function(){
+  console.log(this)
+}.bind(obj));
+
+//2.不管是forEach还是map都在IE6-8下不兼容(对象不支持"forEach属性或方法"->在Array.prototype上没有
+forEach这个方法)
+console.dir("forEach" in "Array.prototye")//标准是true,IE6-8下是false
+forEach和map很好用,
+forEach和map在IE678下不兼容
+
+
+//myForEach
+
+Array.prototype.myForEach = function myForEach(callBack,context){
+context = context || window;
+//如果是标准浏览器下,我们使用内置的forEach方法就可以了
+if("forEach" in Array.prototype){
+ this.forEach(callBack,context);
+ return;
+}
+  //IE6~8下自己编写回调执行逻辑,数组当中有几项,我们的匿名函数就执行几次
+  for(var i = 0,len = this.length;i<len;i++){
+  callBack && callBack.call(context,this[i],i,this)
+
+
+}}
+
+
+
+//myMap
+
+Array.prototype.myMap = function myMap(callBack,context){
+context = context || window;
+//如果是标准浏览器下,我们使用内置的forEach方法就可以了
+if("map" in Array.prototype){
+ return this.map(callBack,context);
+}
+  //IE6~8下自己编写回调执行逻辑,数组当中有几项,我们的匿名函数就执行几次
+var newAry = [];
+  for(var i = 0,len = this.length;i<len;i++){
+  if(typeof callBack==="function"){
+   var val = callBack && callBack.call(context,this[i],i,this)
+   newAry[newAry.length] = val
+}
+
+}
+return newAry
+}
+
+
+
+
+
+
+
+
+

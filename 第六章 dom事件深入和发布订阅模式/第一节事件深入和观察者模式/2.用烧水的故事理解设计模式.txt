@@ -1,0 +1,75 @@
+理解什么叫事件标识符:"click","mousemove","mouseover"
+当down行为发生的时候,用"selfDragStrat"字符串来表示.用fire来发布这个事件就是用一个
+字符串来,表示事件的发生.
+订阅事件(绑定事件,添加一个事件监听者)
+发布事件(就是在这个事件发生的时候,通知订阅者来执行)
+A行为     中间由模式来关联 B行为
+
+
+function boiling(){
+  console.log("水烧开了")
+  fire();
+
+}
+//-----A---------
+
+//---以下就是B
+function drink(){
+  console.log("喝水")
+
+}
+
+function waterFlower(){
+   console.log("浇花")
+}
+
+function washFace(){
+  console.log("洗脸")
+}
+
+
+//
+//事件驱动型的,还是异步的,回调的
+//烧水前先要计划一下
+//水烧开的时候,我被通知了--报警器
+//然后我就可以做我原来的计划了
+//给水壶安装报警器
+
+
+var aEvent={}
+function on(type,fn){
+ var type="selfBoiling"
+ if(!aEvent[type]){
+     //如果oEvent对象里面没有[type](selfBoiling)这个属性,则将这个属性定义为一个数组
+     aEvent[type]=[]
+}
+//如果有这个属性的话,将oEvent[type]赋值给变量a并向里面增加我们传入的事件
+   var a=aEvent[type];
+       a.push(fn);
+
+}
+
+
+function fire(){
+//当水烧开的时候,我们将这个含有方法的数组取出
+ var a = aEvent["selfBoiling"];
+//如果a这个数组存在
+if(a){
+//遍历当前的数组
+for(var i=0;i<a.length;i++){
+//依次执行数组里面的方法
+  a[i]()
+}
+}  
+
+}
+
+on("selfBoiling",drink);
+on("selfBoilng",washFace);
+on("selfBoilng",waterFlower);
+
+//以上是约定:就是在烧水之前,就明确了水开之后干什么了,增加一个观察者,增加一个监听者
+boiling();
+
+
+//把代码独立开,就必须把功能模块化,把接口写好

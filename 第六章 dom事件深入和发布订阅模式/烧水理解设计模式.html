@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //         理解什么叫事件标识符:"click","mousemove","mouseover"
+    // 当down行为发生的时候,用"selfDragStrat"字符串来表示.用fire来发布这个事件就是用一个
+    // 字符串来,表示事件的发生.
+    // 订阅事件(绑定事件,添加一个事件监听者)
+    // 发布事件(就是在这个事件发生的时候,通知订阅者来执行)
+    // A行为     中间由模式来关联 B行为
+
+
+    function boiling() {
+        console.log("水烧开了")
+        fire();
+
+    }
+
+    //-----A---------
+
+    //---以下就是B
+    function drink() {
+        console.log("喝水")
+
+    }
+
+    function waterFlower() {
+        console.log("浇花")
+    }
+
+    function washFace() {
+        console.log("洗脸")
+    }
+
+
+    //
+    //事件驱动型的,还是异步的,回调的
+    //烧水前先要计划一下
+    //水烧开的时候,我被通知了--报警器
+    //然后我就可以做我原来的计划了
+    //给水壶安装报警器
+
+
+    var aEvent = {}
+
+    function on(type, fn) {
+        if (!aEvent[type]) {
+            //将这三个函数装到一个数组里面
+            //如果oEvent对象里面没有[type](selfBoiling)这个属性,则将这个属性定义为一个数组
+            aEvent[type] = []
+        }
+//如果有这个属性的话,将oEvent[type]赋值给变量a并向里面增加我们传入的事件
+        var a = aEvent[type];
+        a.push(fn);
+
+    }
+
+
+    function fire() {
+//当水烧开的时候,我们将这个含有方法的数组取出
+        console.log(aEvent)
+        var cur = null;
+        for (cur in aEvent) {
+            //for in 循环数组时,只能使用中括号的形式来收到数组当前的值
+            //遍历当前数组,依次执行里面的方法
+          for(i=0;i<aEvent[cur].length;i++){
+              aEvent[cur][i]()
+          }
+        }
+    }
+
+    on("selfBoilng", drink);
+    on("selfBoiling", washFace);
+    on("selfBoiling", waterFlower);
+
+    //以上是约定:就是在烧水之前,就明确了水开之后干什么了,增加一个观察者,增加一个监听者
+    boiling()
+    //on和fire就是单独的报警器了
+</script>
+</body>
+</html>

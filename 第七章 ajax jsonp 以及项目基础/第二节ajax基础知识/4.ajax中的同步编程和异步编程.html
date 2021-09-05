@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax中的同步编程和异步编程</title>
+</head>
+<body>
+<script src="ajax.js"></script>
+<script type="text/javascript">
+    //->同步(SYNC)和异步(ASYNC)编程
+
+    //->JS属于单线程的,我们最好使用异步编程,这样不会因为上一件事情没有完成,就做不了下一件事情
+    //->定时器都是异步编程的
+    //->事件绑定都是异步编程的
+    //->回调函数也可以理解为异步编程
+    //->在ajax中也可以使用异步编程
+    // var xhr = createXHR();
+    // var count = 0;
+    // window.setTimeout(function () {
+    //     console.log("A")
+    //     count++;
+    //     console.log(count) //1000ms //没有输出的:我们定时器设定1000ms后执行,不一定到达时间就执行,
+        //如果当前浏览器的线程被占用(现在是被死循环占用),定时器就要一直等着
+    // }, 0);//->我们定时器的时间设置为0也不是立马执行,而是需要等待一段时间；谷歌5-6
+    //IE10~13
+    //先输出0再输出1
+    // console.log(count)
+    // while (1<100000000){
+    //      i++;
+    // }
+    //->多个定时器,如果执行完成,则先执行时间短的这个定时器
+    //AJAX中的同步:当ajax任务开始的时候,直到readyState=4任务才算结束,此时才可以处理其他的事情
+    //AJAX中的异步:当ajax任务开始的时候,不需要readyState=4,我依然可以做其他的任务,
+    //并且只有当其他的任务完成后,我们再看是否到4,到达4的时候做一些相关的操作
+    //绑定在open前就可以输出1，绑定在open后就无法输出1
+    //同步条件下
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("get","./ajax.js",false);
+    // xhr.onreadystatechange = function (){
+    //     console.log(xhr.readyState)//输出三次,分别对应2,3,4//创建对象状态码为0,open状态码
+    //     //变成了1,在我open之前,事件没有绑定,如果放在open之前,则会输出1,2,3,4就在原有的基础上输出了1
+    // }
+    // xhr.send(null);//只有send后,ajax的任务才开始,向服务器发送请求的任务才开始
+
+    //当ajax完成时,只有等于4时,才算完成
+
+    //异步条件下,异步条件下会输出2,3,4
+    var xhr = new XMLHttpRequest();
+    xhr.open("get","./ajax.js");
+    xhr.onreadystatechange = function (){
+        console.log(xhr.readyState)//输出2,3,4
+        //变成了1,在我open之前,事件没有绑定,如果放在open之前,则会输出1,2,3,4就在原有的基础上输出了1
+    }
+    xhr.send(null);//只有send后,ajax的任务才开始,向服务器发送请求的任务才开始
+
+    //当ajax完成时,只有等于4时,才算完成
+
+    //采用同步编程
+    var xhr = new XMLHttpRequest();
+    xhr.open("get","./ajax.js",false);
+    xhr.onreadystatechange = function (){
+        console.log(xhr.readyState)//输出4
+    }
+    xhr.send(null);//只有send后,ajax
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("get","ajax.js");
+    xhr.send(null);
+    xhr.onreadystatechange = function (){
+        console.log(xhr.readyState)//2,3,4
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.open("get","ajax.js",false);
+    xhr.send(null);
+    xhr.onreadystatechange = function (){
+        //在放之前,readyState已经等于4了
+        console.log(xhr.readyState)//没有任何输出
+    };
+
+    //获取服务器时间
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("get","ajax.js");
+    xhr.setRequestHeader("zhufeng":2016)//设置请求头信息,需要设置在open之后
+    //就是为了防止请求时间过长
+    xhr.timeout="1000";//设置ajax的请求超时时间
+    xhr.send(null);
+    xhr.onreadystatechange = function (){
+        if(xhr.readyState ==2 ){
+            //获取服务器的响应头信息
+            var time = xhr.getResponseHeader(Date);
+            console.log(new date(time))
+        }
+    }
+    //为什么获取服务器时间在2的时候,不能在4的时候获取
+    //JD和淘宝的倒计时抢购,最耗时的是3和4在readyState为2的时候就进行操作
+    //请求头客户端设置,响应头服务器端设置
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

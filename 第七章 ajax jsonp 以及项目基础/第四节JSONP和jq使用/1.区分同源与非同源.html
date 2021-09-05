@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.区分同源与非同源</title>
+</head>
+<body>
+<script type="text/javascript">
+    //异步的javaScript与xml,?传参,send()请求主体
+    //get post put
+
+    //JSONP和AJAX相同,都是客户端向服务器端发送请求:给服务器端传递内容 或者 从服务器端获取数据的方式
+    //AJAX属于同源策略 JSONP属于非同源策略(跨域请求) ->实现跨域请求的方式有很多种,只不过JSONP是最常用的
+    //当前页面的url地址
+    //  http://localhost:63342/banner.js/%E7%AC%AC%E4%B8%83%E7%AB%A0%20ajax%20jsonp%20%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80/%E7%AC%AC%E5%9B%9B%E8%8A%82JSONP%E5%92%8Cjq%E4%BD%BF%E7%94%A8/1.html?_ijt=4mmm2cqeg795f30atrsur9cbg6&_ij_reload
+
+
+    //->我们需要在1.html中做一件事情
+    //把我们本地的data.txt中的内容获取到
+    //把本地同一个服务下的data.txt中的内容获取到
+    //我们需要请求数据的地址
+
+    //下面我们想在1.html中请求一个data.txt内容
+
+    //区分同源和非同源:
+    //用当前页面的地址 && 数据请求的接口地址
+    //服务器端提供获取数据接口的地址
+
+    //1)协议
+    //2)域名或者IP
+    //3)端口号
+    //以上三部分完全相同,我们使用ajax来获取,只要有一项不一样我们就用JSONP来获取数据;
+
+    var xhr = new XMLHttpRequest();
+    //在ajax中,协议,域名,端口号都相同,我们前面那些东西就都可以省略掉的
+    xhr.open("get", "./data.txt", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+        }
+    }
+    xhr.send(null);
+    //把当前页面下的data.txt获取到了
+
+    //[我想获取的是腾旭体育项目中的数据]
+
+    //当前页面的api地址,和请求数据服务器提供的api地址
+    //
+
+</script>
+</body>
+</html>

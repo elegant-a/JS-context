@@ -1,0 +1,74 @@
+<!--关于ajax的兼容处理,以及用惰性思想来封装-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="ajax.js"></script>
+<script>
+    var xhr = createXHR();
+    console.log(xhr)
+</script>
+
+
+
+
+
+<!--     xhr.onreadystatechange-->
+<!--     //xhr.addEventListener("readystatechange",function(){});-->
+<!--     //学习方式,私有属性和原型链-->
+<!--     <script>-->
+<!--         var xhr= null;-->
+<!--         if(window.XMLHttpRequest){-->
+<!--             xhr = new XMLHttpRequest();-->
+<!--             //->为了兼容ie6及更低的版本；如果第一个不支持,则浏览器会报错,后面就不再执行了-->
+<!--         }else{-->
+<!--             try {-->
+<!--                 xhr = new ActiveXObject("Microsoft.XMLHTTP");-->
+<!--             }-->
+<!--             catch (e){-->
+<!--                 try{-->
+<!--                     xhr=new ActiveXObject("Msxm12.XMLHTTP")-->
+<!--                 }catch (e){-->
+<!--                     try{-->
+
+<!--                     }catch (e){-->
+<!--                         xhr = new ActiveXObject("Msxm13.XMLHTTP");-->
+<!--                     }-->
+<!--                 }-->
+<!--             }-->
+<!--         }-->
+
+
+
+<!--         function createXHR(){-->
+
+
+<!--             return xhr-->
+<!--         }-->
+<!--         var xhr = createXHR();-->
+<!--         var xhr = createXHR();-->
+
+
+<!--         //JS高阶编程思想之"惰性思想":能够执行一次就搞定的,绝对不会执行多次-->
+<!--         //-->
+<!--         var utils = (function (){-->
+<!--            var flag="getComputedStyle"  in window;//TRUE 标准浏览器 false-->
+<!--             //False IE6-8浏览器-->
+<!--             function getCss(){-->
+<!--                 if(flag){-->
+
+<!--                 }else{-->
+
+<!--                 }-->
+
+<!--             }-->
+<!--         })()-->
+<!--         //return 了一个引用数据类型的值,被外面的变量接收了,最外层的栈内存就形成了一个不销毁的私有作用域,把我们的函数等方法,-->
+<!--         //放到这个不销毁的私有作用域里面就可以了-->
+<!--         utils.getCSS();//高级单例模式-->
+<!--     </script>-->
+</body>
+</html>

@@ -1,0 +1,79 @@
+1.原型继承
+#div1.__proto__->HTMLDivElement.prototype->HTMLElement.prototype->
+Element.prototype->Node.prototype->EventTarget.prototype->Object.prototype;
+
+怎么把这一级一级的关联到一起呢?
+function Object(){
+
+
+}
+Object.prototype={
+  constructor:Object,
+  hasOwnProperty:function(){
+
+
+}
+}
+
+function myEventTarget(){
+
+
+
+}
+//让EventTarget的原型等于Object类的一个实例
+myEventTarget.prototype=new Object()
+myEventTarget.prototype.addEventListener=function(){
+
+}
+
+
+function myNode(){}
+让mynode指向myEventTarget这个类的一个实例
+myNode .prototyoe = new myEventTarget();
+myNode.prototype.createElement
+
+var n = new myNode;
+//原型继承
+//a是父类,b是子类
+//让子类的原型等于父类的一个实例
+
+function A(){
+ this.x=100
+}
+A.prototype.getX = function(){
+   console.log(this.x)
+}
+function B(){
+ this.y = 200;
+}
+
+//A的实例既能用私有的属性,也可以用prototype上面的公有属性
+
+B.prototype = new A;
+
+
+
+//->原型继承是我们JS中最常用的一种继承方式
+//->子类B想要继承父类A中的所有的属性和方法(私有+公有),
+//只需要让B.prototype = new A；即可
+//原型继承特点,它是把父类中私有的加公有的都继承到了
+//子类原型上(子类公有的)
+
+//->核心:原型继承并不是把父类中的属性和方法克隆一份一模一样的给B,而是让B和A之间
+增加了原型链的连接,以后B的实例中想要A中的getX方法,需要一级一级的向上查找来使用
+n.__proto__.x=2000;
+将B实例的原型修改,也就是将A的实例修改
+
+继承,封装,多态
+多态(重载,重写)
+重载:把一个函数传递不同参数,实现不同功能
+重写:子类重写父类的中的方法(导致父类其他实例也受到影响)
+//两种方法都是修改父类的方法
+//__proto__在ie6禁止__proto__的方法
+n.__proto__.__proto__.getx = 3000;
+B.prototype.__proto__.getX=4000;
+
+
+
+
+

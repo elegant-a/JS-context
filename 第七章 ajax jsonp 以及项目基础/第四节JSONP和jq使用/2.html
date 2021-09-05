@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonP实现原理</title>
+</head>
+<body>
+<script charset="UTF-8" type="text/javascript">
+    function fn(data){
+         console.log(data)
+    }
+
+</script>
+<!--我将参数传递给服务器callback=fn,服务器返回一个函数的执行-->
+<!--用jQuery开发,用jQuery发送JSONP请求-->
+<script src="xxx.xxxxx.qq.com/asdf?name=xxxxx&callback=fn"></script>
+</body>
+</html>

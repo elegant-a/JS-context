@@ -1,0 +1,81 @@
+//柯里化函数思想:一个JS预先处理的思想
+//bind:把传递进来的callBack这方法中的this预先处理为context
+//柯里化函数思想:一个JS预先处理的思想->利用函数执行可以形成一个不销毁的私有
+作用域的原理,把需要预先处理的内容都存放在这个不销毁的作用域中,并且返回一个小函数,
+以后我们执行的都是小函数,在小函数中把之前预先存储的值进行相关的操作处理即可
+
+Function.prototype.myBind=function myBind(context){
+ //this ->fn
+var ourterArg=Array.prototype.slice.call(arguments,1)
+//标准浏览器下
+if("bind" in Function.prototype){
+return this.bind.apply(this,[context].concat(outerArg))//[obj,100,200]
+}
+//兼容ie678
+ var _this = this;
+ return function(){
+ var innerArg = Array.prototype.slice.call(arguments,0);
+     innerArg.length ===0?innerArg[innerArg.length]=window.event : null;
+ var arg=outerArg.concat(innerArg);
+ _this.apply(context,arg);
+
+}
+}
+document.body.onclick = fn.myBind(obj,100,200)
+
+function bind(callback,context){
+ var outerArg=Array.prototype.slice.call(arguments,2)
+  
+ context = context || window;
+ return function (){
+       //callback执行,并将callBack里面的this指向context
+       //将数组一个个的传给
+       //从零开始截取到最后一位
+         var innerArg = Array.prototype.slice.call(arguments,0)
+         callBack.apply(context,outerArg)
+         
+
+}
+}
+var obj={name:"珠峰培训"};
+function fn(){
+  console.log(this)
+}
+
+bind中的匿名函数堆内存被bind以外的定时占用了,所以bind的私有作用域(栈内存不销毁,栈内存里面的变量也不销毁)
+匿名函数的堆内存不能释放,堆内存只要有一个引用地址就不能销毁了,栈内存当代码执行完毕后,
+//栈内存会自动销毁
+//所以我们以后执行的都是 function(){
+  callBack.call(context)
+}
+
+//定时器中的方法会自动执行
+//把fn里面的this变为obj
+
+window.setTimeout(fn.bind(obj),1000);
+
+
+document.body.onclick = function(){
+//给元素的某一个行为绑定方法,当行为触发时,执行对应的方法,此时方法中的this是
+当前元素本身;而且浏览器还会给当前的方法传递默认一个参数值//在ie6-8下并没有传递这个值
+window.event中存储这个值呢
+MouseEvent(鼠标事件对象)
+console.log(arguments);
+}//->fn中的this:body num1:MouseEvents
+
+
+window.setTimeout(bind(fn,obj),1000);//给定时器绑定一个方法,然后让fn中的this，
+//当定时器到达时间的时候,让fn执行,并且让fn中this变为obj
+//所有高级思想,都是基于基础很牢固的情况下
+
+
+//call方法改变完this指向的时候,会执行该方法,bind改变完this指向后会返回一个新的函数
+document.body.onclick = fn.bind(obj,100,200)//除了预先处理了this和需要手动传递的
+参数值以外,把浏览器默认给传递的鼠标事件对象也进行预先处理了
+//bind 预先处理好
+
+document.body.onclick = bind(fn,obj,100,200)
+
+
+
+

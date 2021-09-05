@@ -1,0 +1,23 @@
+子类私有继承私有,子类的公有继承公有
+
+function A(){
+ this.x = 100;
+}
+A.prototype.getX = function(){
+ console.log(this.x)
+}
+
+function B(){
+ A.call(this);
+}
+//把A的原型作为新对象的原型,也就是把A的原型作为B的原型了
+//把父类的原型给了子类的原型了
+B.prototype = Object.create(A.prototype)
+
+
+/如果不兼容,使用下面这套方法就可以处理ie678的兼容问题了
+function objectCreate(o){
+  function fn(){}
+  fn.prototype=o;
+  return new fn;
+}
