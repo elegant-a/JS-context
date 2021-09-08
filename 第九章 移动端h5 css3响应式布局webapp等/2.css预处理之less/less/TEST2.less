@@ -1,0 +1,59 @@
+// @color:#FFF;
+// @url: '../img/swiper/';
+// .box{
+//     background: url("@{url}/banner1.jpg") no-repeat;
+// }
+
+// .public{
+//     width: 100px;
+//     height: 100px;
+// }
+
+// .box{
+//     .public !important;
+// }
+//函数的重载
+// .public(@x,@y){
+//     @result:@x+@y;
+//   }
+//   .box{
+//     .public(10,20);
+//     z-index: @result;
+//   }
+
+
+  //递归loops
+//   .public(@n,@i:1) when (@i<=@n){
+//       //当@i<@n时,函数一直执行
+//     .box-@{i}{
+//         & when (@i=1){
+//             width: 100px;
+//         }
+//         & when (@i=3){
+//             width: 100px;
+//         }
+//         & when (@i=2){
+//             width: 100px;
+//         }
+//         & when (@i=4){
+//             width: 200px;
+//         }
+//     }
+//     .public(@n, @i+1)
+//   }
+//   .public(@n:4); 
+@import "./common";   
+// .transform(@v:1){
+//     -webkit-transform+_: scale(@v); 
+// }
+
+// .box{
+//     -webkit-transform: scale(1.5);
+// }
+
+// .box {
+//     .transform(1.5);
+//     -webkit-transform+_: rotate(45deg); 
+// }
+
+

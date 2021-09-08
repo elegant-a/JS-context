@@ -1,0 +1,61 @@
+
+// @c:'#000';
+// @url:'../img/banner';
+// //可以将字符串去掉
+// //还可以用data-uri()来做
+
+
+// //data-uri:把我们需要使用的素材图片转换成BASE64编码,项目中尤其是移动端的项目
+// //节省了图片加载的时间,是图片优化的一个手段;LESS对于大图片是不能转码的,我们可以
+// //使用bass64工具进行编码
+// //以后这些代码就是图片;慎用base64,当你在移动端开发时,有一些大图实在没有办法处理了
+// //tool.css-js.com
+// .box{
+//     // background: color(@c);
+//     @v: data-uri("@{url}/banner1.jpg");
+//     background: (@v) no-repeat;
+// }
+
+// // length(@color);//color的长度
+
+
+
+// @color:#000,#fff,#ccc,#eee;
+// .box{s
+//     z-index: length(@color);
+//     //提取的是最后一个,写2就提取第二个了
+//     //extract(@color,2)
+//     background: extract(@color,length(@color));
+// }
+
+//MATH ceil(向上取整),floor(向下取整),percentage,round,sqrt,abs,pi,pow(取幂),sin,asin,cos,acos,tan,atan,mod(取余)
+//mod(4,2)余数就是零,min最小值,max最大值
+
+
+
+//常用函数
+//rgb(@red,@green,@blue),由红绿蓝三种颜色组成新的颜色
+// .box{
+//     background: argba(90, 23, 148, 0.5);
+// }
+
+
+
+//增加饱和度,是图片变亮
+.saturate(@value,20%);
+//降低饱和度
+.desaturate(hsl(90,80%,80%),20%);
+//增加亮度
+.lighten(hsl(90,80%,80%),20%);
+//降低亮度
+.darken(hsl(90,80%,80%),20%);
+//不需要鼠标移动时,改变颜色,在原来颜色上稍稍调整
+
+//增加颜色的透明度
+.fadein(hsl(90,80%,80%),20%);
+//降低颜色的透明度
+.fadeout(hsl(90,80%,80%),20%);
+//设置透明度S
+.fade()
+//完全移除颜色的饱和度
+.greyscale(@color);//会完全变灰

@@ -1,0 +1,37 @@
+@color:'#000';
+@width:'100%';
+// @val:1默认值是1不传就是1
+//相当于定义了一个函数,只有函数执行,并传入参数,才会出现对应的css样式
+.transform-scal(@val:1){
+ -webkit-transform: scale(@val);
+ -moz-transform: scale(@val);
+ -ms-transform: scale(@val);
+ -o-transform: scale(@val);
+ transform: scale(@val);
+}
+.transition(@property:all,@duration:1s,@time-funtion:linear,@delay:0s){
+    -webkit-transition:@arguments;
+    -moz-transition:@arguments;
+    -ms-transition:@arguments;
+    -o-transition:@arguments;
+    transition: @arguments;
+}
+html,body{
+    //出现滚动条的话
+    width: @width;
+    height: 100%;
+    background: @color;
+    overflow: hidden;
+
+}
+
+//通过完善类库会越来越多
+.public{
+    // .transform-scal(1.5);只有调用了,才可以转换css样式
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}

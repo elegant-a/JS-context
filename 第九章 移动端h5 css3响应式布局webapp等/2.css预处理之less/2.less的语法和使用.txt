@@ -1,0 +1,181 @@
+LESS基础语法
+
+
+我们来学习一下LESS的基础语法,LESS的基础语法基本上分为以下几个方面:变量,混合(Mixins),嵌套规则,
+运算,函数,作用域等.这些基础语法需要我们牢牢地掌握住,然后才可以灵活的在项目中进行实战.
+变量,混合(Mixins),嵌套规则,运算,函数,作用域
+
+
+变量
+  和JS中的变量一样,只是LESS的变量定义不是使用VAR而是使用@
+
+//->LESS代码
+@link-color:#428bca;
+@link-color-hover:darken(@link-color,10%);
+
+a{
+  color:@link-color
+  &:hover{
+   color:@link-color-hover;
+}
+}
+
+
+除了用上述变量存储公用的属性值,我们还可以用变量存储公用的URL,选择器等等
+@selector:box
+@bgImg:"../img/banner"
+@property:color;
+.box{
+
+background:url("@{url}/banner1.jpg")
+}
+
+
+Mixin混合
+1.基本使用
+.public {
+width:100px;
+height:100px
+}
+
+
+//征用:把原有的样式克隆一份一模一样的拿过来使用,如果public加上括号,public本身就不编译了
+.box{
+.public
+}
+
+
+编译后,混入Mixin
+.box{
+width:100px;
+height:100px;
+}
+
+//公用:和原来的选择器公用一套样式,但是需要保证原来的选择器不加括号
+.box{
+ &:extend(.public);
+}
+.public,.box{
+width:100px;
+height:100px;
+}
+
+@v:1;
+.box{
+  @v:10
+  &:hover{
+  z-index:@v;
+}
+}
+//作用域变量,由内向外,依次的向上级查找
+
+
+.public{
+width:100px;
+height:100px;
+}
+
+
+.box{
+  .public !important;/*把public及子孙元素的样式都继承过来了*/
+}
+
+//所有征用的样式都是 important的样式
+
+5.Parametric Mixins
+如同JS一样,LESS也可以向函数一样设定形参,这个技巧在我们的项目中也会被经常的用到,例如处理css3兼容问题
+
+
+.trasition(@property:all;@duration:1s;@function:linear:@delay:0s){
+  -webkit-trasition:@arguments;
+  trasition:@arguments;
+}
+
+//我们还可以把我们的变量像JS的函数一样操作,不仅仅有函数,还有返回值
+//相当于定义了一个函数,只有函数执行,并传入参数,才会出现对应的css样式
+.transform-scal(@val:1){
+ -webkit-transform: scale(@val);
+ -moz-transform: scale(@val);
+ -ms-transform: scale(@val);
+ -o-transform: scale(@val);
+ transform: scale(@val);
+}
+
+
+
+//递归操作loops
+  .public(@n,@i:1) when (@i<=@n){
+      //当@i<@n时,函数一直执行
+    .box-@{i}{
+        & when (@i=1){
+            width: 100px;
+        }
+        & when (@i=3){
+            width: 100px;
+        }
+        & when (@i=2){
+            width: 100px;
+        }
+        & when (@i=4){
+            width: 200px;
+        }
+    }
+    .public(@n, @i+1)
+  }
+  .public(@n:4);
+
+
+&运算符其实就是让当前的选择器和父级选择器按照特定的规则进行连接,看下面的案例;
+
+.box{
+  color:blue;
+  &:hover{
+   color:green;
+}
+->
+}
+.box:hover{
+
+}
+
+.box {
+ & + &-top{
+ color:red;
+}
+}
+
+.box + .box-top{
+
+
+
+}
+
+&,&-top{
+ color:orange;
+}
+
+
+.box{
+ width:100px;
+ height:50px;
+ & &-top{
+ font-size:15px;
+}
+}
+
+.box2{
+ width:100px;
+ height:50px;
+ .link &{
+  font-size:15px
+}
+
+}
+
+
+//从其他样式表中导入样式
+
+
+
+
+

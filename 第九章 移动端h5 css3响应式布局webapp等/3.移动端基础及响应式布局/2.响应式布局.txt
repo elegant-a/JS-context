@@ -1,0 +1,106 @@
+第二部分:响应式布局
+搭建一个H5页面需要在HEAD中添加一个META标签(WB输入meta:vp按下tab键自动生成)
+<meta name="viewport" content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+//还可以通过JS动态设置vp
+
+
+
+
+
+viewport:视口,看到的窗口
+//手机有多宽,浏览器渲染的页面就有多宽 
+   width=decive-width 设置视口的宽度等于设备的宽度,如果不设置的话,默认视口的宽度是980px
+看到可视窗口的宽度900 HTML页面是1340,页面很宽,可是窗口很窄,就出现了横向滚动条
+//通俗理解,我们这个操作其实就是告诉当前的浏览器按照多少宽度来渲染页面,换句话来说
+就是展示当前这个页面的区域一共有多宽
+user-scalable,
+initial-scale=1.0,设置屏幕最大,最小和默认的缩放比例
+ minimum-scale=1.0,
+ maximum-scale=1.0
+
+height
+
+
+->高清屏
+苹果手机是二倍高清屏幕,也就是我们在手机上看到的那张100*100图片,其实苹果手机是按照
+200*200的尺寸给我们渲染的,这样的话,如果我们真实图片本身才是100*100,最后呈现出来的就是
+被拉伸后边模糊的效果
+
+->苹果手机上的素材图片都需要比看到的尺寸大一倍才可以
+所以我们准备图片的时候,需要准备三套,原图,放大二倍,放大三倍
+
+DPI适配思想:
+我们在做页面的时候,最好每一张素材图片都准备两套或者三套:
+logo.ong 100*100
+logo@2x.png 200*200
+lig@3x.png 300*300
+原生的App开发...
+
+媒体查询:@media
+->媒体设备:all所有设备 sreen所有屏幕设备PC+移动端 printf打印机设备...
+
+媒体条件:指定在什么样的条件下执行对应的样式
+@media all and (max-width:319px){
+//宽度小于320像素
+ .box{
+     height:110px;
+}
+
+}
+@media all and (min-width:320px) and (max-width:359px){
+//-> >=320 <360
+.box{
+
+  height:120px;  
+}
+}
+
+.box {
+ margin:0 10px;
+ height:150px;
+ background
+}
+
+.box{
+margin : 0 10px;
+height:150px;
+background:url("banner.jpg") no-repeat;
+background-size:cover;
+boder:5px solid black;
+
+}
+//二倍屏用二倍图
+//小于等于2
+//注意加webkit就好了
+@media all and(-webkit-device-pixel-ratio:2){
+.box{
+  background:url("banner@3x.jpg")
+boder:5px solid red;
+ 
+}
+}
+
+都用大图肯定不会失真,都用三倍图
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+现在整个HTML宽度为100%,全屏一铺,浏览器有多宽,我的页面就有多宽
+//创建一个meta标签 手机一共320,
+
+
+->响应式布局的解决方案:
+1)流式布局法
+  ->容器或者合资的宽度一般都不写固定的值,而是使用百分比,相对于视口区域的
+百分比

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swiper的使用和轮播图</title>
+    <link rel="stylesheet" href="./swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <style>
+          html{
+            font-size: 100px;
+        }
+        html,body{
+            width: 100%;
+            overflow-x: hidden;
+        }
+        .swiper-container{
+            margin: 0 auto;
+            height: 3rem;
+        }
+        .swiper-slide{
+            height: 3rem;
+        }
+        .swiper-slide img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<section class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img data-src="./IMG/0bd162d9f2d3572c311251a98513632763d0c3d7.jpg" alt="" class="swiper-lazy"><div class="swiper-lazy-preloader"></div></div>
+        <div class="swiper-slide"><img data-src="./IMG/0bd162d9f2d3572c311251a98513632763d0c3d7.jpg" alt="" class="swiper-lazy"><div class="swiper-lazy-preloader"></div></div>
+        <div class="swiper-slide"><img data-src="./IMG/0bd162d9f2d3572c311251a98513632763d0c3d7.jpg" alt="" class="swiper-lazy"><div class="swiper-lazy-preloader"></div></div>
+        <div class="swiper-slide"><img data-src="./IMG/0bd162d9f2d3572c311251a98513632763d0c3d7.jpg" alt="" class="swiper-lazy"><div class="swiper-lazy-preloader"></div></div>
+        <div class="swiper-slide"><img data-src="./IMG/1511849829609658.jpg" alt="" class="swiper-lazy"></div>
+    </div>
+<!--    焦点就是分页器下面的小圆点-->
+    <div class="swiper-pagination"></div>
+<!--    左右的切换也不需要-->
+<!--    滚动条,就是页面的滚动条-->
+<!--    <div class="swiper-scrollbar"></div>-->
+</section>
+<script type="text/javascript" src="./swiper/swiper-bundle.js"></script>
+<script charset="UTF-8">
+    //->REM
+    ~function (desW){
+        //开发时统一使用1rem = 100px进行开发
+        //desW是开发时的尺寸
+        desWidth = 640
+        var width = document.documentElement.clientWidth || document.body.clientWidth;
+        var ratio = width / desWidth;
+        var fontSize = 100 * ratio;
+        document.getElementsByTagName('html')[0].style['font-size'] = fontSize +  'px';
+    }()
+</script>
+<!--初始哈Swiper实现区域的滑动-->
+<script>
+    //new Swiper([container selector],[settings])
+    var swiper = new Swiper('.swiper-container',{
+        loop:true,//无缝衔接滚动
+        pagination: {
+            el: '.swiper-pagination',
+            type:'bullets'
+        },
+        autoplay:true,
+        disableOnInteraction:false,
+        lazy: {
+            loadPrevNext: true,
+        },
+        effect : 'coverflow',
+        //当创建一个回调函数后执行一个实例
+        on:{
+            init:function (swiper){
+                console.log((swiper instanceof Swiper))
+            }
+        }
+    })
+</script>
+<!-- 以后用移动端我们就要学会用swiper插件 -->
+<!-- 学任何一个插件之前,我们都要觉得很简单 -->
+<!--你可以用swiper做出很多出色的效果-->
+</body>
+</html>

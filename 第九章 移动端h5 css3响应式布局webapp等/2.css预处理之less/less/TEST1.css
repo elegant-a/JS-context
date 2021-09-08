@@ -1,0 +1,34 @@
+html,
+body {
+  width: '100%';
+  height: 100%;
+  background: '#000';
+  overflow: hidden;
+}
+.box {
+  /*这种方式可以不需要知道具体的宽度高度(不兼容IE的低版本浏览器)*/
+  position: absolute;
+  top: 0;
+  left: 0; 
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  color: '#000';
+  border: 1px solid '#000';
+  background: #007aff;
+  -webkit-transition: all 0.3s linear 0s;
+  -moz-transition: all 0.3s linear 0s;
+  -ms-transition: all 0.3s linear 0s;
+  -o-transition: all 0.3s linear 0s;
+  transition: all 0.3s linear 0s;
+}
+.box:hover {
+  -webkit-transform: scale(3);
+  -moz-transform: scale(3);
+  -ms-transform: scale(3);
+  -o-transform: scale(3);
+  transform: scale(3);
+  background: #66afff;
+}

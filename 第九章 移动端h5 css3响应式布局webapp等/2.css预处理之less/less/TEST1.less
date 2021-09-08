@@ -1,0 +1,54 @@
+@color:'#000';
+@width:'100%';
+// @val:1默认值是1不传就是1
+.transform-scal(@val:1){
+ -webkit-transform: scale(@val);
+ -moz-transform: scale(@val);
+ -ms-transform: scale(@val);
+ -o-transform: scale(@val);
+ transform: scale(@val);
+}
+.transition(@property:all,@duration:1s,@time-funtion:linear,@delay:0s){
+    -webkit-transition:@arguments;
+    -moz-transition:@arguments;
+    -ms-transition:@arguments;
+    -o-transition:@arguments;
+    transition: @arguments;
+}
+
+html,body{
+    //出现滚动条的话
+    width: @width;
+    height: 100%;
+    background: @color;
+    overflow: hidden;
+
+}
+.box{
+    /*这种方式可以不需要知道具体的宽度高度(不兼容IE的低版本浏览器)*/
+    //这种方式可以不需要知道具体的宽度和高度(不兼容IE的低版本浏览器),滑过变大
+    position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // margin: -100px 0 0 -100px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    color: @color;
+    border: 1px solid @color;
+    //->.box hover
+    background: #007aff;
+    .transition(@duration:.3s);
+    &:hover{
+     .transform-scal(3);
+     background:lighten(#007aff,20%)
+    }
+}
+
+//用webpack进行自动化打包
+
+

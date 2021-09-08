@@ -1,0 +1,49 @@
+color('#000')
+
+color()
+
+.box{
+ background:color('#000')
+}
+
+//设置图片默认地址
+data-uri()
+
+.box{
+    // background: color(@c);
+    @v: data-uri("@{url}/banner1.jpg");
+    background: (@v) no-repeat;
+}
+
+//给某个值增加或者修改单位,有单位的移除单位,每单位的增加单位
+unit()
+@w100:100px;
+width:unit(unit(@w100)-50,px)
+
+
+length(@color)//获取长度,本例是获取@color的长度
+
+
+extract(@color,length)//提取变量中对应的数值
+
+
+//MATH ceil(向上取整),floor(向下取整),percentage,round,sqrt,abs,pi,pow(取幂),sin,asin,cos,acos,tan,atan,mod(取余)
+//mod(4,2)余数就是零,min最小值,max最大值
+//增加饱和度,是图片变亮
+.saturate(@value,20%);
+//降低饱和度
+.desaturate(hsl(90,80%,80%),20%);
+//增加亮度
+.lighten(hsl(90,80%,80%),20%);
+//降低亮度
+.darken(hsl(90,80%,80%),20%);
+//不需要鼠标移动时,改变颜色,在原来颜色上稍稍调整
+
+//增加颜色的透明度
+.fadein(hsl(90,80%,80%),20%);
+//降低颜色的透明度
+.fadeout(hsl(90,80%,80%),20%);
+//设置透明度S
+.fade()
+//完全移除颜色的饱和度
+.greyscale(@color);//会完全变灰

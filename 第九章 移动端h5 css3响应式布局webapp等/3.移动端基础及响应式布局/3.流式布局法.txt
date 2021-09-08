@@ -1,0 +1,40 @@
+
+在真实项目中,设计师给我们的设计稿一般都是:640*1136  640*960/ iphone 750*1334 三个尺寸中的一种
+->响应式布局的解决方案:
+1)流式布局法
+   ->容器或者盒子的宽度一般都不写固定的值,而是使用百分比(相对于视口区域的百分比)
+   ->其余的样式:字体,高度,MARGIN,PADDING等等都按照设计稿上标注尺寸的一般来设置,可以让你的素材
+   ->图片正好是二倍,接下来你做的时候,所有尺寸除以2就ok了
+
+
+//苹果手机尺寸iphone6/7/8 375px
+              iphone5及以下都是320px;
+              iphoneX是375px宽度
+              iphone6/7/8plus是414px
+常用安卓机尺寸:320,360,480,640,720
+
+
+//iphone plus是三倍高清屏,
+如果你屏幕尺寸的二倍超过了超过了设计稿,对于这种情况,我们就需要向设计师要一张更大的图
+,在腾讯我们要的大图都是1280px的
+//->对于有些屏幕下,我们设置的固定值看起来不是特别好看的话,使用@media进行微调整
+//响应式布局方式
+
+@media all and (-webkit-min-device-pixel-ratio：2) and(min-width:320px){
+
+.box{
+
+background:url('banner@big.png')
+}
+}
+
+@media all and (min-width:641px){
+.box{
+ background:url(min-width:641px)
+}
+}
+
+
+搭建html结构,写css样式
+
+html5语义化标签兼容s

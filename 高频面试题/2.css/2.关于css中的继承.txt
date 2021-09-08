@@ -1,0 +1,68 @@
+1.什么是css的继承?
+继承是css中非常重要的一个概念。当你为HTML中的某个元素赋予CSS样式时，这些样式不仅仅会影响当前元素，有的样式还会影响该元素的子元素。
+这些下层子元素继承上层祖先元素样式属性的特点，就称为css继承。
+
+2. css继承的作用
+css继承可以简化css样式的使用。设想如果没有继承，
+你要为每个元素单独设置同样的字体是多么恐怖！
+
+3. CSS继承的使用
+3.1 使用属性的inherit值
+对于大部分css属性来说，他的值都可以设置为inherit，即为继承其父元素的该属性的值。
+如：例子中的child div就会继承parent的background-color属性。
+
+<style>
+    .parent{
+        background-color: red;
+    }
+    
+    .child{
+        background-color: inherit;
+    }
+    ...
+</style>
+...
+<body>
+    <div class="parent">
+        this is parent
+        <id class="child">
+        	this is child
+        </id>
+    </div>
+</body>
+
+3.2 默认继承的css属性
+文本
+color：颜色，a除外；
+direction：方向；
+font：字体；
+font-family：字体系列；
+font-size：字体大小；
+font-style：字体样式，如斜体；
+font-variant：用于设置小型大写字母；
+font-weight：用于设置字体粗体；
+letter-spacing：字母间距；
+line-height：行高；
+text-align：用于设置字体的对其方式；
+text-transform：用于修改大小写；
+visibility：可见性；
+white-space：用于指定如何处理空格；
+word-spacing：字间距。
+列表
+list-style：列表样式；
+list-style-image：用于为列表指定定制的标记；
+list-style-position：用于确定列表标记的位置；
+list-style-type：用于设置列表的标记。
+表格
+border-collapse：用于控制表格相邻单元格的边框是否合并为单一边框；
+border-spacing：用于指定表格边框之间的空隙大小；
+caption-side：用于设置表格标题的位置；
+empty-cells：用于设置是否显示表格中的空单元格。
+页面设置（对于印刷物）
+orphans：用于设置当元素内部发生分页时在页面底部需要保留的最少行数；
+page-break-inside：用于设置元素内部的分页方式；
+widows：用于设置当元素内部发生分页时在页面顶部需要保留的最少行数。
+其他
+cursor：鼠标指针样式；
+quotes：用于指定引号样式。
+

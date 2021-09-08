@@ -1,0 +1,127 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+a{
+    color: #000;
+}
+a:hover,a:active{
+    color: #000;
+}
+/*HEADER*/
+/*opacity里面的元素也都有透明度了*/
+/*rgba里面的元素没有透明度*/
+/*我们把两个都定位了*/
+.header{
+    height: 89px;
+}
+.con{
+   text-align: center;
+    width: 960px;
+}
+/*header层也没有透明度*/
+.header,.headerBg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 89px;
+    overflow: hidden;
+}
+.header{
+    z-index: 2;
+    box-shadow: 0 1px 2px 0 #BBB;
+}
+.headerBg{
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+    background: #000;
+    z-index: 1;
+}
+
+.header .logo{
+    float: left;
+    margin-top: 19px;
+    width: 270px;
+    height: 51px;
+    color: #f4f4f4;
+
+}
+
+/*.header .logo img{*/
+/*    float: left;*/
+/*    width:270px ;*/
+/*    height: 51px;*/
+/*}*/
+
+.header .nav{
+    float: right;
+}
+
+.header .nav li {
+
+    float: left;
+}
+
+
+.header .nav li a{
+    position: relative;
+    display: inline-block;
+    padding: 0 30px;
+    height: 89px;
+    line-height: 89px;
+    color: #f4f4f4;
+}
+.header .nav li a i{
+    float: left;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: 0;/*目标值是50%*/
+    width:0;
+    height: 100%;
+    background: #000;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+
+}
+
+.banner{
+    height: 490px;
+    background: #ff6900;
+}
+
+.header .nav li a:hover i {
+    margin-left: -50%;
+    width: 100%;
+    /*    过渡动画 PC端使用写五套 *移动端只用第一个和最后一个*/
+    /*当屏幕小于760时,当缩小到760*/
+    -webkit-transition: all .3s linear 0s;
+    transition: all .2s linear 0s;
+}
+
+/*--响应式--*/
+@media all and (max-width: 760px) {
+  .con{
+      width: 100%;
+  }
+    .header,.headerBg{
+        height: 46px;
+    }
+    .header .logo{
+         margin-top: 9px;
+         margin-left: 10px;
+         height: 28px;
+         width: 148px;
+        font-size: 20px;
+    }
+    .header .nav{
+        display: none;
+    }
+}
+
+/*只是麻烦一点,但是不难*/
+
